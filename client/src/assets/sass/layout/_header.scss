@@ -49,6 +49,19 @@
     }
   }
 
+  .search-container {
+    position: relative;
+    width: 100%;
+  }
+
+  // This is when a search is clicked when the window width is below 550
+  .search-clicked {
+    position: fixed;
+    z-index: 10;
+    width: calc(100vw - 156px) !important;
+    transition: all 0.1s;
+  }
+
   &__search {
     cursor: pointer;
     width: 100%;
@@ -57,9 +70,13 @@
     background-color: white;
     height: 3.2rem;
     max-width: 40rem;
-    transition: all 0.1s;
     display: flex;
     position: relative;
+
+    // The reason for this is that when the window width is below 550px and search-input is clicked, header-search's position is set to "fixed" by adding "search-clicked" classname. When clicked to close the search input when the window width is below 550px, if it's width shrinks 0.1 seconds the actions buttons move to the left during the time the search input closes. For this reason, when the search input is clicked to close, it closes without animation (below 550px).
+    @media (min-width: 550px) {
+      transition: all 0.1s;
+    }
 
     @media (max-width: 900px) {
       width: 32px;
@@ -95,6 +112,10 @@
         outline: none;
         transition: background-color 0.1s;
         flex: 1;
+
+        @media screen and (max-width: 420px) {
+          width: 100%;
+        }
 
         &[type="text"] {
           font-size: 1.4rem;

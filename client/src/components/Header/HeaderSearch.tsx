@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
 
 const HeaderSearch = () => {
+  const windowWidth = useWindowWidth();
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(() => false);
   const [searchHovered, setSearchHovered] = useState(() => false);
-  const windowWidth = useWindowWidth();
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
@@ -37,9 +37,11 @@ const HeaderSearch = () => {
   const onSearchMouseLeave = () => setSearchHovered(false);
 
   return (
-    <div>
+    <div className="search-container">
       <div
-        className="header__search"
+        className={`header__search${
+          showInput && windowWidth <= 550 ? " search-clicked" : ""
+        }`}
         onClick={showSearchInput}
         ref={searchRef}
         onMouseEnter={onSearchMouseEnter}
