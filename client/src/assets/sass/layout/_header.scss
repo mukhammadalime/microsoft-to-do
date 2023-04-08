@@ -264,26 +264,26 @@
         width: 1.6rem;
       }
 
-      div {
-        display: grid;
-        place-items: center;
-        height: 1.6rem;
-        width: 1.6rem;
-        border-radius: 0.8rem;
-        background-color: #004578;
-        color: white;
-        position: absolute;
-        top: 0.8rem;
-        right: 0.8rem;
-        font-size: 1.1rem;
+      &:nth-child(3) {
+        div {
+          display: grid;
+          place-items: center;
+          height: 1.6rem;
+          width: 1.6rem;
+          border-radius: 0.8rem;
+          background-color: #004578;
+          color: white;
+          position: absolute;
+          top: 0.8rem;
+          right: 0.8rem;
+          font-size: 1.1rem;
+        }
       }
 
-      &:last-child {
-        img {
-          height: 3.2rem;
-          width: 3.2rem;
-          border-radius: 50%;
-        }
+      .avatar {
+        height: 3.2rem;
+        width: 3.2rem;
+        border-radius: 50%;
       }
     }
   }

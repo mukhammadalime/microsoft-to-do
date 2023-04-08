@@ -1,0 +1,127 @@
+.my-account {
+  width: 32rem;
+  background-color: #ffffff;
+  position: fixed;
+  top: 4.8rem;
+  right: 0;
+  padding: 0 0 0 1.4rem;
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  transition: all 0.2s;
+  box-shadow: 0 24px 54px #00000026, 0 4.5px 13.5px #00000014;
+
+  &__clicked {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    img {
+      height: 1.6rem;
+      width: 1.6rem;
+      border-radius: unset !important;
+    }
+  }
+
+  &__logout {
+    font-size: 13px;
+    color: #333;
+    transition: all 0.1s;
+    cursor: pointer;
+    font-weight: 400;
+    padding: 1.4rem;
+
+    &:hover {
+      text-decoration: underline;
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 13.2rem;
+  }
+
+  &__avatar {
+    img {
+      // I set these as important because I set imgs in actions buttons height and width in "_header.scss" file.
+      height: 8.8rem !important;
+      width: 8.8rem !important;
+      border-radius: 50%;
+    }
+  }
+
+  &__details {
+    color: #333;
+    text-align: left;
+    display: grid;
+    padding-right: 1.2rem;
+    gap: 4px;
+
+    div {
+      display: grid;
+      position: relative;
+
+      .fullname {
+        border: 1px solid #0000006f;
+        position: absolute;
+        background-color: white;
+        padding: 0.3rem;
+        font-size: 1.25rem;
+        width: max-content;
+        top: -1.8rem;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: rgba(0, 0, 0, 0.595) 1.95px 1.95px 2.6px;
+        transition: all 0.2s;
+      }
+    }
+
+    h2,
+    h3,
+    h5 {
+      padding: 1px;
+    }
+
+    h2,
+    h3 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 1px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      height: 2.5rem;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-weight: 500;
+      font-size: 1.3rem;
+    }
+
+    a {
+      font-size: 1.3rem;
+      color: #0078d6;
+      text-decoration: underline;
+      width: max-content;
+    }
+  }
+}
