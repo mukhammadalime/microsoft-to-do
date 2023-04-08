@@ -1,0 +1,269 @@
+.header {
+  background-color: #2564cf;
+  height: 4.8rem;
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  color: white;
+
+  &__left {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--todo {
+      padding: 0 12px 0 8px;
+
+      a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      span {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__apps-btn {
+    background-color: unset;
+    border: none;
+    width: 4.8rem;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    transition: background-color 0.467s cubic-bezier(0.1, 0.9, 0.2, 1) 34ms;
+
+    &:hover {
+      background-color: #005a9e;
+    }
+
+    img {
+      height: 1.6rem;
+      width: 1.6rem;
+    }
+  }
+
+  &__search {
+    cursor: pointer;
+    width: 100%;
+    margin: 8px auto;
+    border-radius: 4px;
+    background-color: white;
+    height: 3.2rem;
+    max-width: 40rem;
+    transition: all 0.1s;
+    display: flex;
+    position: relative;
+
+    @media (max-width: 900px) {
+      width: 32px;
+      margin-left: 0;
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 1px #f5f5f5;
+      background-color: #f5f5f5;
+
+      .header__search--input input {
+        background-color: #f5f5f5;
+      }
+    }
+
+    &--icon {
+      height: 100%;
+      width: 4rem;
+      padding: 8px;
+
+      img {
+        height: 1.6rem;
+        width: 1.6rem;
+      }
+    }
+
+    &--input {
+      display: flex;
+      flex: 1;
+
+      input {
+        border: none;
+        outline: none;
+        transition: background-color 0.1s;
+        flex: 1;
+
+        &[type="text"] {
+          font-size: 1.4rem;
+          color: #292827;
+        }
+      }
+
+      // EXIT SEARCH ICON
+      span {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        position: relative;
+
+        &:hover {
+          .tooltip-exit-search {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+
+        img {
+          height: 1.2rem;
+          width: 1.2rem;
+        }
+      }
+    }
+
+    // TOOLTIPS
+    .tooltip-search {
+      position: absolute;
+      left: -6rem;
+      top: 0.5px;
+      display: flex;
+      align-items: center;
+
+      .content {
+        height: 3.1rem;
+        width: 5rem;
+        background-color: #ffffff;
+        border-radius: 2px;
+        display: grid;
+        place-items: center;
+        color: #292827;
+        font-size: 1.1rem;
+      }
+
+      .triangle {
+        border: 1rem solid transparent;
+        height: 0;
+        width: 0;
+        border-left-color: #ffffff;
+      }
+    }
+
+    .tooltip-exit-search {
+      position: absolute;
+      bottom: -4.5rem;
+      display: grid;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
+
+      .content {
+        height: 3.2rem;
+        width: 7rem;
+        background-color: #ffffff;
+        border-radius: 2px;
+        display: grid;
+        place-items: center;
+        color: #292827;
+        font-size: 1.1rem;
+        box-shadow: 0px 4px 5px 0px #00000039;
+        z-index: 2;
+      }
+
+      .triangle {
+        width: 1.7rem;
+        height: 1.7rem;
+        background-color: #ffffff;
+        transform: rotate(45deg);
+        box-shadow: rgba(0, 0, 0, 0.293) 0px 5px 15px 0px;
+        margin: 0 auto;
+        margin-bottom: -8.5px;
+        z-index: 1;
+      }
+    }
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: repeat(4, 4.8rem);
+
+    // WHEN BUTTONS ARE CLICKED
+    .others-clicked {
+      background-color: white;
+
+      &:focus {
+        outline: #2564cf 1px solid !important;
+      }
+
+      svg {
+        stroke: #252423;
+        fill: #252423;
+      }
+
+      &:hover {
+        svg {
+          stroke: white;
+          fill: white;
+        }
+      }
+    }
+
+    .settings-clicked {
+      @extend .others-clicked;
+
+      svg {
+        stroke: #252423;
+        fill: transparent !important;
+      }
+    }
+
+    button {
+      position: relative;
+      display: grid;
+      place-items: center;
+      transition: background-color 0.467s cubic-bezier(0.1, 0.9, 0.2, 1) 34ms;
+      background-color: unset;
+      border: none;
+      outline-offset: -1px;
+
+      &:not(:last-child):focus {
+        outline: #ffffff 1px solid;
+      }
+
+      &:hover {
+        background-color: #005a9e;
+      }
+
+      svg,
+      img {
+        height: 1.6rem;
+        width: 1.6rem;
+      }
+
+      div {
+        display: grid;
+        place-items: center;
+        height: 1.6rem;
+        width: 1.6rem;
+        border-radius: 0.8rem;
+        background-color: #004578;
+        color: white;
+        position: absolute;
+        top: 0.8rem;
+        right: 0.8rem;
+        font-size: 1.1rem;
+      }
+
+      &:last-child {
+        img {
+          height: 3.2rem;
+          width: 3.2rem;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
