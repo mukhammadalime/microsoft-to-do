@@ -10,4 +10,12 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
+  position: relative;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+  background: none;
 }

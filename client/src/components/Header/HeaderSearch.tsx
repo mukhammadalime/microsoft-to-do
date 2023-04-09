@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
+import SearchIcon from "../../Icons/SearchIcon";
+import XIcon from "../../Icons/XIcon";
 
 const HeaderSearch = () => {
   const windowWidth = useWindowWidth();
@@ -64,13 +66,13 @@ const HeaderSearch = () => {
         </div>
 
         <div className="header__search--icon">
-          <img src="./assets/icons/search.svg" alt="" />
+          <SearchIcon color="#2564cf" />
         </div>
         {showInput && (
           <div className="header__search--input">
             <input ref={inputRef} type="text" placeholder="Search" />
             <span onClick={() => setShowInput(false)}>
-              <img src="./assets/icons/x-lg.svg" alt="" />
+              <XIcon color="#2564cf" />
               <div className="tooltip-exit-search">
                 <div className="triangle" />
                 <div className="content">Exit search</div>

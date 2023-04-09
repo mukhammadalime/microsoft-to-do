@@ -1,18 +1,34 @@
-import React from "react";
+import { useState } from "react";
+import AppsLauncherModal from "../365Apps/AppsLauncherModal";
+import DotsIcon from "../../Icons/DotsIcon";
 
 const HeaderLeft = () => {
-  return (
-    <div className="header__left">
-      <button className="header__apps-btn">
-        <img src="./assets/icons/9-dots.svg" alt="" />
-      </button>
+  const [show365Apps, setShow365Apps] = useState(() => false);
 
-      <div className="header__left--todo">
-        <a href="localhost:3000">
-          <span>To Do</span>
-        </a>
+  return (
+    <>
+      <div className="header__left">
+        <button
+          className="header__apps-btn"
+          onClick={() => setShow365Apps(true)}
+        >
+          <DotsIcon />
+        </button>
+
+        <div className="header__left--todo">
+          <a href="localhost:3000">
+            <span>To Do</span>
+          </a>
+        </div>
       </div>
-    </div>
+
+      {show365Apps && (
+        <AppsLauncherModal
+          onClose={() => setShow365Apps(false)}
+          opened={show365Apps}
+        />
+      )}
+    </>
   );
 };
 

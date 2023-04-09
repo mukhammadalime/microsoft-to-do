@@ -14,6 +14,10 @@
     &--todo {
       padding: 0 12px 0 8px;
 
+      @media (max-width: 400px) {
+        padding: 0 12px 0 5px;
+      }
+
       a {
         text-decoration: none;
         color: inherit;
@@ -43,7 +47,7 @@
       background-color: #005a9e;
     }
 
-    img {
+    svg {
       height: 1.6rem;
       width: 1.6rem;
     }
@@ -97,7 +101,7 @@
       width: 4rem;
       padding: 8px;
 
-      img {
+      svg {
         height: 1.6rem;
         width: 1.6rem;
       }
@@ -138,7 +142,7 @@
           }
         }
 
-        img {
+        svg {
           height: 1.2rem;
           width: 1.2rem;
         }

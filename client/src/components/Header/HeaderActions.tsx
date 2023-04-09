@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SettingsIcon from "../../Icons/SettingsIcon";
 import QuestionIcon from "../../Icons/QuestionIcon";
 import NotificationsIcon from "../../Icons/NotificationsIcon";
-import { ActionType, ButtonsTypes } from "../../types/headerTypes";
+import { ActionType, ButtonsTypes } from "../../types/designTypes";
 import MyAccount from "./MyAccount";
 
 const HeaderActions = () => {
