@@ -1,10 +1,12 @@
 import Header from "./layout/Header";
+import MainContent from "./layout/MainContent";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
-    </div>
+      <MainContent />
+    </>
   );
 }
 

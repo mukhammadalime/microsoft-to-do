@@ -1,4 +1,9 @@
-import { _365AppsTypes } from "../types/designTypes";
+import CalendarIcon from "../Icons/CalendarIcon";
+import HomeIcon from "../Icons/HomeIcon";
+import PersonIcon from "../Icons/PersonIcon";
+import StarIcon from "../Icons/StarIcon";
+import SunIcon from "../Icons/SunIcon";
+import { SideBarItemType, _365AppsTypes } from "../types/designTypes";
 
 export const _365Apps: _365AppsTypes[] = [
   {
@@ -112,4 +117,35 @@ export const moreFromMicrosoft: _365AppsTypes[] = [
   },
 ];
 
-console.log("_365Apps:", _365Apps);
+export const defaultSideBarItems: SideBarItemType[] = [
+  {
+    name: "My Day",
+    img: <SunIcon color="#323130" />,
+    createdAt: 1,
+    type: "LIST",
+  },
+  {
+    name: "Important",
+    img: <StarIcon color="#323130" />,
+    createdAt: 2,
+    type: "LIST",
+  },
+  {
+    name: "Planned",
+    img: <CalendarIcon color="#323130" />,
+    createdAt: 3,
+    type: "LIST",
+  },
+  {
+    name: "Assigned to me",
+    img: <PersonIcon color="#323130" />,
+    createdAt: 4,
+    type: "LIST",
+  },
+  {
+    name: "Tasks",
+    img: <HomeIcon color="#323130" />,
+    createdAt: 5,
+    type: "LIST",
+  },
+];

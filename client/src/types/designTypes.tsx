@@ -1,4 +1,7 @@
 /// HEADER TYPES
+
+import { ReactElement } from "react";
+
 // An interface for buttons state
 export interface ButtonsTypes {
   settings: boolean;
@@ -19,4 +22,23 @@ export interface _365AppsTypes {
 export interface AppsLauncherTypes {
   onClose: () => void;
   opened: boolean;
+}
+
+/// SIDEBAR ITEM TYPE
+export interface SideBarItemType {
+  name: string;
+  img?: ReactElement;
+  dublicateNumber?: number;
+  createdAt: number;
+  type: string;
+}
+
+/// SIDEBAR GROUP TYPE
+export interface SideBarGroupType {
+  name: string;
+  dublicateNumber?: number;
+  lists?: SideBarItemType[];
+  open?: boolean;
+  id: string;
+  type: string;
 }

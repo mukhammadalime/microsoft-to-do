@@ -57,7 +57,6 @@ const HeaderSearch = () => {
           className="tooltip-search"
           style={{
             opacity: searchHovered && !showInput ? "1" : "0",
-            transition: "all .2s",
             visibility: searchHovered && !showInput ? "visible" : "hidden",
           }}
         >
