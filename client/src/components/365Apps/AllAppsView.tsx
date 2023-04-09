@@ -2,9 +2,11 @@ import { useState } from "react";
 import SearchIcon from "../../Icons/SearchIcon";
 import XIcon from "../../Icons/XIcon";
 import { _365Apps, moreFromMicrosoft } from "../../data/micorost-apps";
+import AppItem from "./AppItem";
 
 const AllAppsView = ({ onClose }: { onClose: () => void }) => {
   const [searchInput, setSearchInput] = useState<string>(() => "");
+  const _365AppsCopy = _365Apps.slice();
 
   return (
     <div className="allApps">
@@ -16,7 +18,7 @@ const AllAppsView = ({ onClose }: { onClose: () => void }) => {
       <div className="allApps__search">
         <button>
           {searchInput ? (
-            <XIcon color="#252423" />
+            <XIcon color="#252423" onClick={() => setSearchInput("")} />
           ) : (
             <SearchIcon color="#252423" />
           )}
@@ -30,35 +32,33 @@ const AllAppsView = ({ onClose }: { onClose: () => void }) => {
       </div>
 
       <div className="allApps__main">
-        <div className="allApps__items">
-          <h3>Apps</h3>
+        {searchInput &&
+          _365Apps
+            .concat(moreFromMicrosoft)
+            .filter((app) => app.name.includes(searchInput))
+            .map((app) => <AppItem {...app} key={app.name} />)}
 
-          {_365Apps
-            .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-            .map((app) => (
-              <a href={app.link} className="appContainer" key={app.name}>
-                <img
-                  src={`./assets/images/365Apps/microsoft-${app.imgLocation}`}
-                  alt=""
-                />
-                <span>{app.name}</span>
-              </a>
-            ))}
-        </div>
+        {!searchInput && (
+          <>
+            <div className="allApps__items">
+              <h3>Apps</h3>
 
-        <div className="allApps__more">
-          <h3>More from Microsoft</h3>
+              {_365AppsCopy
+                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .map((app) => (
+                  <AppItem {...app} key={app.name} />
+                ))}
+            </div>
 
-          {moreFromMicrosoft.map((app) => (
-            <a href={app.link} className="appContainer" key={app.name}>
-              <img
-                src={`./assets/images/365Apps/microsoft-${app.imgLocation}`}
-                alt=""
-              />
-              <span>{app.name}</span>
-            </a>
-          ))}
-        </div>
+            <div className="allApps__more">
+              <h3>More from Microsoft</h3>
+
+              {moreFromMicrosoft.map((app) => (
+                <AppItem {...app} key={app.name} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <div className="allApps__bottom">

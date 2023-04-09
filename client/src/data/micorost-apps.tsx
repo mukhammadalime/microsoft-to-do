@@ -111,3 +111,5 @@ export const moreFromMicrosoft: _365AppsTypes[] = [
     imgLocation: "rewards.png",
   },
 ];
+
+console.log("_365Apps:", _365Apps);
