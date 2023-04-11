@@ -5,12 +5,17 @@ const AddGroupInput = React.forwardRef<
   { onAddGroup: (e: any) => void }
 >(({ onAddGroup }, ref) => {
   return (
-    <form className="addGroupBox" onSubmit={(e) => onAddGroup(e)}>
+    <form
+      className="addGroupBox"
+      id="addGroupBox"
+      onSubmit={(e) => onAddGroup(e)}
+    >
       <button>
         <img src="./assets/icons/groupIcon.svg" alt="" />
       </button>
 
       <input
+        autoComplete="off"
         type="text"
         id="addGroupInput"
         placeholder="Untitled group"

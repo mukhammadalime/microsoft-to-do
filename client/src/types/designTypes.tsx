@@ -1,7 +1,5 @@
 /// HEADER TYPES
 
-import { ReactElement } from "react";
-
 // An interface for buttons state
 export interface ButtonsTypes {
   settings: boolean;
@@ -24,21 +22,23 @@ export interface AppsLauncherTypes {
   opened: boolean;
 }
 
-/// SIDEBAR ITEM TYPE
+/// SIDEBAR ITEM TYPES
 export interface SideBarItemType {
   name: string;
-  img?: ReactElement;
   dublicateNumber?: number;
   createdAt: number;
   type: string;
+  id: string;
+  opened: boolean;
 }
 
 /// SIDEBAR GROUP TYPE
 export interface SideBarGroupType {
   name: string;
   dublicateNumber?: number;
-  lists?: SideBarItemType[];
-  open?: boolean;
-  id: string;
+  createdAt: number;
   type: string;
+  id: string;
+  opened: boolean;
+  lists: string[];
 }

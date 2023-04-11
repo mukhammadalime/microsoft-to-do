@@ -32,6 +32,7 @@ const AddListOrGroup = ({
           id="addList"
           ref={newListRef}
           placeholder="New List"
+          autoComplete="off"
         />
       </form>
       <div
@@ -43,7 +44,7 @@ const AddListOrGroup = ({
           src="./assets/icons/addGroupIcon.svg"
           alt=""
           onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          onMouseOut={onMouseLeave}
         />
 
         <div

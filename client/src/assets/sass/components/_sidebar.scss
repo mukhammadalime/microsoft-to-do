@@ -40,10 +40,14 @@
   .active {
     font-weight: 500;
     position: relative;
-    background: #ecf6fd;
+    background-color: #ecf6fd;
 
     &:hover {
-      background: #ecf6fd;
+      background-color: #ecf6fd;
+    }
+
+    .sidebar__item {
+      background-color: #ecf6fd;
     }
 
     &::before {
@@ -64,7 +68,7 @@
     cursor: pointer;
 
     &:hover {
-      background: #edebe9;
+      background-color: #edebe9;
     }
 
     div {
@@ -118,6 +122,7 @@
 
     button {
       height: 2rem;
+      cursor: pointer;
     }
 
     input {
@@ -152,8 +157,16 @@
 
   .addGroupBox {
     @extend .addListForm;
+    padding-right: 24px;
+
+    button {
+      cursor: pointer;
+      opacity: 1;
+      transition: 400ms;
+    }
 
     input {
+      flex: 1;
       &::placeholder {
         color: #292827;
       }
@@ -161,17 +174,23 @@
   }
 
   .groupBox-opened {
+    padding: 0 0 2px 0;
     &:hover {
       background-color: #f5f5f5;
+    }
 
+    .active {
       .sidebar__item {
-        background-color: #f5f5f5;
+        background-color: #ecf6fd !important;
+        &:hover {
+          background-color: #ecf6fd !important;
+        }
       }
     }
 
     .sidebar__item {
       &:hover {
-        background-color: #ffffff !important;
+        background-color: #ffffff;
       }
     }
 
@@ -196,6 +215,26 @@
     .groupBox__items {
       height: auto;
     }
+
+    form {
+      gap: 1.1rem;
+
+      button {
+        opacity: 0 !important;
+        transition: 200ms;
+      }
+    }
+  }
+
+  .editing-group-mode {
+    form {
+      gap: 1.1rem;
+      min-height: 5rem;
+
+      button {
+        margin-left: -2px;
+      }
+    }
   }
 
   .groupBox {
@@ -203,7 +242,6 @@
 
     .sidebar__item {
       border-left: 2px solid #edebe9;
-      background-color: #ffffff;
     }
 
     &__header {
@@ -229,7 +267,7 @@
           height: auto;
           width: auto;
           opacity: 1;
-          transition: 00ms;
+          transition: 400ms;
         }
       }
 
@@ -245,8 +283,7 @@
       }
 
       img {
-        width: 2rem;
-        height: 1.6rem;
+        width: 1.5rem;
         transition: all 200ms;
       }
     }
@@ -272,6 +309,12 @@
         font-size: 1.4rem;
         font-weight: 300;
         line-height: 20px;
+      }
+    }
+
+    form {
+      button {
+        opacity: 1;
       }
     }
   }
