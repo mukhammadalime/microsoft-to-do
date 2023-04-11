@@ -26,14 +26,13 @@ const MyAccount = React.forwardRef<HTMLDivElement, { clicked: boolean }>(
 
           <div className="my-account__details">
             <div>
-              <div
-                style={{
-                  opacity: fullNameHovered ? "1" : "0",
-                  visibility: fullNameHovered ? "visible" : "hidden",
-                }}
-                className="fullname"
-                children=" Mukhammadali Kurbonaliev"
-              />
+              {fullNameHovered && (
+                <div
+                  className="fullname"
+                  children=" Mukhammadali Kurbonaliev"
+                />
+              )}
+
               <h2 onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 Mukhammadali Kurbonaliev
               </h2>

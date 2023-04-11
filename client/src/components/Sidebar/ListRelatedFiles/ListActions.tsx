@@ -115,7 +115,6 @@ const ListActions = ({
             <li>
               <button
                 onMouseEnter={onMouseEnter}
-                style={{ backgroundColor: moveListHovered ? "#f5f5f5" : "" }}
                 className={moveListHovered ? "action-hovered" : ""}
               >
                 <i>

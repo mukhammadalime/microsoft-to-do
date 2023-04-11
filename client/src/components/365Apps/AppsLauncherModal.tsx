@@ -11,14 +11,14 @@ const AppsLauncher = ({ onClose, opened }: AppsLauncherTypes) => {
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
-    const outsideClickHandler = (e: any) => {
-      if (appLauncherRef.current!.contains(e.target)) return;
+    const outsideClickHandler = (e: MouseEvent) => {
+      if (appLauncherRef.current!.contains(e.target as HTMLDivElement)) return;
       onClose();
     };
 
-    document.addEventListener("mousedown", outsideClickHandler, true);
+    document.addEventListener("click", outsideClickHandler, true);
     return () => {
-      document.removeEventListener("mousedown", outsideClickHandler, true);
+      document.removeEventListener("click", outsideClickHandler, true);
     };
   }, [onClose]);
 

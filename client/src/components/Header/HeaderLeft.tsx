@@ -1,6 +1,6 @@
 import { useState } from "react";
-import AppsLauncherModal from "../365Apps/AppsLauncherModal";
 import DotsIcon from "../../Icons/DotsIcon";
+import AppsLauncherModal from "../365Apps/AppsLauncherModal";
 
 const HeaderLeft = () => {
   const [show365Apps, setShow365Apps] = useState(() => false);
@@ -11,9 +11,8 @@ const HeaderLeft = () => {
         <button
           className="header__apps-btn"
           onClick={() => setShow365Apps(true)}
-        >
-          <DotsIcon />
-        </button>
+          children={<DotsIcon />}
+        />
 
         <div className="header__left--todo">
           <a href="localhost:3000">

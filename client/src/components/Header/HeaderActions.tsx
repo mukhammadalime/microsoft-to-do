@@ -1,9 +1,9 @@
+import MyAccount from "./MyAccount";
+import QuestionIcon from "../../Icons/QuestionIcon";
 import { useEffect, useRef, useState } from "react";
 import SettingsIcon from "../../Icons/SettingsIcon";
-import QuestionIcon from "../../Icons/QuestionIcon";
 import NotificationsIcon from "../../Icons/NotificationsIcon";
 import { ActionType, ButtonsTypes } from "../../types/designTypes";
-import MyAccount from "./MyAccount";
 
 const HeaderActions = () => {
   const avatarRef = useRef<HTMLButtonElement>(null);
@@ -20,7 +20,7 @@ const HeaderActions = () => {
     const outsideClickHandler = (e: any) => {
       if (
         avatarRef.current!.contains(e.target) ||
-        myAccountRef.current!.contains(e.target)
+        (btnsClicked.avatar && myAccountRef.current!.contains(e.target))
       ) {
         return;
       }
@@ -34,7 +34,7 @@ const HeaderActions = () => {
     return () => {
       document.removeEventListener("mousedown", outsideClickHandler, true);
     };
-  }, []);
+  }, [btnsClicked.avatar]);
 
   // HANDLING BUTTONS CLICKS
   const handleButtonsClicks = (clickedBtn: ActionType) => {
@@ -77,10 +77,14 @@ const HeaderActions = () => {
       <button
         onClick={handleButtonsClicks.bind(null, "AVATAR")}
         ref={avatarRef}
-      >
-        <img className="avatar" src="./assets/images/default.jpg" alt="" />
-      </button>
-      <MyAccount clicked={btnsClicked.avatar} ref={myAccountRef} />
+        children={
+          <img className="avatar" src="./assets/images/default.jpg" alt="" />
+        }
+      />
+
+      {btnsClicked.avatar && (
+        <MyAccount clicked={btnsClicked.avatar} ref={myAccountRef} />
+      )}
     </div>
   );
 };

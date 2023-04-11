@@ -1,4 +1,3 @@
-import React from "react";
 import { _365AppsTypes } from "../../types/designTypes";
 
 const AppItem = ({ name, link, imgLocation }: _365AppsTypes) => {

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { SideBarGroupType, SideBarItemType } from "../../types/designTypes";
-import SidebarItem from "./SidebarItem";
+import SidebarListItem from "./ListRelatedFiles/SidebarListItem";
 import AddGroupInput from "./GroupRelatedFiles/AddGroupInput";
 import AddListOrGroup from "./AddListOrGroup";
-import GroupBox from "./GroupRelatedFiles/GroupBox";
 import { defaultSideBarItems } from "../../data/micorost-apps";
 import SidebarFooter from "./SidebarFooter";
+import SidebarGroupItem from "./GroupRelatedFiles/SidebarGroupItem";
 
 const Sidebar = ({ onClose }: { onClose: () => void }) => {
   const [lists, setLists] = useState<SideBarItemType[]>(() => []);
@@ -184,7 +184,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         <div className="sidebar__items">
           {defaultSideBarItems.map((item) => {
             return (
-              <SidebarItem
+              <SidebarListItem
                 item={{
                   ...item,
                   createdAt: 0,
@@ -212,7 +212,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
                 switch (item.type) {
                   case "LIST":
                     return (
-                      <SidebarItem
+                      <SidebarListItem
                         item={item}
                         key={i}
                         activeBar={activeBar}
@@ -222,7 +222,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
 
                   case "GROUP":
                     return (
-                      <GroupBox
+                      <SidebarGroupItem
                         {...item}
                         activeBar={activeBar}
                         key={i}

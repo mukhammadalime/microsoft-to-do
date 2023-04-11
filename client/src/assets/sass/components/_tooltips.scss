@@ -1,0 +1,79 @@
+// TOOLTIPS
+.tooltip-search {
+  position: absolute;
+  left: -6rem;
+  top: 0.5px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+
+  .content {
+    height: 3.1rem;
+    width: 5rem;
+    background-color: #ffffff;
+    border-radius: 2px;
+    display: grid;
+    place-items: center;
+    color: var(--font-color-primary);
+    font-size: 1.1rem;
+  }
+
+  .triangle {
+    border: 1rem solid transparent;
+    height: 0;
+    width: 0;
+    border-left-color: #ffffff;
+  }
+}
+
+.tooltip-exit-search {
+  position: absolute;
+  bottom: -4.5rem;
+  display: grid;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+
+  .content {
+    height: 3.2rem;
+    width: 7rem;
+    background-color: #ffffff;
+    border-radius: 2px;
+    display: grid;
+    place-items: center;
+    color: var(--font-color-primary);
+    font-size: 1.1rem;
+    box-shadow: 0px 4px 5px 0px #00000039;
+    z-index: 2;
+  }
+
+  .triangle {
+    width: 1.7rem;
+    height: 1.7rem;
+    background-color: #ffffff;
+    transform: rotate(45deg);
+    box-shadow: rgba(0, 0, 0, 0.293) 0px 5px 15px 0px;
+    margin: 0 auto;
+    margin-bottom: -8.5px;
+    z-index: 1;
+  }
+}
+
+.tooltip-create-group {
+  @extend .tooltip-exit-search;
+  bottom: unset;
+  top: -2.7rem;
+  position: fixed;
+
+  .content {
+    box-shadow: 0px -2px 3px 0px #00000039;
+    width: 9rem;
+    font-size: 1.2rem;
+  }
+
+  .triangle {
+    box-shadow: 0px 0px 4px 0px #00000039;
+    margin-top: -8.5px;
+  }
+}

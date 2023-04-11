@@ -3,11 +3,12 @@
   display: flex;
   height: 100%;
   flex-direction: column;
-  width: 5rem;
-  background-color: #fff;
+  background-color: var(--bg-primary);
   transition: width 180ms ease;
   width: 29rem;
-  box-shadow: 0px 0.3px 0.9px #0000001a, 0px 1.6px 3.6px #0000001a;
+
+  box-shadow: 0px 0.3px 0.9px var(--bg-shadow), 0px 1.6px 3.6px var(--bg-shadow);
+  background-color: var(--bg-primary);
 
   @media (max-width: 900px) {
     width: 22rem;
@@ -29,6 +30,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    overflow: hidden;
     padding-top: 1px;
   }
 
@@ -36,24 +38,21 @@
     overflow-y: auto;
   }
 
-  .active {
+  .sidebar-active-item {
     font-weight: 500;
     position: relative;
-    background-color: #ecf6fd;
+    background-color: var(--bg-active);
 
     &:hover {
-      background-color: #ecf6fd;
-    }
-
-    .sidebar__item {
-      background-color: #ecf6fd;
+      background-color: var(--bg-active);
     }
 
     &::before {
       content: "";
       position: absolute;
       width: 2px;
-      background-color: #2564cf;
+      left: 0;
+      background-color: var(--bg-brand);
       top: 50%;
       transform: translateY(-50%);
       animation: expand 0.25s forwards;
@@ -63,11 +62,15 @@
   &__item {
     display: flex;
     gap: 1.6rem;
-    padding: 12px 24px 12px 24px;
+    padding: 1.2rem 2.4rem;
     cursor: pointer;
 
     &:hover {
-      background-color: #edebe9;
+      background-color: var(--bg-hover);
+    }
+
+    &--borderLine {
+      display: none;
     }
 
     div {
@@ -89,9 +92,9 @@
   }
 
   &__line {
-    margin: 9px 16px;
+    margin: 0.9rem 1.6rem;
     height: 1px;
-    background-color: #edebe9;
+    background-color: var(--bg-separator);
   }
 
   &__addList {
@@ -103,216 +106,6 @@
 
       .addListForm {
         width: calc(22rem - 6.8rem);
-      }
-    }
-  }
-
-  .addListForm {
-    padding: 12px 0px 12px 24px;
-    color: #2564cf;
-    display: flex;
-    align-items: center;
-    gap: 1.6rem;
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
-
-    button {
-      height: 2rem;
-      cursor: pointer;
-    }
-
-    input {
-      font-size: 1.4rem;
-      line-height: 20px;
-      transition: none;
-      color: #292827;
-
-      &::placeholder {
-        color: #3459c1;
-      }
-
-      &:focus {
-        &::placeholder {
-          color: #323130;
-        }
-      }
-    }
-  }
-
-  .addGroup {
-    padding: 0 2.4rem;
-    display: grid;
-    place-items: center;
-    position: relative;
-    transition: all 0.3s;
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
-  }
-
-  .addGroupBox {
-    @extend .addListForm;
-    padding-right: 24px;
-
-    button {
-      cursor: pointer;
-      opacity: 1;
-      transition: 400ms;
-    }
-
-    input {
-      flex: 1;
-      &::placeholder {
-        color: #292827;
-      }
-    }
-  }
-
-  .groupBox-opened {
-    padding: 0 0 2px 0;
-    &:hover {
-      background-color: #f5f5f5;
-    }
-
-    .active {
-      .sidebar__item {
-        background-color: #ecf6fd !important;
-        &:hover {
-          background-color: #ecf6fd !important;
-        }
-      }
-    }
-
-    .sidebar__item {
-      &:hover {
-        background-color: #ffffff;
-      }
-    }
-
-    .groupBox__header {
-      div {
-        img {
-          display: block;
-          opacity: 0;
-          transform: rotate(0);
-          transition: all 200ms;
-        }
-        span {
-          transform: translate(-3.6rem);
-        }
-      }
-
-      img {
-        transform: rotate(-90deg);
-      }
-    }
-
-    .groupBox__items {
-      height: auto;
-    }
-
-    form {
-      gap: 1.1rem;
-
-      button {
-        opacity: 0 !important;
-        transition: 200ms;
-      }
-    }
-  }
-
-  .editing-group-mode {
-    form {
-      gap: 1.1rem;
-      min-height: 5rem;
-
-      button {
-        margin-left: -2px;
-      }
-    }
-  }
-
-  .groupBox {
-    overflow: hidden;
-
-    .sidebar__item {
-      border-left: 2px solid #edebe9;
-    }
-
-    &__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      padding: 12px 24px 12px 24px;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
-
-      div {
-        display: flex;
-        align-items: center;
-        gap: 1.6rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        img {
-          height: auto;
-          width: auto;
-          opacity: 1;
-          transition: 400ms;
-        }
-      }
-
-      span {
-        color: #323130;
-        font-size: 1.4rem;
-        line-height: 20px;
-        font-weight: 500;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        transition: transform 200ms ease;
-      }
-
-      img {
-        width: 1.5rem;
-        transition: all 200ms;
-      }
-    }
-
-    &__items {
-      margin-left: 2.4rem;
-      height: 0;
-      transition: height 200ms;
-    }
-
-    &__empty {
-      @extend .sidebar__item;
-      justify-content: center;
-
-      .dragCursor {
-        padding: 0.8rem;
-        border: 2px #465efc dashed;
-      }
-
-      span {
-        width: 100%;
-        text-align: center;
-        font-size: 1.4rem;
-        font-weight: 300;
-        line-height: 20px;
-      }
-    }
-
-    form {
-      button {
-        opacity: 1;
       }
     }
   }
@@ -329,7 +122,7 @@
       justify-content: center;
 
       &:hover {
-        background-color: #f5f5f5;
+        background-color: var(--bg-hover);
       }
 
       &:last-child {
@@ -342,20 +135,214 @@
   }
 }
 
-.tooltip-create-group {
-  @extend .tooltip-exit-search;
-  bottom: unset;
-  top: -2.7rem;
+/// ADD LIST FORM
+.addListForm {
+  padding: 12px 0px 12px 24px;
+  color: var(--font-color-brand);
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
 
-  .content {
-    box-shadow: 0px -2px 3px 0px #00000039;
-    width: 9rem;
-    font-size: 1.2rem;
+  &:hover {
+    background-color: var(--bg-hover);
   }
 
-  .triangle {
-    box-shadow: 0px 0px 4px 0px #00000039;
-    margin-top: -8.5px;
+  button {
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  input {
+    font-size: 1.4rem;
+    line-height: 20px;
+    transition: none;
+    color: var(--font-color-primary);
+
+    &::placeholder {
+      color: #3459c1;
+    }
+
+    &:focus {
+      &::placeholder {
+        color: #323130;
+      }
+    }
+  }
+}
+
+/// ADD GROUP INPUT BOX AND BUTTON
+.addGroupButton {
+  padding: 0 2.4rem;
+  display: grid;
+  place-items: center;
+  position: relative;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+}
+
+.addGroupBox {
+  @extend .addListForm;
+
+  button {
+    cursor: pointer;
+    opacity: 1;
+    transition: 400ms;
+  }
+
+  input {
+    flex: 1;
+    &::placeholder {
+      color: var(--font-color-primary);
+    }
+  }
+}
+
+/// GROUP BOX ITEM AND IT'S OPENED, EDIT MODES
+.groupBox {
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 12px 24px 12px 24px;
+
+    &:hover {
+      background-color: var(--bg-hover);
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      img {
+        height: auto;
+        width: auto;
+        opacity: 1;
+        transition: 400ms;
+      }
+    }
+
+    span {
+      color: #323130;
+      font-size: 1.4rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: transform 200ms ease;
+    }
+
+    img {
+      width: 1.5rem;
+      transition: all 200ms;
+    }
+  }
+
+  &__items {
+    margin-left: 2.4rem;
+    height: 0;
+    transition: height 200ms ease;
+    position: relative;
+
+    &--borderLine {
+      border-left: 2px solid var(--bg-scrollbar);
+      display: block;
+      transition: transform 200ms ease;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0;
+    }
+  }
+
+  &__empty {
+    @extend .sidebar__item;
+    justify-content: center;
+
+    .dragCursor {
+      padding: 0.8rem;
+      border: 2px #465efc dashed;
+    }
+
+    span {
+      width: 100%;
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 300;
+      line-height: 20px;
+    }
+  }
+
+  form {
+    button {
+      opacity: 1;
+    }
+  }
+}
+
+.groupBox-opened {
+  padding: 0 0 2px 0;
+
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+
+  .sidebar-active-item {
+    background-color: var(--bg-active) !important;
+
+    &:hover {
+      background-color: var(--bg-active) !important;
+    }
+  }
+
+  .sidebar__item {
+    &:hover {
+      background-color: #ffffff;
+    }
+  }
+
+  .groupBox__header {
+    div {
+      img {
+        display: block;
+        opacity: 0;
+        transform: rotate(0);
+        transition: all 200ms;
+      }
+      span {
+        transform: translate(-3.6rem);
+      }
+    }
+
+    img {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .groupBox__items {
+    height: auto;
+  }
+
+  form {
+    button {
+      opacity: 0 !important;
+      transition: 200ms;
+    }
+  }
+}
+
+.editing-group-mode {
+  form {
+    min-height: 5rem;
   }
 }
 

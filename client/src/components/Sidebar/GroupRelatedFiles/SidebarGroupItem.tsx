@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { SideBarGroupType, SideBarItemType } from "../../../types/designTypes";
 import GroupActionsModal from "./GroupActions";
 import { v4 as uuidv4 } from "uuid";
-import SidebarItem from "../SidebarItem";
+import SidebarListItem from "../ListRelatedFiles/SidebarListItem";
 
-interface GroupBoxTypes extends SideBarGroupType {
+interface SidebarGroupItemTypes extends SideBarGroupType {
   activeBar: string;
   setActiveBar: (str: string) => void;
   updateGroupHandler: (items: SideBarGroupType[]) => void;
 }
 
-const GroupBox = ({
+const SidebarGroupItem = ({
   name,
   opened,
   id,
@@ -19,7 +19,7 @@ const GroupBox = ({
   activeBar,
   setActiveBar,
   updateGroupHandler,
-}: GroupBoxTypes) => {
+}: SidebarGroupItemTypes) => {
   const [groupActionsIsOpen, setGroupActionsIsOpen] = useState<boolean>(
     () => false
   );
@@ -114,9 +114,10 @@ const GroupBox = ({
         )}
 
         <div className="groupBox__items">
+          <div className="groupBox__items--borderLine"></div>
           {groupLists.length > 0 ? (
             groupLists.map((item) => (
-              <SidebarItem
+              <SidebarListItem
                 key={uuidv4()}
                 item={item}
                 activeBar={activeBar}
@@ -143,4 +144,4 @@ const GroupBox = ({
   );
 };
 
-export default GroupBox;
+export default SidebarGroupItem;

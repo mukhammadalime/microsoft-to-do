@@ -34,8 +34,9 @@ const HeaderSearch = () => {
   };
 
   // SHOW SEARCH TOOLTIP
-  const onSearchMouseEnter = () =>
+  const onSearchMouseEnter = () => {
     setTimeout(() => setSearchHovered(true), 200);
+  };
   const onSearchMouseLeave = () => setSearchHovered(false);
 
   return (
@@ -53,20 +54,23 @@ const HeaderSearch = () => {
           maxWidth: windowWidth <= 900 && showInput ? "100%" : "",
         }}
       >
-        <div
-          className="tooltip-search"
-          style={{
-            opacity: searchHovered && !showInput ? "1" : "0",
-            visibility: searchHovered && !showInput ? "visible" : "hidden",
-          }}
-        >
-          <div className="content">Search</div>
-          <div className="triangle" />
-        </div>
+        {searchHovered && (
+          <div
+            className="tooltip-search"
+            style={{
+              opacity: !showInput ? "1" : "0",
+              visibility: !showInput ? "visible" : "hidden",
+            }}
+          >
+            <div className="content">Search</div>
+            <div className="triangle" />
+          </div>
+        )}
 
         <div className="header__search--icon">
           <SearchIcon color="#2564cf" />
         </div>
+
         {showInput && (
           <div className="header__search--input">
             <input ref={inputRef} type="text" placeholder="Search" />

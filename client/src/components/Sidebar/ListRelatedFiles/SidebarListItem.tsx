@@ -1,10 +1,10 @@
-import { SideBarItemType } from "../../types/designTypes";
-import ListIcon from "../../Icons/ListIcon";
+import { SideBarItemType } from "../../../types/designTypes";
+import ListIcon from "../../../Icons/ListIcon";
 import { ReactElement, useState } from "react";
-import ListActionsModal from "./ListRelatedFiles/ListActions";
-import TasksListActionsModal from "./TasksListActions";
+import ListActionsModal from "./ListActions";
+import TasksListActionsModal from "../TasksListActions";
 
-const SidebarItem = ({
+const SidebarListItem = ({
   item,
   img,
   actionsDisabled,
@@ -35,26 +35,27 @@ const SidebarItem = ({
   };
 
   const onRightClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log(item.name);
-
     e.preventDefault();
     if (e.type === "contextmenu") {
       setCoordinates({ x: e.pageX, y: e.pageY });
       setListActionsIsOpen(true);
       setActiveBarHandler();
     }
-
-    console.log(listActionsIsOpen);
   };
 
   return (
     <>
-      <div
-        className={`sidebar__itemWrapper${checkActiveBar ? " active" : ""}`}
-        onClick={onRightClickHandler}
-        onContextMenu={onRightClickHandler}
-      >
-        <div className={`sidebar__item`} onClick={setActiveBarHandler}>
+      <>
+        <div
+          className={`sidebar__item${
+            checkActiveBar ? " sidebar-active-item" : ""
+          }`}
+          onClick={(e) => {
+            onRightClickHandler(e);
+            setActiveBarHandler();
+          }}
+          onContextMenu={onRightClickHandler}
+        >
           {img ? img : <ListIcon color="#323130" />}
           <div>
             <span>{item.name}</span>
@@ -64,7 +65,7 @@ const SidebarItem = ({
           </div>
           {/* <span>2</span> */}
         </div>
-      </div>
+      </>
 
       {listActionsIsOpen && !actionsDisabled && (
         <ListActionsModal
@@ -86,4 +87,4 @@ const SidebarItem = ({
   );
 };
 
-export default SidebarItem;
+export default SidebarListItem;

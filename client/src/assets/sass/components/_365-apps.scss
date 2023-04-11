@@ -242,7 +242,7 @@
     cursor: pointer;
 
     &:hover {
-      box-shadow: 0 8px 16px 0 #0000001a;
+      box-shadow: 0 8px 16px 0 var(--bg-shadow);
     }
 
     button {
@@ -250,6 +250,7 @@
       width: 3rem;
       display: grid;
       place-items: center;
+      cursor: pointer;
       svg {
         height: 1.3rem;
         width: 1.3rem;
