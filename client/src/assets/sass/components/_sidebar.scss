@@ -29,7 +29,6 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    overflow: hidden;
     padding-top: 1px;
   }
 
@@ -98,13 +97,12 @@
   &__addList {
     display: grid;
     grid-template-columns: 1fr max-content;
-    width: 22rem;
 
     @media (max-width: 900px) {
-      grid-template-columns: 1fr 6.4rem;
+      grid-template-columns: 1fr 6.8rem;
 
       .addListForm {
-        width: calc(22rem - 6.4rem);
+        width: calc(22rem - 6.8rem);
       }
     }
   }

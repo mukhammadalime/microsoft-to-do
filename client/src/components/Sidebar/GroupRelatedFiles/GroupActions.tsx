@@ -58,7 +58,16 @@ const GroupActions = ({
   };
 
   // UNGROUP LISTS HANDLER
-  const ungroupListsHandler = () => {};
+  const ungroupListsHandler = () => {
+    onClose();
+    const existingGroups = JSON.parse(localStorage.getItem("groups")!) ?? [];
+
+    const updatedGroups = existingGroups.filter(
+      (item: SideBarGroupType) => item.id !== itemId
+    );
+
+    localStorage.setItem("groups", JSON.stringify(updatedGroups));
+  };
 
   return (
     <div className="modal-layer">

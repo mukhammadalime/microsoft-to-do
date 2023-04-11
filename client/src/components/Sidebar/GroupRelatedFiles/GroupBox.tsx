@@ -3,7 +3,6 @@ import { SideBarGroupType, SideBarItemType } from "../../../types/designTypes";
 import GroupActionsModal from "./GroupActions";
 import { v4 as uuidv4 } from "uuid";
 import SidebarItem from "../SidebarItem";
-import ListActionsModal from "../ListRelatedFiles/ListActions";
 
 interface GroupBoxTypes extends SideBarGroupType {
   activeBar: string;
