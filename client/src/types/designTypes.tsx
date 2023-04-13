@@ -46,3 +46,9 @@ export interface SidebarGroupItemType {
   opened: boolean;
   lists: string[];
 }
+
+/// COORDINATES TYPES
+export interface CoordinatesTypes {
+  x: number;
+  y: number;
+}

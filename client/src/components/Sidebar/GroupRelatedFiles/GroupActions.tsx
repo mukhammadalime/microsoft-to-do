@@ -1,13 +1,16 @@
 import ReactDOM from "react-dom";
 import { useEffect, useRef, useState } from "react";
-import { SidebarListItemType } from "../../../types/designTypes";
+import {
+  CoordinatesTypes,
+  SidebarListItemType,
+} from "../../../types/designTypes";
 import ModalActionItem from "../../ModalActionItem";
 import UngroupIcon from "../../../Icons/UngroupIcon";
 import TrashIcon2 from "../../../Icons/TrashIcon2";
 
 interface GroupActionsPropsTypes {
   onClose: () => void;
-  coordinates: { x: number; y: number };
+  coordinates: CoordinatesTypes;
   groupId: string;
   lists: string[] | [];
 }

@@ -20,10 +20,11 @@ const HeaderActions = () => {
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
-    const outsideClickHandler = (e: any) => {
+    const outsideClickHandler = (e: MouseEvent) => {
+      const eventTarget = e.target as HTMLDivElement;
       if (
-        avatarRef.current!.contains(e.target) ||
-        (btnsClicked.avatar && myAccountRef.current!.contains(e.target))
+        avatarRef.current!.contains(eventTarget) ||
+        (btnsClicked.avatar && myAccountRef.current!.contains(eventTarget))
       ) {
         return;
       }

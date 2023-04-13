@@ -3,10 +3,11 @@ import PrintIcon from "../../Icons/PrintIcon";
 import ModalActionItem from "../ModalActionItem";
 import { useEffect, useRef, useState } from "react";
 import DublicateIcon from "../../Icons/DublicateIcon";
+import { CoordinatesTypes } from "../../types/designTypes";
 
 interface TasksListsActionsProps {
   onClose: () => void;
-  coordinates: { x: number; y: number };
+  coordinates: CoordinatesTypes;
 }
 
 const TasksListActionsOverlay = ({

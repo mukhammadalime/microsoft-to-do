@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { SidebarGroupItemType } from "../../../types/designTypes";
+import {
+  CoordinatesTypes,
+  SidebarGroupItemType,
+} from "../../../types/designTypes";
 import { v4 as uuidv4 } from "uuid";
 
 interface GroupsModalPropsTypes {
   onClose: () => void;
-  coordinates: { x: number; y: number };
+  coordinates: CoordinatesTypes;
   groupsModalRef: React.RefObject<HTMLDivElement>;
   listId: string;
 }

@@ -1,3 +1,11 @@
+.tooltip-animation {
+  animation-duration: 0.25s;
+  -webkit-animation-name: appear;
+  animation-name: appear;
+  -webkit-animation-timing-function: cubic-bezier(0.26, 1, 0.48, 1);
+  animation-timing-function: cubic-bezier(0.26, 1, 0.48, 1);
+}
+
 // TOOLTIPS
 .tooltip-search {
   position: absolute;
@@ -6,6 +14,7 @@
   display: flex;
   align-items: center;
   transition: all 0.2s;
+  @extend .tooltip-animation;
 
   .content {
     height: 3.1rem;
@@ -31,9 +40,7 @@
   bottom: -4.5rem;
   display: grid;
   justify-content: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.3s;
+  @extend .tooltip-animation;
 
   .content {
     height: 3.2rem;
@@ -75,5 +82,17 @@
   .triangle {
     box-shadow: 0px 0px 4px 0px #00000039;
     margin-top: -8.5px;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
   }
 }

@@ -5,13 +5,16 @@ import DublicateIcon from "../../../Icons/DublicateIcon";
 import PrintIcon from "../../../Icons/PrintIcon";
 import TrashIcon from "../../../Icons/TrashIcon";
 import { useEffect, useRef, useState } from "react";
-import { SidebarListItemType } from "../../../types/designTypes";
+import {
+  CoordinatesTypes,
+  SidebarListItemType,
+} from "../../../types/designTypes";
 import GroupsModal from "../GroupRelatedFiles/GroupsModal";
 import ModalActionItem from "../../ModalActionItem";
 
 interface ListActionsPropsTypes {
   onClose: () => void;
-  coordinates: { x: number; y: number };
+  coordinates: CoordinatesTypes;
   listItem: SidebarListItemType;
 }
 

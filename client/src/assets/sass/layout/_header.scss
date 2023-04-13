@@ -135,16 +135,17 @@
         place-items: center;
         position: relative;
 
-        &:hover {
-          .tooltip-exit-search {
-            visibility: visible;
-            opacity: 1;
-          }
-        }
+        // &:hover {
+        //   .tooltip-exit-search {
+        //     visibility: visible;
+        //     opacity: 1;
+        //   }
+        // }
 
         svg {
           height: 1.2rem;
           width: 1.2rem;
+          fill: #2564cf;
         }
       }
     }

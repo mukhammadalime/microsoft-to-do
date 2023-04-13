@@ -160,11 +160,11 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
-    const outsideClickHandler = (e: any) => {
+    const outsideClickHandler = (e: MouseEvent) => {
       const addGroupInputBox = document.getElementById("addGroupBox");
 
       if (
-        !addGroupInputBox?.contains(e.target) &&
+        !addGroupInputBox?.contains(e.target as HTMLDivElement) &&
         !newGroupRef.current?.value
       ) {
         setShowAddGroupInput(false);

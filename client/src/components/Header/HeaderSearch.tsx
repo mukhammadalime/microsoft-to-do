@@ -8,25 +8,35 @@ const HeaderSearch = () => {
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [showInput, setShowInput] = useState<boolean>(() => false);
-  const [searchHovered, setSearchHovered] = useState(() => false);
+  const [timerID, setTimerID] = useState<NodeJS.Timeout>();
+  const [timer2ID, setTimer2ID] = useState<NodeJS.Timeout>();
+  const [searchHovered, setSearchHovered] = useState<boolean>(() => false);
+  const [exitSearchHovered, setExitSearchHovered] = useState<boolean>(
+    () => false
+  );
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
-    const outsideClickHandler = (e: any) => {
-      if (!searchRef.current!.contains(e.target) && !inputRef.current?.value) {
+    const outsideClickHandler = (e: MouseEvent) => {
+      if (
+        !searchRef.current!.contains(e.target as HTMLDivElement) &&
+        !inputRef.current?.value
+      ) {
         showInput ? setSearchHovered(true) : setSearchHovered(false);
         setShowInput(false);
       }
     };
 
-    document.addEventListener("mousedown", outsideClickHandler, true);
+    document.addEventListener("mousedown", outsideClickHandler);
     return () => {
-      document.removeEventListener("mousedown", outsideClickHandler, true);
+      document.removeEventListener("mousedown", outsideClickHandler);
     };
-  }, [showInput]);
+  }, [showInput, timer2ID]);
 
   // SHOW SEARCH INPUT
-  const showSearchInput = () => {
+  const showSearchInput = (): void => {
+    clearTimeout(timerID);
+    setExitSearchHovered(false);
     if (!showInput) {
       setShowInput(true);
       setTimeout(() => inputRef.current!.focus(), 0);
@@ -35,9 +45,27 @@ const HeaderSearch = () => {
 
   // SHOW SEARCH TOOLTIP
   const onSearchMouseEnter = () => {
-    setTimeout(() => setSearchHovered(true), 200);
+    if (!showInput) {
+      const id = setTimeout(() => setSearchHovered(true), 400);
+      setTimerID(id);
+    }
   };
-  const onSearchMouseLeave = () => setSearchHovered(false);
+  const onSearchMouseLeave = () => {
+    clearTimeout(timerID);
+    setSearchHovered(false);
+  };
+
+  // ON EXIT SEARCH MOUSE ENTER
+  const onExitSearchMouseEnter = () => {
+    const id = setTimeout(() => setExitSearchHovered(true), 300);
+    setTimer2ID(id);
+  };
+
+  // ON EXIT SEARCH MOUSE LEAVE
+  const onExitSearchMouseLeave = () => {
+    clearTimeout(timer2ID);
+    setExitSearchHovered(false);
+  };
 
   return (
     <div className="search-container">
@@ -74,12 +102,25 @@ const HeaderSearch = () => {
         {showInput && (
           <div className="header__search--input">
             <input ref={inputRef} type="text" placeholder="Search" />
-            <span onClick={() => setShowInput(false)}>
-              <XIcon color="#2564cf" />
-              <div className="tooltip-exit-search">
-                <div className="triangle" />
-                <div className="content">Exit search</div>
-              </div>
+            <span
+              onClick={() => setShowInput(false)}
+              onMouseEnter={onExitSearchMouseEnter}
+              onMouseLeave={onExitSearchMouseLeave}
+            >
+              <XIcon />
+
+              {exitSearchHovered && (
+                <div
+                  className="tooltip-exit-search"
+                  // style={{
+                  //   visibility: "visible",
+                  //   opacity: 1,
+                  // }}
+                >
+                  <div className="triangle" />
+                  <div className="content">Exit search</div>
+                </div>
+              )}
             </span>
           </div>
         )}

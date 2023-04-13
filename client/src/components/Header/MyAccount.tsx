@@ -3,8 +3,17 @@ import React, { useState } from "react";
 const MyAccount = React.forwardRef<HTMLDivElement, { clicked: boolean }>(
   ({ clicked }, ref) => {
     const [fullNameHovered, setFullNameHovered] = useState(() => false);
-    const onMouseEnter = () => setTimeout(() => setFullNameHovered(true), 300);
-    const onMouseLeave = () => setFullNameHovered(false);
+    const [timerID, setTimerID] = useState<NodeJS.Timeout>();
+
+    const onMouseEnter = () => {
+      const id = setTimeout(() => setFullNameHovered(true), 300);
+      setTimerID(id);
+    };
+
+    const onMouseLeave = () => {
+      clearTimeout(timerID);
+      setFullNameHovered(false);
+    };
 
     return (
       <div

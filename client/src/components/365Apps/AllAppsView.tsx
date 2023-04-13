@@ -20,13 +20,14 @@ const AllAppsView = ({ onClose }: { onClose: () => void }) => {
       <div className="allApps__search">
         <button>
           {searchInput ? (
-            <XIcon
-              color="#252423"
+            <div
               onClick={() => {
                 setSearchInput("");
                 searchRef.current!.value = "";
               }}
-            />
+            >
+              <XIcon />
+            </div>
           ) : (
             <SearchIcon color="#252423" />
           )}

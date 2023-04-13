@@ -251,7 +251,9 @@
       display: grid;
       place-items: center;
       cursor: pointer;
-      svg {
+
+      svg,
+      div {
         height: 1.3rem;
         width: 1.3rem;
       }

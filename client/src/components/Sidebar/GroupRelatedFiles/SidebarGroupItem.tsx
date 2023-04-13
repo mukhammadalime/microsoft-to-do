@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  CoordinatesTypes,
   SidebarGroupItemType,
   SidebarListItemType,
 } from "../../../types/designTypes";
@@ -26,7 +27,7 @@ const SidebarGroupItem = ({
   const [groupActionsIsOpen, setGroupActionsIsOpen] = useState<boolean>(
     () => false
   );
-  const [coordinates, setCoordinates] = useState<{ x: number; y: number }>({
+  const [coordinates, setCoordinates] = useState<CoordinatesTypes>({
     x: 0,
     y: 0,
   });

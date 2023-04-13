@@ -1,11 +1,14 @@
-import { SidebarListItemType } from "../../../types/designTypes";
+import {
+  CoordinatesTypes,
+  SidebarListItemType,
+} from "../../../types/designTypes";
 import ListIcon from "../../../Icons/ListIcon";
 import { ReactElement, useState } from "react";
 import ListActionsModal from "./ListActions";
 import TasksListActionsModal from "../TasksListActions";
 
 interface SidebarListItemPropsTypes {
-  actionsDisabled?: boolean;
+  actionsDisabled?: boolean | "limited";
   img?: ReactElement;
   item: SidebarListItemType;
   activeListItem: string;
@@ -20,7 +23,7 @@ const SidebarListItem = ({
   setActiveListItem,
 }: SidebarListItemPropsTypes) => {
   const [listActionsIsOpen, setListActionsIsOpen] = useState<boolean>(false);
-  const [coordinates, setCoordinates] = useState<{ x: number; y: number }>({
+  const [coordinates, setCoordinates] = useState<CoordinatesTypes>({
     x: 0,
     y: 0,
   });
@@ -37,6 +40,7 @@ const SidebarListItem = ({
 
   const onRightClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+
     if (e.type === "contextmenu") {
       setCoordinates({ x: e.pageX, y: e.pageY });
       setListActionsIsOpen(true);
@@ -54,7 +58,10 @@ const SidebarListItem = ({
           onRightClickHandler(e);
           setActiveListItemHandler();
         }}
-        onContextMenu={onRightClickHandler}
+        // We enable inspect on some lists with actions disabled
+        onContextMenu={
+          actionsDisabled === true ? () => {} : onRightClickHandler
+        }
       >
         {img ? img : <ListIcon color="#323130" />}
         <div>
@@ -72,7 +79,7 @@ const SidebarListItem = ({
         />
       )}
 
-      {listActionsIsOpen && actionsDisabled && item.name === "Tasks" && (
+      {listActionsIsOpen && actionsDisabled === "limited" && (
         <TasksListActionsModal
           coordinates={coordinates}
           onClose={() => setListActionsIsOpen(false)}

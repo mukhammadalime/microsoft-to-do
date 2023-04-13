@@ -121,7 +121,7 @@ export const moreFromMicrosoft: _365AppsTypes[] = [
 export const defaultSideBarItems: {
   name: string;
   img: ReactElement;
-  actionsDisabled: boolean;
+  actionsDisabled: boolean | "limited";
 }[] = [
   {
     name: "My Day",
@@ -146,6 +146,6 @@ export const defaultSideBarItems: {
   {
     name: "Tasks",
     img: <HomeIcon color="#323130" />,
-    actionsDisabled: true,
+    actionsDisabled: "limited",
   },
 ];
