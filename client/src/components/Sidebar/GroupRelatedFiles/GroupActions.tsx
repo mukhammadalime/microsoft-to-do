@@ -1,20 +1,27 @@
 import ReactDOM from "react-dom";
-import { useEffect, useRef } from "react";
-import { SideBarGroupType } from "../../../types/designTypes";
+import { useEffect, useRef, useState } from "react";
+import { SidebarListItemType } from "../../../types/designTypes";
+import ModalActionItem from "../../ModalActionItem";
+import UngroupIcon from "../../../Icons/UngroupIcon";
+import TrashIcon2 from "../../../Icons/TrashIcon2";
+
+interface GroupActionsPropsTypes {
+  onClose: () => void;
+  coordinates: { x: number; y: number };
+  groupId: string;
+  lists: string[] | [];
+}
 
 const GroupActions = ({
   onClose,
   coordinates,
-  itemId,
+  groupId,
   lists,
-}: {
-  onClose: () => void;
-  coordinates: { x: number; y: number };
-  itemId: string;
-  lists: string[] | [];
-}) => {
+}: GroupActionsPropsTypes) => {
   const groupActionsRef = useRef<HTMLDivElement>(null);
   const fromBottom = window.innerHeight - coordinates.y < 111;
+  const [defaultHoverFirstAction, setDefaultHoverFirstAction] =
+    useState<boolean>(true);
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
@@ -36,7 +43,7 @@ const GroupActions = ({
     const existingGroups = JSON.parse(localStorage.getItem("groups")!) ?? [];
 
     const updatedGroups = existingGroups.filter(
-      (item: SideBarGroupType) => item.id !== itemId
+      (item: SidebarListItemType) => item.id !== groupId
     );
 
     localStorage.setItem("groups", JSON.stringify(updatedGroups));
@@ -48,7 +55,7 @@ const GroupActions = ({
     const existingGroups = JSON.parse(localStorage.getItem("groups")!) ?? [];
 
     const editingGroupIndex = existingGroups.findIndex(
-      (item: SideBarGroupType) => item.id === itemId
+      (item: SidebarListItemType) => item.id === groupId
     );
     const editingGroup = existingGroups[editingGroupIndex];
 
@@ -63,10 +70,15 @@ const GroupActions = ({
     const existingGroups = JSON.parse(localStorage.getItem("groups")!) ?? [];
 
     const updatedGroups = existingGroups.filter(
-      (item: SideBarGroupType) => item.id !== itemId
+      (item: SidebarListItemType) => item.id !== groupId
     );
 
     localStorage.setItem("groups", JSON.stringify(updatedGroups));
+  };
+
+  /// ON MOUSE ENTER HANDLER
+  const onMouseEnterHandler = () => {
+    setDefaultHoverFirstAction(false);
   };
 
   return (
@@ -80,40 +92,25 @@ const GroupActions = ({
         ref={groupActionsRef}
       >
         <ul>
-          <li>
-            <button onClick={renameGroupHandler}>
-              <i>
-                <img src="./assets/icons/renameGroupIcon.svg" alt="" />
-              </i>
-              <span>Rename group</span>
-            </button>
-          </li>
+          <ModalActionItem
+            onClickHandler={renameGroupHandler}
+            onMouseEnter={onMouseEnterHandler}
+            name="Rename group"
+            icon={<img src="./assets/icons/renameGroupIcon.svg" alt="" />}
+            defaultHoverFirstAction={defaultHoverFirstAction}
+          />
 
           <div className="seperator"></div>
 
-          <li className="delete-row">
-            {lists?.length > 0 && (
-              <>
-                <button onClick={ungroupListsHandler}>
-                  <i>
-                    <img src="./assets/icons/ungroupIcon.svg" alt="" />
-                  </i>
-                  <span>Ungroup lists</span>
-                </button>
-              </>
-            )}
-
-            {lists.length === 0 && (
-              <>
-                <button onClick={deleteGroupHandler}>
-                  <i>
-                    <img src="./assets/icons/trashIcon-2.svg" alt="" />
-                  </i>
-                  <span>Delete group</span>
-                </button>
-              </>
-            )}
-          </li>
+          <ModalActionItem
+            onClickHandler={
+              lists?.length > 0 ? ungroupListsHandler : deleteGroupHandler
+            }
+            onMouseEnter={onMouseEnterHandler}
+            name={lists?.length > 0 ? "Ungroup lists" : "Delete group"}
+            icon={lists?.length > 0 ? <UngroupIcon /> : <TrashIcon2 />}
+            className="delete-row"
+          />
         </ul>
       </div>
     </div>
@@ -123,14 +120,9 @@ const GroupActions = ({
 const GroupActionsModal = ({
   onClose,
   coordinates,
-  itemId,
+  groupId,
   lists,
-}: {
-  onClose: () => void;
-  coordinates: { x: number; y: number };
-  itemId: string;
-  lists: string[] | [];
-}) => {
+}: GroupActionsPropsTypes) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -138,7 +130,7 @@ const GroupActionsModal = ({
           lists={lists}
           onClose={onClose}
           coordinates={coordinates}
-          itemId={itemId}
+          groupId={groupId}
         />,
         document.getElementById("modal-actions") as HTMLDivElement
       )}

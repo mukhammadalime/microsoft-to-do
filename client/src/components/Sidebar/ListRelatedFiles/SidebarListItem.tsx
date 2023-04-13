@@ -1,35 +1,36 @@
-import { SideBarItemType } from "../../../types/designTypes";
+import { SidebarListItemType } from "../../../types/designTypes";
 import ListIcon from "../../../Icons/ListIcon";
 import { ReactElement, useState } from "react";
 import ListActionsModal from "./ListActions";
 import TasksListActionsModal from "../TasksListActions";
 
+interface SidebarListItemPropsTypes {
+  actionsDisabled?: boolean;
+  img?: ReactElement;
+  item: SidebarListItemType;
+  activeListItem: string;
+  setActiveListItem: (item: string) => void;
+}
+
 const SidebarListItem = ({
   item,
   img,
   actionsDisabled,
-  activeBar,
-  setActiveBar,
-}: {
-  actionsDisabled?: boolean;
-  img?: ReactElement;
-  item: SideBarItemType;
-  activeBar: string;
-  setActiveBar: (item: string) => void;
-}) => {
+  activeListItem,
+  setActiveListItem,
+}: SidebarListItemPropsTypes) => {
   const [listActionsIsOpen, setListActionsIsOpen] = useState<boolean>(false);
-
   const [coordinates, setCoordinates] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
 
-  const checkActiveBar = item.dublicateNumber
-    ? activeBar === `${item.name} (${item.dublicateNumber})`
-    : activeBar === item.name;
+  const checkActiveListItem = item.dublicateNumber
+    ? activeListItem === `${item.name} (${item.dublicateNumber})`
+    : activeListItem === item.name;
 
-  const setActiveBarHandler = () => {
-    setActiveBar(
+  const setActiveListItemHandler = () => {
+    setActiveListItem(
       `${item.name}${item.dublicateNumber ? ` (${item.dublicateNumber})` : ""}`
     );
   };
@@ -39,49 +40,43 @@ const SidebarListItem = ({
     if (e.type === "contextmenu") {
       setCoordinates({ x: e.pageX, y: e.pageY });
       setListActionsIsOpen(true);
-      setActiveBarHandler();
+      setActiveListItemHandler();
     }
   };
 
   return (
     <>
-      <>
-        <div
-          className={`sidebar__item${
-            checkActiveBar ? " sidebar-active-item" : ""
-          }`}
-          onClick={(e) => {
-            onRightClickHandler(e);
-            setActiveBarHandler();
-          }}
-          onContextMenu={onRightClickHandler}
-        >
-          {img ? img : <ListIcon color="#323130" />}
-          <div>
-            <span>{item.name}</span>
-            {item.dublicateNumber && (
-              <span>{` (${item.dublicateNumber})`}</span>
-            )}
-          </div>
-          {/* <span>2</span> */}
+      <div
+        className={`sidebar__item${
+          checkActiveListItem ? " sidebar-active-item" : ""
+        }`}
+        onClick={(e) => {
+          onRightClickHandler(e);
+          setActiveListItemHandler();
+        }}
+        onContextMenu={onRightClickHandler}
+      >
+        {img ? img : <ListIcon color="#323130" />}
+        <div>
+          <span>{item.name}</span>
+          {item.dublicateNumber && <span>{` (${item.dublicateNumber})`}</span>}
         </div>
-      </>
+        {/* <span>2</span> */}
+      </div>
 
       {listActionsIsOpen && !actionsDisabled && (
         <ListActionsModal
-          item={item}
+          listItem={item}
           coordinates={coordinates}
           onClose={() => setListActionsIsOpen(false)}
         />
       )}
 
       {listActionsIsOpen && actionsDisabled && item.name === "Tasks" && (
-        <>
-          <TasksListActionsModal
-            coordinates={coordinates}
-            onClose={() => setListActionsIsOpen(false)}
-          />
-        </>
+        <TasksListActionsModal
+          coordinates={coordinates}
+          onClose={() => setListActionsIsOpen(false)}
+        />
       )}
     </>
   );

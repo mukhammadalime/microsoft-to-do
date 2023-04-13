@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { SideBarGroupType } from "../../../types/designTypes";
+import { SidebarGroupItemType } from "../../../types/designTypes";
 import { v4 as uuidv4 } from "uuid";
+
+interface GroupsModalPropsTypes {
+  onClose: () => void;
+  coordinates: { x: number; y: number };
+  groupsModalRef: React.RefObject<HTMLDivElement>;
+  listId: string;
+}
 
 const GroupsOverlay = ({
   onClose,
   coordinates,
   groupsModalRef,
   listId,
-}: {
-  onClose: () => void;
-  coordinates: { x: number; y: number };
-  groupsModalRef: React.RefObject<HTMLDivElement>;
-  listId: string;
-}) => {
-  const [groups, setGroups] = useState<SideBarGroupType[]>(() => []);
+}: GroupsModalPropsTypes) => {
+  const [groups, setGroups] = useState<SidebarGroupItemType[]>(() => []);
   const [fromBottom, setFromBottom] = useState<boolean>(() => false);
 
   // GET GROUPS FROM LOCAL STORAGE
@@ -53,7 +55,7 @@ const GroupsOverlay = ({
         }}
       >
         <ul>
-          {groups.map((group: SideBarGroupType) => (
+          {groups.map((group: SidebarGroupItemType) => (
             <li key={uuidv4()}>
               <button onClick={moveListHandler.bind(null, group.id)}>
                 <i>
@@ -79,12 +81,7 @@ const GroupsModal = ({
   coordinates,
   groupsModalRef,
   listId,
-}: {
-  onClose: () => void;
-  coordinates: { x: number; y: number };
-  groupsModalRef: React.RefObject<HTMLDivElement>;
-  listId: string;
-}) => {
+}: GroupsModalPropsTypes) => {
   return (
     <>
       {ReactDOM.createPortal(

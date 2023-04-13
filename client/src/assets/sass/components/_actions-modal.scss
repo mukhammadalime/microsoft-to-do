@@ -100,11 +100,9 @@
     }
 
     .delete-row {
-      button {
-        svg,
-        span {
-          color: var(--font-color-warning);
-        }
+      svg,
+      span {
+        color: var(--font-color-warning);
       }
     }
   }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import PlusIcon from "../../Icons/PlusIcon";
 
-interface AddListOrGroupTypes {
+interface AddListOrGroupPropsTypes {
   addNewListHandler: () => void;
   newListRef: React.RefObject<HTMLInputElement>;
   showAddGroupBoxHandler: () => void;
@@ -13,8 +13,9 @@ const AddListOrGroup = ({
   newListRef,
   showAddGroupBoxHandler,
   addGroupButtonRef,
-}: AddListOrGroupTypes) => {
+}: AddListOrGroupPropsTypes) => {
   const addGroupIconRef = useRef<HTMLImageElement>(null);
+  const [timerID, setTimerID] = useState<NodeJS.Timeout>();
   const [tooltipCoordinates, setTooltipCoordinates] = useState<{
     x: number;
     y: number;
@@ -27,12 +28,14 @@ const AddListOrGroup = ({
       x: addGroupIconRef.current!.x,
       y: addGroupIconRef.current!.y,
     });
-    setTimeout(() => {
-      setAddGroupHovered(true);
-    }, 300);
+    const id = setTimeout(() => setAddGroupHovered(true), 300);
+    setTimerID(id);
   };
 
-  const onMouseLeave = () => setAddGroupHovered(false);
+  const onMouseLeave = () => {
+    window.clearTimeout(timerID);
+    setAddGroupHovered(false);
+  };
 
   return (
     <div className="sidebar__addList">
@@ -69,8 +72,8 @@ const AddListOrGroup = ({
           <div
             className="tooltip-create-group"
             style={{
-              opacity: addGroupHovered ? "1" : "0",
-              visibility: addGroupHovered ? "visible" : "hidden",
+              opacity: "1",
+              visibility: "visible",
               left: tooltipCoordinates.x - 35,
               top: tooltipCoordinates.y - 40,
             }}

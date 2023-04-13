@@ -3,12 +3,15 @@ import QuestionIcon from "../../Icons/QuestionIcon";
 import { useEffect, useRef, useState } from "react";
 import SettingsIcon from "../../Icons/SettingsIcon";
 import NotificationsIcon from "../../Icons/NotificationsIcon";
-import { ActionType, ButtonsTypes } from "../../types/designTypes";
+import {
+  HeaderActionsTypes,
+  HeaderButtonsTypes,
+} from "../../types/designTypes";
 
 const HeaderActions = () => {
   const avatarRef = useRef<HTMLButtonElement>(null);
   const myAccountRef = useRef<HTMLDivElement>(null);
-  const [btnsClicked, setBtnsClicked] = useState<ButtonsTypes>({
+  const [btnsClicked, setBtnsClicked] = useState<HeaderButtonsTypes>({
     settings: false,
     help: false,
     notifications: false,
@@ -37,9 +40,9 @@ const HeaderActions = () => {
   }, [btnsClicked.avatar]);
 
   // HANDLING BUTTONS CLICKS
-  const handleButtonsClicks = (clickedBtn: ActionType) => {
+  const handleButtonsClicks = (clickedBtn: HeaderActionsTypes) => {
     // This function set all values false except the clicked one
-    const filterObj = (obj: ButtonsTypes) => {
+    const filterObj = (obj: HeaderButtonsTypes) => {
       const copiedObj: any = obj;
       const newObj: any = {};
 

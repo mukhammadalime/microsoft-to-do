@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { SideBarGroupType, SideBarItemType } from "../../types/designTypes";
+import {
+  SidebarGroupItemType,
+  SidebarListItemType,
+} from "../../types/designTypes";
 import SidebarListItem from "./ListRelatedFiles/SidebarListItem";
 import AddGroupInput from "./GroupRelatedFiles/AddGroupInput";
 import AddListOrGroup from "./AddListOrGroup";
@@ -9,15 +12,15 @@ import SidebarFooter from "./SidebarFooter";
 import SidebarGroupItem from "./GroupRelatedFiles/SidebarGroupItem";
 
 const Sidebar = ({ onClose }: { onClose: () => void }) => {
-  const [lists, setLists] = useState<SideBarItemType[]>(() => []);
-  const [groups, setGroups] = useState<SideBarGroupType[]>(() => []);
   const newListRef = useRef<HTMLInputElement>(null);
   const newGroupRef = useRef<HTMLInputElement>(null);
   const addGroupButtonRef = useRef<HTMLDivElement>(null);
-  const [activeBar, setActiveBar] = useState<string>(() => "My Day");
+  const [lists, setLists] = useState<SidebarListItemType[]>(() => []);
+  const [groups, setGroups] = useState<SidebarGroupItemType[]>(() => []);
+  const [activeListItem, setActiveListItem] = useState<string>(() => "My Day");
   const [showAddGroupInput, setShowAddGroupInput] = useState<boolean>(false);
 
-  let allItems: Array<SideBarGroupType | SideBarItemType> = [];
+  let allItems: Array<SidebarGroupItemType | SidebarListItemType> = [];
 
   /// Retrieve lists and groups from local storage
   useEffect(() => {
@@ -39,7 +42,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
 
     // Check if the creating list's name is already in the list
     const sameLists = existingLists.filter(
-      (item: SideBarItemType) => item.name === newListRef.current!.value
+      (item: SidebarListItemType) => item.name === newListRef.current!.value
     );
 
     /// When the creating list name is unique
@@ -55,10 +58,10 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         "lists",
         JSON.stringify([...existingLists, newList])
       );
-      setLists((prevState: SideBarItemType[]) => {
+      setLists((prevState: SidebarListItemType[]) => {
         return [...prevState, newList];
       });
-      setActiveBar(newListRef!.current!.value);
+      setActiveListItem(newListRef!.current!.value);
     }
 
     /// When the creating list name is being repeated
@@ -72,7 +75,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         opened: false,
       };
 
-      setLists((prevState: SideBarItemType[]) => {
+      setLists((prevState: SidebarListItemType[]) => {
         return [...prevState, newList];
       });
 
@@ -80,7 +83,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         "lists",
         JSON.stringify([...existingLists, newList])
       );
-      setActiveBar(`${newListRef.current!.value} (${sameLists.length})`);
+      setActiveListItem(`${newListRef.current!.value} (${sameLists.length})`);
     }
 
     setTimeout(() => (newListRef!.current!.value = ""), 0);
@@ -101,7 +104,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
 
     /// When the creating group name is being repeated
     const sameGroups = existingGroups.filter(
-      (item: SideBarGroupType) => item.name === newGroupRef.current!.value
+      (item: SidebarGroupItemType) => item.name === newGroupRef.current!.value
     );
 
     /// When the creating list name is unique
@@ -115,7 +118,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         lists: [],
       };
 
-      setGroups((prevState: SideBarGroupType[]) => {
+      setGroups((prevState: SidebarGroupItemType[]) => {
         return [...prevState, newGroup];
       });
       localStorage.setItem(
@@ -135,7 +138,7 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         lists: [],
       };
 
-      setGroups((prevState: SideBarGroupType[]) => {
+      setGroups((prevState: SidebarGroupItemType[]) => {
         return [...prevState, newGroup];
       });
       localStorage.setItem(
@@ -195,8 +198,8 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
                 actionsDisabled={item.actionsDisabled}
                 img={item.img}
                 key={item.name}
-                activeBar={activeBar}
-                setActiveBar={(item: string) => setActiveBar(item)}
+                activeListItem={activeListItem}
+                setActiveListItem={(item: string) => setActiveListItem(item)}
               />
             );
           })}
@@ -207,7 +210,12 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
             {allItems
               .concat(lists)
               .concat(groups)
-              .sort((a: any, b: any) => a.createdAt - b.createdAt)
+              .sort(
+                (
+                  a: SidebarListItemType | SidebarGroupItemType,
+                  b: SidebarListItemType | SidebarGroupItemType
+                ) => a.createdAt - b.createdAt
+              )
               .map((item: any, i: number) => {
                 switch (item.type) {
                   case "LIST":
@@ -215,8 +223,10 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
                       <SidebarListItem
                         item={item}
                         key={i}
-                        activeBar={activeBar}
-                        setActiveBar={(item: string) => setActiveBar(item)}
+                        activeListItem={activeListItem}
+                        setActiveListItem={(item: string) =>
+                          setActiveListItem(item)
+                        }
                       />
                     );
 
@@ -224,10 +234,12 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
                     return (
                       <SidebarGroupItem
                         {...item}
-                        activeBar={activeBar}
+                        activeListItem={activeListItem}
                         key={i}
-                        setActiveBar={(str: string) => setActiveBar(str)}
-                        updateGroupHandler={(items: SideBarGroupType[]) =>
+                        setActiveListItem={(str: string) =>
+                          setActiveListItem(str)
+                        }
+                        updateGroupHandler={(items: SidebarGroupItemType[]) =>
                           setGroups(items)
                         }
                       />

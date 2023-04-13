@@ -1,14 +1,18 @@
 /// HEADER TYPES
 
 // An interface for buttons state
-export interface ButtonsTypes {
+export interface HeaderButtonsTypes {
   settings: boolean;
   help: boolean;
   notifications: boolean;
   avatar: boolean;
 }
 // Action types for buttons
-export type ActionType = "SETTINGS" | "HELP" | "NOTIFICATIONS" | "AVATAR";
+export type HeaderActionsTypes =
+  | "SETTINGS"
+  | "HELP"
+  | "NOTIFICATIONS"
+  | "AVATAR";
 
 /// 365 APPS TYPES
 export interface _365AppsTypes {
@@ -23,7 +27,7 @@ export interface AppsLauncherTypes {
 }
 
 /// SIDEBAR ITEM TYPES
-export interface SideBarItemType {
+export interface SidebarListItemType {
   name: string;
   dublicateNumber?: number;
   createdAt: number;
@@ -33,7 +37,7 @@ export interface SideBarItemType {
 }
 
 /// SIDEBAR GROUP TYPE
-export interface SideBarGroupType {
+export interface SidebarGroupItemType {
   name: string;
   dublicateNumber?: number;
   createdAt: number;

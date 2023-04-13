@@ -1,24 +1,21 @@
-import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import PrintIcon from "../../Icons/PrintIcon";
+import ModalActionItem from "../ModalActionItem";
+import { useEffect, useRef, useState } from "react";
 import DublicateIcon from "../../Icons/DublicateIcon";
-import { SideBarGroupType } from "../../types/designTypes";
+
+interface TasksListsActionsProps {
+  onClose: () => void;
+  coordinates: { x: number; y: number };
+}
 
 const TasksListActionsOverlay = ({
   onClose,
   coordinates,
-}: {
-  onClose: () => void;
-  coordinates: { x: number; y: number };
-}) => {
+}: TasksListsActionsProps) => {
   const tasksRef = useRef<HTMLDivElement>(null);
-  const [groups, setGroups] = useState<SideBarGroupType[]>(() => []);
-
-  // GET GROUPS FROM LOCAL STORAGE
-  useEffect(() => {
-    const existingGroups = JSON.parse(localStorage.getItem("groups")!) ?? [];
-    setGroups(existingGroups);
-  }, []);
+  const [defaultHoverFirstAction, setDefaultHoverFirstAction] =
+    useState<boolean>(true);
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
@@ -34,10 +31,12 @@ const TasksListActionsOverlay = ({
     };
   }, [onClose]);
 
+  const onMouseEnterHandlar = () => setDefaultHoverFirstAction(false);
+
   return (
     <div className="modal-layer">
       <div
-        className={`actions-modal`}
+        className="actions-modal"
         style={{
           left: coordinates.x,
           bottom: -coordinates.y - 88,
@@ -45,23 +44,20 @@ const TasksListActionsOverlay = ({
         ref={tasksRef}
       >
         <ul>
-          <li>
-            <button>
-              <i>
-                <DublicateIcon />
-              </i>
+          <ModalActionItem
+            onClickHandler={() => {}}
+            onMouseEnter={onMouseEnterHandlar}
+            name="Dublicate list"
+            icon={<DublicateIcon />}
+            defaultHoverFirstAction={defaultHoverFirstAction}
+          />
 
-              <span>Dublicate list</span>
-            </button>
-          </li>
-          <li>
-            <button>
-              <i>
-                <PrintIcon />
-              </i>
-              <span>Print list</span>
-            </button>
-          </li>
+          <ModalActionItem
+            onClickHandler={() => {}}
+            onMouseEnter={onMouseEnterHandlar}
+            name="Print list"
+            icon={<PrintIcon />}
+          />
         </ul>
       </div>
     </div>
@@ -71,10 +67,7 @@ const TasksListActionsOverlay = ({
 const TasksListActionsModal = ({
   onClose,
   coordinates,
-}: {
-  onClose: () => void;
-  coordinates: { x: number; y: number };
-}) => {
+}: TasksListsActionsProps) => {
   return (
     <>
       {ReactDOM.createPortal(

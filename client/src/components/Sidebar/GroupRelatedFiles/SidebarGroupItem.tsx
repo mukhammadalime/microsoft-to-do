@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { SideBarGroupType, SideBarItemType } from "../../../types/designTypes";
+import {
+  SidebarGroupItemType,
+  SidebarListItemType,
+} from "../../../types/designTypes";
 import GroupActionsModal from "./GroupActions";
 import { v4 as uuidv4 } from "uuid";
 import SidebarListItem from "../ListRelatedFiles/SidebarListItem";
 
-interface SidebarGroupItemTypes extends SideBarGroupType {
-  activeBar: string;
-  setActiveBar: (str: string) => void;
-  updateGroupHandler: (items: SideBarGroupType[]) => void;
+interface SidebarGroupItemTypes extends SidebarGroupItemType {
+  activeListItem: string;
+  setActiveListItem: (str: string) => void;
+  updateGroupHandler: (items: SidebarGroupItemType[]) => void;
 }
 
 const SidebarGroupItem = ({
@@ -16,8 +19,8 @@ const SidebarGroupItem = ({
   id,
   lists,
   dublicateNumber,
-  activeBar,
-  setActiveBar,
+  activeListItem,
+  setActiveListItem,
   updateGroupHandler,
 }: SidebarGroupItemTypes) => {
   const [groupActionsIsOpen, setGroupActionsIsOpen] = useState<boolean>(
@@ -29,15 +32,16 @@ const SidebarGroupItem = ({
   });
   const [editingMode, setEditingMode] = useState(() => false);
 
-  const [groupLists, setGroupLists] = useState<SideBarItemType[]>([]);
+  const [groupLists, setGroupLists] = useState<SidebarListItemType[]>([]);
 
+  // GET LISTS FROM LOCAL STORAGE
   useEffect(() => {
     const existingLists = JSON.parse(localStorage.getItem("lists")!) ?? [];
-    const currentGroupLists: SideBarItemType[] = [];
+    const currentGroupLists: SidebarListItemType[] = [];
 
     for (let i = 0; i < lists!.length; i++) {
       const item = existingLists.find(
-        (item: SideBarItemType) => item.id === lists![i]
+        (item: SidebarListItemType) => item.id === lists![i]
       );
       currentGroupLists.push(item);
     }
@@ -49,7 +53,7 @@ const SidebarGroupItem = ({
   const toggleGroupBox = () => {
     const existingGroups = JSON.parse(localStorage.getItem("groups")!);
     const currentGroupIndex = existingGroups.findIndex(
-      (item: SideBarGroupType) => item.id === id
+      (item: SidebarGroupItemType) => item.id === id
     );
 
     const currentGroup = existingGroups[currentGroupIndex];
@@ -66,7 +70,6 @@ const SidebarGroupItem = ({
       setCoordinates({ x: e.pageX, y: e.pageY });
       setGroupActionsIsOpen(true);
     }
-    return false;
   };
 
   return (
@@ -108,7 +111,6 @@ const SidebarGroupItem = ({
               id="addGroupInput"
               placeholder="Untitled group"
               defaultValue={name}
-              // ref={ref}
             />
           </form>
         )}
@@ -120,8 +122,8 @@ const SidebarGroupItem = ({
               <SidebarListItem
                 key={uuidv4()}
                 item={item}
-                activeBar={activeBar}
-                setActiveBar={(item: string) => setActiveBar(item)}
+                activeListItem={activeListItem}
+                setActiveListItem={(item: string) => setActiveListItem(item)}
               />
             ))
           ) : (
@@ -134,7 +136,7 @@ const SidebarGroupItem = ({
 
       {groupActionsIsOpen && (
         <GroupActionsModal
-          itemId={id}
+          groupId={id}
           lists={lists}
           coordinates={coordinates}
           onClose={() => setGroupActionsIsOpen(false)}

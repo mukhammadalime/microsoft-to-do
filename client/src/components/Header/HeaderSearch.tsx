@@ -1,7 +1,7 @@
+import XIcon from "../../Icons/XIcon";
+import SearchIcon from "../../Icons/SearchIcon";
 import { useEffect, useRef, useState } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import SearchIcon from "../../Icons/SearchIcon";
-import XIcon from "../../Icons/XIcon";
 
 const HeaderSearch = () => {
   const windowWidth = useWindowWidth();

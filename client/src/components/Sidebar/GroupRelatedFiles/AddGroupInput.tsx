@@ -1,14 +1,14 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 const AddGroupInput = React.forwardRef<
   HTMLInputElement,
-  { onAddGroup: (e: any) => void }
+  { onAddGroup: (e: ChangeEvent<HTMLFormElement>) => void }
 >(({ onAddGroup }, ref) => {
   return (
     <form
       className="addGroupBox"
       id="addGroupBox"
-      onSubmit={(e) => onAddGroup(e)}
+      onSubmit={(e: ChangeEvent<HTMLFormElement>) => onAddGroup(e)}
     >
       <button>
         <img src="./assets/icons/groupIcon.svg" alt="" />
