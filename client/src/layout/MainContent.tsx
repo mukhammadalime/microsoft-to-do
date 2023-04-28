@@ -8,6 +8,7 @@ import PlusIcon from "../Icons/PlusIcon";
 import CalendarIcon from "../Icons/CalendarIcon";
 import BellIcon from "../Icons/BellIcon";
 import RepeatIcon from "../Icons/RepeatIcon";
+import TasksHeader from "../components/MainContent/TasksHeader";
 
 const MainContent = () => {
   const [inputFocused, setInputFocused] = useState<boolean>(() => false);
@@ -19,35 +20,7 @@ const MainContent = () => {
   return (
     <div className="centerContent">
       <div className="tasks-container">
-        <div className="tasks-header my-day">
-          <div className="tasks-header__content">
-            <div className="tasks-header__left">
-              <div className="tasks-header__left--top">
-                <h2>
-                  <SunIcon />
-                  <span>My Day</span>
-                </h2>
-                <button>
-                  <ThreeDotsIcon />
-                </button>
-              </div>
-              <div className="tasks-header__left--bottom">
-                <span>Friday, April 14</span>
-              </div>
-            </div>
-
-            <div className="tasks-header__right">
-              <button>
-                <SortIcon />
-                <span>Sort</span>
-              </button>
-              <button>
-                <LampIcon />
-                <span>Suggestions</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        <TasksHeader />
 
         <div className="flex-container">
           <div className="add-tasks">

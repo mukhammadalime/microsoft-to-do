@@ -24,6 +24,21 @@
     background-color: var(--bg-separator);
   }
 
+  &__header {
+    display: block;
+    margin-bottom: 0.6rem;
+    text-align: center;
+    padding: 0.8rem 0.8rem 1.2rem 0.8rem;
+    border-bottom: 1px solid #edebe9;
+    border-bottom: 1px solid var(--bg-separator);
+    color: #323130;
+    color: var(--font-color-primary);
+    font-weight: 600;
+    font-size: 1.4rem;
+    background-color: #fff;
+    background-color: var(--bg-tertiary);
+  }
+
   ul {
     li {
       min-height: 38px;

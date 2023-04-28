@@ -44,6 +44,7 @@
     &--top {
       display: flex;
       align-items: center;
+      gap: 2px;
     }
 
     &--bottom {
@@ -87,7 +88,6 @@
       display: grid;
       place-items: center;
       cursor: pointer;
-      margin-left: 2px;
 
       svg {
         fill: #605e5c;
