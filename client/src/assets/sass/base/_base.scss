@@ -8,10 +8,13 @@ html {
   font-size: 62.5%;
 }
 
+#root {
+  height: 100%;
+}
+
 body {
   font-family: "Roboto", sans-serif;
-  position: relative;
-  user-select: none !important;
+  height: 100vh;
 }
 
 button,

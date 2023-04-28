@@ -4,6 +4,7 @@ import ModalActionItem from "../ModalActionItem";
 import { useEffect, useRef, useState } from "react";
 import DublicateIcon from "../../Icons/DublicateIcon";
 import { CoordinatesTypes } from "../../types/designTypes";
+import ModalWrapper from "../ModalWrapper";
 
 interface TasksListsActionsProps {
   onClose: () => void;
@@ -35,32 +36,30 @@ const TasksListActionsOverlay = ({
   const onMouseEnterHandlar = () => setDefaultHoverFirstAction(false);
 
   return (
-    <div className="modal-layer">
-      <div
-        className="actions-modal"
-        style={{
-          left: coordinates.x,
-          bottom: -coordinates.y - 88,
-        }}
-        ref={tasksRef}
-      >
-        <ul>
-          <ModalActionItem
-            onClickHandler={() => {}}
-            onMouseEnter={onMouseEnterHandlar}
-            name="Dublicate list"
-            icon={<DublicateIcon />}
-            defaultHoverFirstAction={defaultHoverFirstAction}
-          />
+    <div
+      className="actions-modal"
+      style={{
+        left: coordinates.x,
+        bottom: -coordinates.y - 88,
+      }}
+      ref={tasksRef}
+    >
+      <ul>
+        <ModalActionItem
+          onClickHandler={() => {}}
+          onMouseEnter={onMouseEnterHandlar}
+          name="Dublicate list"
+          icon={<DublicateIcon />}
+          defaultHoverFirstAction={defaultHoverFirstAction}
+        />
 
-          <ModalActionItem
-            onClickHandler={() => {}}
-            onMouseEnter={onMouseEnterHandlar}
-            name="Print list"
-            icon={<PrintIcon />}
-          />
-        </ul>
-      </div>
+        <ModalActionItem
+          onClickHandler={() => {}}
+          onMouseEnter={onMouseEnterHandlar}
+          name="Print list"
+          icon={<PrintIcon />}
+        />
+      </ul>
     </div>
   );
 };
@@ -72,8 +71,13 @@ const TasksListActionsModal = ({
   return (
     <>
       {ReactDOM.createPortal(
-        <TasksListActionsOverlay onClose={onClose} coordinates={coordinates} />,
-        document.getElementById("modal-actions") as HTMLDivElement
+        <ModalWrapper>
+          <TasksListActionsOverlay
+            onClose={onClose}
+            coordinates={coordinates}
+          />
+        </ModalWrapper>,
+        document.getElementById("modal-wrapper") as HTMLDivElement
       )}
     </>
   );

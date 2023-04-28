@@ -118,18 +118,6 @@
   animation-name: animation-1, animation-4;
 }
 
-#modal-actions {
-  position: fixed;
-  z-index: 1000000;
-  inset: 0px;
-  visibility: hidden;
-}
-
-.modal-layer {
-  position: relative;
-  visibility: visible;
-}
-
 @keyframes animation-1 {
   0% {
     opacity: 0;

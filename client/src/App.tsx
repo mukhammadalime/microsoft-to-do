@@ -1,12 +1,12 @@
 import Header from "./layout/Header";
-import MainContent from "./layout/MainContent";
+import MainContentWrapper from "./layout/MainContentWrapper";
 
 function App() {
   return (
-    <>
+    <div id="app">
       <Header />
-      <MainContent />
-    </>
+      <MainContentWrapper />
+    </div>
   );
 }
 

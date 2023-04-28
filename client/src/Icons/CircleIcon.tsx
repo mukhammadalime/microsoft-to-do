@@ -1,4 +1,4 @@
-const PlusIcon = () => {
+const CircleIcon = () => {
   return (
     <svg
       fill="currentColor"
@@ -9,11 +9,11 @@ const PlusIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M10 2.5a.5.5 0 00-1 0V9H2.5a.5.5 0 000 1H9v6.5a.5.5 0 001 0V10h6.5a.5.5 0 000-1H10V2.5z"
+        d="M10 3a7 7 0 100 14 7 7 0 000-14zm-8 7a8 8 0 1116 0 8 8 0 01-16 0z"
         fill="currentColor"
       ></path>
     </svg>
   );
 };
 
-export default PlusIcon;
+export default CircleIcon;

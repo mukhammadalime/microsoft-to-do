@@ -125,27 +125,27 @@ export const defaultSideBarItems: {
 }[] = [
   {
     name: "My Day",
-    img: <SunIcon color="#323130" />,
+    img: <SunIcon />,
     actionsDisabled: true,
   },
   {
     name: "Important",
-    img: <StarIcon color="#323130" />,
+    img: <StarIcon />,
     actionsDisabled: true,
   },
   {
     name: "Planned",
-    img: <CalendarIcon color="#323130" />,
+    img: <CalendarIcon />,
     actionsDisabled: true,
   },
   {
     name: "Assigned to me",
-    img: <PersonIcon color="#323130" />,
+    img: <PersonIcon />,
     actionsDisabled: true,
   },
   {
     name: "Tasks",
-    img: <HomeIcon color="#323130" />,
+    img: <HomeIcon />,
     actionsDisabled: "limited",
   },
 ];

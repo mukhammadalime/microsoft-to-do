@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
 import PlusIcon from "../../Icons/PlusIcon";
+import { CoordinatesTypes } from "../../types/designTypes";
+import Tooltip from "../Tooltips/Tooltip";
+import AddGroupIcon from "../../Icons/AddGroupIcon";
 
 interface AddListOrGroupPropsTypes {
   addNewListHandler: () => void;
@@ -14,76 +17,83 @@ const AddListOrGroup = ({
   showAddGroupBoxHandler,
   addGroupButtonRef,
 }: AddListOrGroupPropsTypes) => {
-  const addGroupIconRef = useRef<HTMLImageElement>(null);
+  const addGroupIconRef = useRef<HTMLButtonElement>(null);
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
-  const [tooltipCoordinates, setTooltipCoordinates] = useState<{
-    x: number;
-    y: number;
-  }>({ x: 0, y: 0 });
+  const [tooltipCoordinates, setTooltipCoordinates] =
+    useState<CoordinatesTypes>({ x: 0, y: 0 });
   const [addGroupHovered, setAddGroupHovered] = useState<boolean>(() => false);
 
   /// HANDLE ADDGROUP HOVER
   const onMouseEnter = () => {
+    const tooltipHost = document.querySelector(
+      ".add-group-tooltip-host"
+    ) as HTMLDivElement;
+    const position = tooltipHost.getBoundingClientRect();
     setTooltipCoordinates({
-      x: addGroupIconRef.current!.x,
-      y: addGroupIconRef.current!.y,
+      x: position.left,
+      y: position.top,
     });
+
     const id = setTimeout(() => setAddGroupHovered(true), 300);
     setTimerID(id);
   };
 
   const onMouseLeave = () => {
-    window.clearTimeout(timerID);
+    clearTimeout(timerID);
     setAddGroupHovered(false);
   };
 
   return (
-    <div className="sidebar__addList">
-      <form className="addListForm" onSubmit={addNewListHandler}>
-        <button>
-          <PlusIcon color="#3459c1" />
-        </button>
+    <>
+      <div className="sidebar__addList">
+        <form className="addListForm" onSubmit={addNewListHandler}>
+          <button>
+            <PlusIcon />
+          </button>
 
-        <input
-          type="text"
-          id="addList"
-          ref={newListRef}
-          placeholder="New List"
-          autoComplete="off"
-        />
-      </form>
-      <div
-        className="addGroupButton"
-        onClick={() => {
-          showAddGroupBoxHandler();
-          setAddGroupHovered(false);
-        }}
-        ref={addGroupButtonRef}
-      >
-        <img
-          src="./assets/icons/addGroupIcon.svg"
-          alt=""
-          onMouseEnter={onMouseEnter}
-          onMouseOut={onMouseLeave}
-          ref={addGroupIconRef}
-        />
-
-        {addGroupHovered && (
-          <div
-            className="tooltip-create-group"
-            style={{
-              opacity: "1",
-              visibility: "visible",
-              left: tooltipCoordinates.x - 35,
-              top: tooltipCoordinates.y - 40,
-            }}
-          >
-            <div className="content">Create Group</div>
-            <div className="triangle" />
+          <input
+            type="text"
+            id="addList"
+            ref={newListRef}
+            placeholder="New List"
+            autoComplete="off"
+          />
+        </form>
+        <div
+          className="addGroupButtonWrapper"
+          onClick={() => {
+            showAddGroupBoxHandler();
+            setAddGroupHovered(false);
+          }}
+          ref={addGroupButtonRef}
+        >
+          <div className="add-group-tooltip-host">
+            <button
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              ref={addGroupIconRef}
+              className="addGroupButton"
+            >
+              <AddGroupIcon />
+            </button>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+
+      {addGroupHovered && (
+        <Tooltip
+          content="Create group"
+          tooltipPosition={{
+            x: tooltipCoordinates.x - 9,
+            y: tooltipCoordinates.y - 38,
+          }}
+          trianglePosition={{
+            left: "34.5px",
+            bottom: "-8px",
+          }}
+        />
+      )}
+    </>
   );
 };
 

@@ -252,6 +252,10 @@
       place-items: center;
       cursor: pointer;
 
+      svg {
+        fill: #252423;
+      }
+
       svg,
       div {
         height: 1.3rem;

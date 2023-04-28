@@ -2,18 +2,23 @@ import XIcon from "../../Icons/XIcon";
 import SearchIcon from "../../Icons/SearchIcon";
 import { useEffect, useRef, useState } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
+import Tooltip from "../Tooltips/Tooltip";
+import { CoordinatesTypes } from "../../types/designTypes";
 
 const HeaderSearch = () => {
   const windowWidth = useWindowWidth();
   const searchRef = useRef<HTMLDivElement>(null);
+  const searchIconRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [showInput, setShowInput] = useState<boolean>(() => false);
-  const [timerID, setTimerID] = useState<NodeJS.Timeout>();
-  const [timer2ID, setTimer2ID] = useState<NodeJS.Timeout>();
-  const [searchHovered, setSearchHovered] = useState<boolean>(() => false);
-  const [exitSearchHovered, setExitSearchHovered] = useState<boolean>(
-    () => false
-  );
+  const [showInput, setShowInput] = useState<boolean>(false);
+  const [searchTimerID, setSearchTimerID] = useState<NodeJS.Timeout>();
+  const [exitTimerID, setExitTimerID] = useState<NodeJS.Timeout>();
+  const [searchHovered, setSearchHovered] = useState<boolean>(false);
+  const [searchTooltipCoordinates, setSearchTooltipCoordinates] =
+    useState<CoordinatesTypes>({ x: 0, y: 0 });
+  const [exitSearchTooltipCoordinates, setExitSearchTooltipCoordinates] =
+    useState<CoordinatesTypes>({ x: 0, y: 0 });
+  const [exitSearchHovered, setExitSearchHovered] = useState<boolean>(false);
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
@@ -31,12 +36,13 @@ const HeaderSearch = () => {
     return () => {
       document.removeEventListener("mousedown", outsideClickHandler);
     };
-  }, [showInput, timer2ID]);
+  }, [showInput]);
 
   // SHOW SEARCH INPUT
   const showSearchInput = (): void => {
-    clearTimeout(timerID);
-    setExitSearchHovered(false);
+    // We clear search timeout because we do not want search tooltip to show up after clicking search input in less than 400 ms
+    clearTimeout(searchTimerID);
+    setSearchHovered(false);
     if (!showInput) {
       setShowInput(true);
       setTimeout(() => inputRef.current!.focus(), 0);
@@ -45,87 +51,114 @@ const HeaderSearch = () => {
 
   // SHOW SEARCH TOOLTIP
   const onSearchMouseEnter = () => {
+    const tooltipHost = document.querySelector(
+      ".search-tooltip-host"
+    ) as HTMLDivElement;
+    const searchTooltipPosition = tooltipHost.getBoundingClientRect();
+    setSearchTooltipCoordinates({
+      x: searchTooltipPosition.left,
+      y: searchTooltipPosition.top,
+    });
+
     if (!showInput) {
       const id = setTimeout(() => setSearchHovered(true), 400);
-      setTimerID(id);
+      setSearchTimerID(id);
     }
   };
   const onSearchMouseLeave = () => {
-    clearTimeout(timerID);
+    clearTimeout(searchTimerID);
     setSearchHovered(false);
   };
 
   // ON EXIT SEARCH MOUSE ENTER
   const onExitSearchMouseEnter = () => {
+    const exitTooltipHost = document.querySelector(
+      ".exit-tooltip-host"
+    ) as HTMLDivElement;
+    const exitSearchTooltipPosition = exitTooltipHost.getBoundingClientRect();
+    setExitSearchTooltipCoordinates({
+      x: exitSearchTooltipPosition.left,
+      y: 0,
+    });
+
     const id = setTimeout(() => setExitSearchHovered(true), 300);
-    setTimer2ID(id);
+    setExitTimerID(id);
   };
 
   // ON EXIT SEARCH MOUSE LEAVE
   const onExitSearchMouseLeave = () => {
-    clearTimeout(timer2ID);
+    clearTimeout(exitTimerID);
     setExitSearchHovered(false);
   };
 
   return (
-    <div className="search-container">
-      <div
-        className={`header__search${
-          showInput && windowWidth <= 550 ? " search-clicked" : ""
-        }`}
-        onClick={showSearchInput}
-        ref={searchRef}
-        onMouseEnter={onSearchMouseEnter}
-        onMouseLeave={onSearchMouseLeave}
-        style={{
-          width: windowWidth <= 900 && showInput ? "100%" : "",
-          maxWidth: windowWidth <= 900 && showInput ? "100%" : "",
-        }}
-      >
-        {searchHovered && (
-          <div
-            className="tooltip-search"
-            style={{
-              opacity: !showInput ? "1" : "0",
-              visibility: !showInput ? "visible" : "hidden",
-            }}
-          >
-            <div className="content">Search</div>
-            <div className="triangle" />
+    <>
+      <div className="search-container">
+        <div
+          className={`header__search${
+            showInput && windowWidth <= 550 ? " search-clicked" : ""
+          }`}
+          onClick={showSearchInput}
+          ref={searchRef}
+          onMouseEnter={onSearchMouseEnter}
+          onMouseLeave={onSearchMouseLeave}
+          style={{
+            width: windowWidth <= 900 && showInput ? "100%" : "",
+            maxWidth: windowWidth <= 900 && showInput ? "100%" : "",
+          }}
+        >
+          <div className="search-tooltip-host">
+            <button className="header__search--icon" ref={searchIconRef}>
+              <SearchIcon />
+            </button>
           </div>
-        )}
 
-        <div className="header__search--icon">
-          <SearchIcon color="#2564cf" />
-        </div>
+          {showInput && (
+            <div className="header__search--input">
+              <input ref={inputRef} type="text" placeholder="Search" />
 
-        {showInput && (
-          <div className="header__search--input">
-            <input ref={inputRef} type="text" placeholder="Search" />
-            <span
-              onClick={() => setShowInput(false)}
-              onMouseEnter={onExitSearchMouseEnter}
-              onMouseLeave={onExitSearchMouseLeave}
-            >
-              <XIcon />
-
-              {exitSearchHovered && (
-                <div
-                  className="tooltip-exit-search"
-                  // style={{
-                  //   visibility: "visible",
-                  //   opacity: 1,
-                  // }}
+              <div className="exit-tooltip-host">
+                <button
+                  onClick={() => setShowInput(false)}
+                  onMouseEnter={onExitSearchMouseEnter}
+                  onMouseLeave={onExitSearchMouseLeave}
                 >
-                  <div className="triangle" />
-                  <div className="content">Exit search</div>
-                </div>
-              )}
-            </span>
-          </div>
-        )}
+                  <XIcon />
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      {searchHovered && (
+        <Tooltip
+          content="Search"
+          tooltipPosition={{
+            x: searchTooltipCoordinates.x - 66,
+            y: searchTooltipCoordinates.y,
+          }}
+          trianglePosition={{
+            top: "8px",
+            right: "-8px",
+          }}
+        />
+      )}
+
+      {exitSearchHovered && (
+        <Tooltip
+          content="Exit search"
+          tooltipPosition={{
+            x: exitSearchTooltipCoordinates.x - 22,
+            y: 51,
+          }}
+          trianglePosition={{
+            top: "-7px",
+            left: "29.5px",
+          }}
+        />
+      )}
+    </>
   );
 };
 

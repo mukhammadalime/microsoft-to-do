@@ -5,6 +5,7 @@ import {
   SidebarGroupItemType,
 } from "../../../types/designTypes";
 import { v4 as uuidv4 } from "uuid";
+import ModalWrapper from "../../ModalWrapper";
 
 interface GroupsModalPropsTypes {
   onClose: () => void;
@@ -46,35 +47,32 @@ const GroupsOverlay = ({
   };
 
   return (
-    <div className="modal-layer" ref={groupsModalRef}>
-      <div
-        className="actions-modal groups-modal"
-        style={{
-          bottom: fromBottom
-            ? -961
-            : -(coordinates.y + groups.length * 38 + 12 + 46),
-          left: coordinates.x + 200,
-          overflowY: groups.length * 38 + 12 > 951 ? "scroll" : "unset",
-        }}
-      >
-        <ul>
-          {groups.map((group: SidebarGroupItemType) => (
-            <li key={uuidv4()}>
-              <button onClick={moveListHandler.bind(null, group.id)}>
-                <i>
-                  <img src="./assets/icons/groupIcon.svg" alt="" />
-                </i>
-                <span>
-                  {group.name}{" "}
-                  {group.dublicateNumber && (
-                    <span>{group.dublicateNumber}</span>
-                  )}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div
+      ref={groupsModalRef}
+      className="actions-modal groups-modal"
+      style={{
+        bottom: fromBottom
+          ? -961
+          : -(coordinates.y + groups.length * 38 + 12 + 46),
+        left: coordinates.x + 200,
+        overflowY: groups.length * 38 + 12 > 951 ? "scroll" : "unset",
+      }}
+    >
+      <ul>
+        {groups.map((group: SidebarGroupItemType) => (
+          <li key={uuidv4()}>
+            <button onClick={moveListHandler.bind(null, group.id)}>
+              <i>
+                <img src="./assets/icons/groupIcon.svg" alt="" />
+              </i>
+              <span>
+                {group.name}{" "}
+                {group.dublicateNumber && <span>{group.dublicateNumber}</span>}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -88,13 +86,16 @@ const GroupsModal = ({
   return (
     <>
       {ReactDOM.createPortal(
-        <GroupsOverlay
-          listId={listId}
-          onClose={onClose}
-          coordinates={coordinates}
-          groupsModalRef={groupsModalRef}
-        />,
-        document.getElementById("modal-actions") as HTMLDivElement
+        <ModalWrapper>
+          <GroupsOverlay
+            listId={listId}
+            onClose={onClose}
+            coordinates={coordinates}
+            groupsModalRef={groupsModalRef}
+          />
+        </ModalWrapper>,
+
+        document.getElementById("modal-wrapper") as HTMLDivElement
       )}
     </>
   );

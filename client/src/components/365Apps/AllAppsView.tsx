@@ -29,7 +29,7 @@ const AllAppsView = ({ onClose }: { onClose: () => void }) => {
               <XIcon />
             </div>
           ) : (
-            <SearchIcon color="#252423" />
+            <SearchIcon />
           )}
         </button>
 

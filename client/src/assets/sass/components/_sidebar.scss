@@ -1,18 +1,23 @@
-.sidebar {
+.leftContent {
   z-index: 60;
   display: flex;
-  height: 100%;
   flex-direction: column;
-  background-color: var(--bg-primary);
   transition: width 180ms ease;
   width: 29rem;
-
-  box-shadow: 0px 0.3px 0.9px var(--bg-shadow), 0px 1.6px 3.6px var(--bg-shadow);
-  background-color: var(--bg-primary);
 
   @media (max-width: 900px) {
     width: 22rem;
   }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0.3px 0.9px var(--bg-shadow), 0px 1.6px 3.6px var(--bg-shadow);
+  background-color: var(--bg-primary);
 
   &__header {
     height: 48px;
@@ -36,6 +41,8 @@
 
   &__items {
     overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
   }
 
   .sidebar-active-item {
@@ -150,6 +157,10 @@
   button {
     height: 2rem;
     cursor: pointer;
+
+    svg {
+      color: var(--font-color-brand);
+    }
   }
 
   input {
@@ -171,12 +182,25 @@
 }
 
 /// ADD GROUP INPUT BOX AND BUTTON
-.addGroupButton {
-  padding: 0 2.4rem;
+.addGroupButtonWrapper {
   display: grid;
   place-items: center;
   position: relative;
   transition: all 0.3s;
+
+  button {
+    padding: 0 2.4rem;
+
+    svg {
+      fill: #323130;
+      fill: var(--font-color-primary);
+
+      path {
+        fill: #2564cf;
+        fill: var(--font-color-brand);
+      }
+    }
+  }
 
   &:hover {
     background-color: var(--bg-hover);

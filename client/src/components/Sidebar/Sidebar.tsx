@@ -178,93 +178,95 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
   }, []);
 
   return (
-    <div className="sidebar">
-      <div className="sidebar__header">
-        <img src="./assets/icons/sidebarIcon.svg" alt="" onClick={onClose} />
-      </div>
-
-      <div className="sidebar__content">
-        <div className="sidebar__items">
-          {defaultSideBarItems.map((item) => {
-            return (
-              <SidebarListItem
-                item={{
-                  ...item,
-                  createdAt: 0,
-                  type: "",
-                  id: "",
-                  opened: false,
-                }}
-                actionsDisabled={item.actionsDisabled}
-                img={item.img}
-                key={item.name}
-                activeListItem={activeListItem}
-                setActiveListItem={(item: string) => setActiveListItem(item)}
-              />
-            );
-          })}
-
-          <div className="sidebar__line"></div>
-
-          <div>
-            {allItems
-              .concat(lists)
-              .concat(groups)
-              .sort(
-                (
-                  a: SidebarListItemType | SidebarGroupItemType,
-                  b: SidebarListItemType | SidebarGroupItemType
-                ) => a.createdAt - b.createdAt
-              )
-              .map((item: any, i: number) => {
-                switch (item.type) {
-                  case "LIST":
-                    return (
-                      <SidebarListItem
-                        item={item}
-                        key={i}
-                        activeListItem={activeListItem}
-                        setActiveListItem={(item: string) =>
-                          setActiveListItem(item)
-                        }
-                      />
-                    );
-
-                  case "GROUP":
-                    return (
-                      <SidebarGroupItem
-                        {...item}
-                        activeListItem={activeListItem}
-                        key={i}
-                        setActiveListItem={(str: string) =>
-                          setActiveListItem(str)
-                        }
-                        updateGroupHandler={(items: SidebarGroupItemType[]) =>
-                          setGroups(items)
-                        }
-                      />
-                    );
-
-                  default:
-                    return <></>;
-                }
-              })}
-
-            {showAddGroupInput && (
-              <AddGroupInput ref={newGroupRef} onAddGroup={addGroupHandler} />
-            )}
-          </div>
+    <div className="leftContent">
+      <div className="sidebar">
+        <div className="sidebar__header">
+          <img src="./assets/icons/sidebarIcon.svg" alt="" onClick={onClose} />
         </div>
 
-        <AddListOrGroup
-          addNewListHandler={addNewListHandler}
-          newListRef={newListRef}
-          showAddGroupBoxHandler={showAddGroupBoxHandler}
-          addGroupButtonRef={addGroupButtonRef}
-        />
-      </div>
+        <div className="sidebar__content">
+          <div className="sidebar__items">
+            {defaultSideBarItems.map((item) => {
+              return (
+                <SidebarListItem
+                  item={{
+                    ...item,
+                    createdAt: 0,
+                    type: "",
+                    id: "",
+                    opened: false,
+                  }}
+                  actionsDisabled={item.actionsDisabled}
+                  img={item.img}
+                  key={item.name}
+                  activeListItem={activeListItem}
+                  setActiveListItem={(item: string) => setActiveListItem(item)}
+                />
+              );
+            })}
 
-      <SidebarFooter />
+            <div className="sidebar__line"></div>
+
+            <div>
+              {allItems
+                .concat(lists)
+                .concat(groups)
+                .sort(
+                  (
+                    a: SidebarListItemType | SidebarGroupItemType,
+                    b: SidebarListItemType | SidebarGroupItemType
+                  ) => a.createdAt - b.createdAt
+                )
+                .map((item: any, i: number) => {
+                  switch (item.type) {
+                    case "LIST":
+                      return (
+                        <SidebarListItem
+                          item={item}
+                          key={i}
+                          activeListItem={activeListItem}
+                          setActiveListItem={(item: string) =>
+                            setActiveListItem(item)
+                          }
+                        />
+                      );
+
+                    case "GROUP":
+                      return (
+                        <SidebarGroupItem
+                          {...item}
+                          activeListItem={activeListItem}
+                          key={i}
+                          setActiveListItem={(str: string) =>
+                            setActiveListItem(str)
+                          }
+                          updateGroupHandler={(items: SidebarGroupItemType[]) =>
+                            setGroups(items)
+                          }
+                        />
+                      );
+
+                    default:
+                      return <></>;
+                  }
+                })}
+
+              {showAddGroupInput && (
+                <AddGroupInput ref={newGroupRef} onAddGroup={addGroupHandler} />
+              )}
+            </div>
+          </div>
+
+          <AddListOrGroup
+            addNewListHandler={addNewListHandler}
+            newListRef={newListRef}
+            showAddGroupBoxHandler={showAddGroupBoxHandler}
+            addGroupButtonRef={addGroupButtonRef}
+          />
+        </div>
+
+        <SidebarFooter />
+      </div>
     </div>
   );
 };

@@ -1,87 +1,72 @@
-.tooltip-animation {
-  animation-duration: 0.25s;
-  -webkit-animation-name: appear;
+.tooltip {
+  font-size: 1.4rem;
+  font-weight: 400;
+  position: absolute;
+  border-radius: 2px;
+  box-shadow: #00000022 0px 3.2px 7.2px 0px, #0000001c 0px 0.6px 1.8px 0px;
+  outline: transparent;
+  padding: 0.9rem;
+  max-width: 36.4rem;
+  width: max-content;
+
+  /// TOOLTIP ANIMATION
+  animation-duration: 0.267s;
   animation-name: appear;
-  -webkit-animation-timing-function: cubic-bezier(0.26, 1, 0.48, 1);
-  animation-timing-function: cubic-bezier(0.26, 1, 0.48, 1);
-}
+  animation-fill-mode: both;
+  background-color: #ffffff;
+  animation-timing-function: cubic-bezier(0.1, 0.25, 0.75, 0.9);
 
-// TOOLTIPS
-.tooltip-search {
-  position: absolute;
-  left: -6rem;
-  top: 0.5px;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s;
-  @extend .tooltip-animation;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -10.3137px;
+    z-index: 0;
+  }
 
-  .content {
-    height: 3.1rem;
-    width: 5rem;
+  // this hides the triangle from the top of the tooltip content
+  .layer-box {
+    position: absolute;
+    inset: 0px;
     background-color: #ffffff;
     border-radius: 2px;
-    display: grid;
-    place-items: center;
-    color: var(--font-color-primary);
-    font-size: 1.1rem;
+  }
+
+  &__main {
+    background-color: #ffffff;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden auto;
+
+    outline: none;
+    max-height: 95.6rem;
+
+    &--content {
+      font-size: 1.2rem;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+      color: rgb(51, 51, 51);
+      overflow-wrap: break-word;
+      overflow: hidden;
+
+      span {
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+        margin: 0;
+      }
+    }
   }
 
   .triangle {
-    border: 1rem solid transparent;
-    height: 0;
-    width: 0;
-    border-left-color: #ffffff;
-  }
-}
-
-.tooltip-exit-search {
-  position: absolute;
-  bottom: -4.5rem;
-  display: grid;
-  justify-content: center;
-  @extend .tooltip-animation;
-
-  .content {
-    height: 3.2rem;
-    width: 7rem;
-    background-color: #ffffff;
-    border-radius: 2px;
-    display: grid;
-    place-items: center;
-    color: var(--font-color-primary);
-    font-size: 1.1rem;
-    box-shadow: 0px 4px 5px 0px #00000039;
-    z-index: 2;
-  }
-
-  .triangle {
-    width: 1.7rem;
-    height: 1.7rem;
+    left: 34.5px;
+    position: absolute;
+    width: 1.6rem;
+    height: 1.6rem;
+    box-shadow: inherit;
+    border: inherit;
     background-color: #ffffff;
     transform: rotate(45deg);
-    box-shadow: rgba(0, 0, 0, 0.293) 0px 5px 15px 0px;
-    margin: 0 auto;
-    margin-bottom: -8.5px;
-    z-index: 1;
-  }
-}
-
-.tooltip-create-group {
-  @extend .tooltip-exit-search;
-  bottom: unset;
-  top: -2.7rem;
-  position: fixed;
-
-  .content {
-    box-shadow: 0px -2px 3px 0px #00000039;
-    width: 9rem;
-    font-size: 1.2rem;
-  }
-
-  .triangle {
-    box-shadow: 0px 0px 4px 0px #00000039;
-    margin-top: -8.5px;
   }
 }
 

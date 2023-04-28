@@ -14,10 +14,6 @@
     &--todo {
       padding: 0 12px 0 8px;
 
-      @media (max-width: 400px) {
-        padding: 0 12px 0 5px;
-      }
-
       a {
         text-decoration: none;
         color: inherit;
@@ -100,10 +96,12 @@
       height: 100%;
       width: 4rem;
       padding: 8px;
+      display: flex;
 
       svg {
         height: 1.6rem;
         width: 1.6rem;
+        fill: var(--font-color-brand);
       }
     }
 
@@ -128,19 +126,12 @@
       }
 
       // EXIT SEARCH ICON
-      span {
+      button {
         width: 32px;
         height: 32px;
         display: grid;
         place-items: center;
         position: relative;
-
-        // &:hover {
-        //   .tooltip-exit-search {
-        //     visibility: visible;
-        //     opacity: 1;
-        //   }
-        // }
 
         svg {
           height: 1.2rem;

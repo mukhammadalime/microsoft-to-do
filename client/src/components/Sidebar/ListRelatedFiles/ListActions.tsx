@@ -11,6 +11,7 @@ import {
 } from "../../../types/designTypes";
 import GroupsModal from "../GroupRelatedFiles/GroupsModal";
 import ModalActionItem from "../../ModalActionItem";
+import ModalWrapper from "../../ModalWrapper";
 
 interface ListActionsPropsTypes {
   onClose: () => void;
@@ -106,7 +107,7 @@ const ListActions = ({
   const onMouseLeaveOtherItems = () => window.clearTimeout(timer2ID);
 
   return (
-    <div className="modal-layer">
+    <>
       <div
         className={`actions-modal${fromBottom ? " modal-from-bottom" : ""}`}
         style={{
@@ -138,11 +139,11 @@ const ListActions = ({
           )}
 
           {/* <ModalActionItem
-            onClickHandler={() => {}}
-            onMouseEnter={onMouseEnterOtherItems}
-            name="Remove from group"
-            icon={<RemoveIcon />}
-          /> */}
+          onClickHandler={() => {}}
+          onMouseEnter={onMouseEnterOtherItems}
+          name="Remove from group"
+          icon={<RemoveIcon />}
+        /> */}
 
           <ModalActionItem
             onClickHandler={() => {}}
@@ -181,7 +182,7 @@ const ListActions = ({
           listId={listItem.id}
         />
       )}
-    </div>
+    </>
   );
 };
 
@@ -193,12 +194,14 @@ const ListActionsModal = ({
   return (
     <>
       {ReactDOM.createPortal(
-        <ListActions
-          onClose={onClose}
-          coordinates={coordinates}
-          listItem={listItem}
-        />,
-        document.getElementById("modal-actions") as HTMLDivElement
+        <ModalWrapper>
+          <ListActions
+            onClose={onClose}
+            coordinates={coordinates}
+            listItem={listItem}
+          />
+        </ModalWrapper>,
+        document.getElementById("modal-wrapper") as HTMLDivElement
       )}
     </>
   );
