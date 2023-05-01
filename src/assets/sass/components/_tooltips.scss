@@ -23,14 +23,6 @@
     z-index: 0;
   }
 
-  // this hides the triangle from the top of the tooltip content
-  .layer-box {
-    position: absolute;
-    inset: 0px;
-    background-color: #ffffff;
-    border-radius: 2px;
-  }
-
   &__main {
     background-color: #ffffff;
     border-radius: 2px;
@@ -57,17 +49,24 @@
       }
     }
   }
+}
 
-  .triangle {
-    left: 34.5px;
-    position: absolute;
-    width: 1.6rem;
-    height: 1.6rem;
-    box-shadow: inherit;
-    border: inherit;
-    background-color: #ffffff;
-    transform: rotate(45deg);
-  }
+// this hides the triangle from the top of the tooltip content
+.layer-box {
+  position: absolute;
+  inset: 0px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+.triangle {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  box-shadow: inherit;
+  border: inherit;
+  background-color: #ffffff;
+  transform: rotate(45deg);
 }
 
 @keyframes appear {

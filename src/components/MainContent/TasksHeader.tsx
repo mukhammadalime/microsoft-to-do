@@ -7,37 +7,74 @@ import { CoordinatesTypes } from "../../types/designTypes";
 import Tooltip from "../Tooltips/Tooltip";
 import ListOptionsMenuModal from "./ListOptionsMenu";
 
+const SUGGESTIONS: string = "SUGGESTIONS";
+const LIST_OPTIONS: string = "LIST_OPTIONS";
+const SORT: string = "SORT";
+
 const TasksHeader = () => {
   const [listOptionsHovered, setListOptionsHovered] = useState(false);
+  const [sortHovered, setSortHovered] = useState(false);
+  const [suggestionsHovered, setSuggestionsHovered] = useState(false);
   const [listOptionsOpen, setListOptionsOpen] = useState(false);
-  const [listOptionsTimerID, setListOptionsTimerID] =
-    useState<NodeJS.Timeout>();
-  const [listOptionsTooltipCoordinates, setListOptionsTooltipCoordinates] =
+  const [timerID, setTimerID] = useState<NodeJS.Timeout>();
+  const [tooltipCoordinates, setTooltipCoordinates] =
     useState<CoordinatesTypes>({ x: 0, y: 0 });
 
-  const onMouseEnterListOptions = () => {
+  const onMouseEnterHandler = (type: string) => {
+    const tooltipHostClassname =
+      type === LIST_OPTIONS
+        ? ".list-options-tooltip-host"
+        : type === SORT
+        ? ".sort-tooltip-host"
+        : ".suggestions-tooltip-host";
+
     const tooltipHost = document.querySelector(
-      ".list-options-tooltip-host"
+      tooltipHostClassname
     ) as HTMLDivElement;
+
     const searchTooltipPosition = tooltipHost.getBoundingClientRect();
-    setListOptionsTooltipCoordinates({
+    setTooltipCoordinates({
       x: searchTooltipPosition.left,
       y: searchTooltipPosition.top,
     });
 
-    const id = setTimeout(() => setListOptionsHovered(true), 400);
-    setListOptionsTimerID(id);
+    switch (type) {
+      case LIST_OPTIONS:
+        const id = setTimeout(() => setListOptionsHovered(true), 300);
+        setTimerID(id);
+        break;
+      case SORT:
+        const id2 = setTimeout(() => setSortHovered(true), 300);
+        setTimerID(id2);
+        break;
+      case SUGGESTIONS:
+        const id3 = setTimeout(() => setSuggestionsHovered(true), 300);
+        setTimerID(id3);
+        break;
+    }
   };
 
-  const onMouseLeaveListOptions = () => {
-    clearTimeout(listOptionsTimerID);
-    setListOptionsHovered(false);
+  const onMouseLeaveHandler = (type: string) => {
+    clearTimeout(timerID);
+
+    switch (type) {
+      case LIST_OPTIONS:
+        setListOptionsHovered(false);
+        break;
+      case SORT:
+        setSortHovered(false);
+        break;
+      case SUGGESTIONS:
+        setSuggestionsHovered(false);
+        break;
+    }
   };
 
   const onClickListOptions = () => {
     setListOptionsOpen((prevState) => !prevState);
-    if (listOptionsHovered) setListOptionsHovered(false);
-    else setTimeout(() => setListOptionsHovered(false), 400);
+    listOptionsOpen && setListOptionsHovered(true);
+    listOptionsHovered && setListOptionsHovered(false);
+    !listOptionsOpen && setTimeout(() => setListOptionsHovered(false), 300);
   };
 
   return (
@@ -53,8 +90,8 @@ const TasksHeader = () => {
 
               <div className="list-options-tooltip-host">
                 <button
-                  onMouseEnter={onMouseEnterListOptions}
-                  onMouseLeave={onMouseLeaveListOptions}
+                  onMouseEnter={onMouseEnterHandler.bind(this, LIST_OPTIONS)}
+                  onMouseLeave={onMouseLeaveHandler.bind(this, LIST_OPTIONS)}
                   onClick={onClickListOptions}
                   children={<ThreeDotsIcon />}
                 />
@@ -66,14 +103,25 @@ const TasksHeader = () => {
           </div>
 
           <div className="tasks-header__right">
-            <button>
-              <SortIcon />
-              <span>Sort</span>
-            </button>
-            <button>
-              <LampIcon />
-              <span>Suggestions</span>
-            </button>
+            <div className="sort-tooltip-host">
+              <button
+                onMouseEnter={onMouseEnterHandler.bind(this, SORT)}
+                onMouseLeave={onMouseLeaveHandler.bind(this, SORT)}
+              >
+                <SortIcon />
+                <span>Sort</span>
+              </button>
+            </div>
+
+            <div className="suggestions-tooltip-host">
+              <button
+                onMouseEnter={onMouseEnterHandler.bind(this, SUGGESTIONS)}
+                onMouseLeave={onMouseLeaveHandler.bind(this, SUGGESTIONS)}
+              >
+                <LampIcon />
+                <span>Suggestions</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -82,8 +130,8 @@ const TasksHeader = () => {
         <Tooltip
           content="List options menu"
           tooltipPosition={{
-            x: listOptionsTooltipCoordinates.x - 40,
-            y: listOptionsTooltipCoordinates.y - 35,
+            x: tooltipCoordinates.x - 40,
+            y: tooltipCoordinates.y - 35,
           }}
           trianglePosition={{
             left: "48.75px",
@@ -92,10 +140,38 @@ const TasksHeader = () => {
         />
       )}
 
+      {sortHovered && (
+        <Tooltip
+          content="Sort"
+          tooltipPosition={{
+            x: tooltipCoordinates.x + 16.595,
+            y: tooltipCoordinates.y - 35,
+          }}
+          trianglePosition={{
+            left: "12.25px",
+            bottom: "-8px",
+          }}
+        />
+      )}
+
+      {suggestionsHovered && (
+        <Tooltip
+          content="Suggestions"
+          tooltipPosition={{
+            x: tooltipCoordinates.x + 20.415,
+            y: tooltipCoordinates.y - 35,
+          }}
+          trianglePosition={{
+            left: "34.115px",
+            bottom: "-8px",
+          }}
+        />
+      )}
+
       {listOptionsOpen && (
         <ListOptionsMenuModal
           onClose={() => setListOptionsOpen(false)}
-          coordinates={listOptionsTooltipCoordinates}
+          coordinates={tooltipCoordinates}
         />
       )}
     </>

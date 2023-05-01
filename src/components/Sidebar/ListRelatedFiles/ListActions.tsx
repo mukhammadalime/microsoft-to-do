@@ -104,7 +104,7 @@ const ListActions = ({
       setTimer2ID(id2);
     }
   };
-  const onMouseLeaveOtherItems = () => window.clearTimeout(timer2ID);
+  const onMouseLeaveOtherItems = () => clearTimeout(timer2ID);
 
   return (
     <>

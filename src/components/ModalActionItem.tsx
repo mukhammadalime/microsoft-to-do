@@ -8,7 +8,8 @@ interface ModalActionItemTypes {
   name: string;
   hovered?: boolean;
   rightIcon?: boolean;
-  icon: ReactElement;
+  icon?: ReactElement;
+  rightText?: string;
   defaultHoverFirstAction?: boolean;
   className?: string;
 }
@@ -23,6 +24,7 @@ const ModalActionItem = ({
   defaultHoverFirstAction,
   className,
   onMouseLeave,
+  rightText,
 }: ModalActionItemTypes) => {
   return (
     <li>
@@ -30,14 +32,17 @@ const ModalActionItem = ({
         onClick={onClickHandler}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        className={`${className} ${hovered ? "action-hovered" : ""}`}
+        className={`${className ? className : ""}${
+          hovered ? " action-hovered" : ""
+        }`}
         style={{
           backgroundColor: defaultHoverFirstAction ? "#f5f5f5" : "",
         }}
       >
-        <i>{icon}</i>
-        <span>{name}</span>
+        {icon && <i>{icon}</i>}
+        <span className="primaryText">{name}</span>
         {rightIcon && <ChevronRightIcon />}
+        {rightText && <span className="rightText">{rightText}</span>}
       </button>
     </li>
   );

@@ -24,6 +24,24 @@ input {
   background: none;
 }
 
+.btn-blue {
+  color: white;
+  font-weight: bold;
+  background: #2564cf;
+  background: var(--bg-brand);
+
+  &:hover {
+    box-shadow: none;
+    background: #215aba;
+    background: var(--bg-brand-hover);
+  }
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: unset !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 0.8rem;
