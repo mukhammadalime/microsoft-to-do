@@ -11,7 +11,7 @@ const AddGroupInput = React.forwardRef<
       onSubmit={(e: ChangeEvent<HTMLFormElement>) => onAddGroup(e)}
     >
       <button>
-        <img src="./assets/icons/groupIcon.svg" alt="" />
+        <img src="/assets/icons/groupIcon.svg" alt="" />
       </button>
 
       <input

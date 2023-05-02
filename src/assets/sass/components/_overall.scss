@@ -15,3 +15,29 @@
     position: relative;
   }
 }
+
+.not-found {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+  text-align: center;
+  background-color: #fff;
+  background-color: var(--bg-primary);
+
+  &__title {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #3459c1;
+    color: var(--list-theme-blue-primary-0);
+  }
+
+  &__description {
+    color: #797775;
+    color: var(--font-color-secondary);
+    font-size: 1.8rem;
+    padding: 0 30px 50px;
+  }
+}

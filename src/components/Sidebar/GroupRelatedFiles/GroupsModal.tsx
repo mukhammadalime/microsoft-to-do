@@ -63,7 +63,7 @@ const GroupsOverlay = ({
           <li key={uuidv4()}>
             <button onClick={moveListHandler.bind(null, group.id)}>
               <i>
-                <img src="./assets/icons/groupIcon.svg" alt="" />
+                <img src="/assets/icons/groupIcon.svg" alt="" />
               </i>
               <span>
                 {group.name}{" "}

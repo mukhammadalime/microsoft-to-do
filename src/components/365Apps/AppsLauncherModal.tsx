@@ -34,7 +34,7 @@ const AppsLauncher = ({ onClose, opened }: AppsLauncherTypes) => {
 
         <div>
           <span>Microsoft 365</span>
-          <img src="./assets/icons/arrow-right.svg" alt="" />
+          <img src="/assets/icons/arrow-right.svg" alt="" />
         </div>
       </div>
 

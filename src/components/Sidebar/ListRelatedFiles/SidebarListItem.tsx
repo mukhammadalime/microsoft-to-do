@@ -6,6 +6,7 @@ import ListIcon from "../../../Icons/ListIcon";
 import { ReactElement, useState } from "react";
 import ListActionsModal from "./ListActions";
 import TasksListActionsModal from "../TasksListActions";
+import { useNavigate } from "react-router";
 
 interface SidebarListItemPropsTypes {
   actionsDisabled?: boolean | "limited";
@@ -22,6 +23,8 @@ const SidebarListItem = ({
   activeListItem,
   setActiveListItem,
 }: SidebarListItemPropsTypes) => {
+  const navigate = useNavigate();
+
   const [listActionsIsOpen, setListActionsIsOpen] = useState<boolean>(false);
   const [coordinates, setCoordinates] = useState<CoordinatesTypes>({
     x: 0,
@@ -57,6 +60,7 @@ const SidebarListItem = ({
         onClick={(e) => {
           onRightClickHandler(e);
           setActiveListItemHandler();
+          navigate(`/tasks/${item.id}`);
         }}
         // We enable inspect on some lists with actions disabled
         onContextMenu={

@@ -8,7 +8,7 @@ const MainApps = ({ onOpenAllApps }: { onOpenAllApps: () => void }) => {
         {_365Apps.slice(0, 12).map((app) => (
           <a href={app.link} className="appContainer" key={app.name}>
             <img
-              src={`./assets/images/365Apps/microsoft-${app.imgLocation}`}
+              src={`/assets/images/365Apps/microsoft-${app.imgLocation}`}
               alt=""
             />
             <span>{app.name}</span>
@@ -19,7 +19,7 @@ const MainApps = ({ onOpenAllApps }: { onOpenAllApps: () => void }) => {
       <div className="_365Apps__bottom" onClick={onOpenAllApps}>
         <div>
           <span>All apps</span>
-          <img src="./assets/icons/arrow-right.svg" alt="" />
+          <img src="/assets/icons/arrow-right.svg" alt="" />
         </div>
       </div>
     </div>

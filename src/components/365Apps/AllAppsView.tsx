@@ -13,7 +13,7 @@ const AllAppsView = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="allApps">
       <button className="allApps__back" onClick={onClose}>
-        <img src="./assets/icons/arrow-right.svg" alt="" />
+        <img src="/assets/icons/arrow-right.svg" alt="" />
         <span>Back</span>
       </button>
 
@@ -77,7 +77,7 @@ const AllAppsView = ({ onClose }: { onClose: () => void }) => {
       </div>
 
       <div className="allApps__bottom">
-        <img src="./assets/icons/arrow-right.svg" alt="" />
+        <img src="/assets/icons/arrow-right.svg" alt="" />
         <span>Explore all your apps</span>
       </div>
     </div>

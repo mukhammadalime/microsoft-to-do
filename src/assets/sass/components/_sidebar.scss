@@ -20,13 +20,17 @@
   background-color: var(--bg-primary);
 
   &__header {
-    height: 48px;
-    margin-top: 16px;
-    padding: 0 24px;
+    height: 4.8rem;
+    margin-top: 1.6rem;
+    padding: 0 2.4rem;
     display: flex;
     align-items: center;
 
-    img {
+    div {
+      height: 2rem;
+    }
+
+    svg {
       cursor: pointer;
     }
   }
@@ -247,7 +251,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
 
-      img {
+      svg {
         height: auto;
         width: auto;
         opacity: 1;
@@ -265,7 +269,7 @@
       transition: transform 200ms ease;
     }
 
-    img {
+    svg {
       width: 1.5rem;
       transition: all 200ms;
     }
@@ -336,7 +340,7 @@
 
   .groupBox__header {
     div {
-      img {
+      svg {
         display: block;
         opacity: 0;
         transform: rotate(0);
@@ -347,7 +351,7 @@
       }
     }
 
-    img {
+    svg {
       transform: rotate(-90deg);
     }
   }

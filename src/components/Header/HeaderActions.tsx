@@ -82,7 +82,7 @@ const HeaderActions = () => {
         onClick={handleButtonsClicks.bind(null, "AVATAR")}
         ref={avatarRef}
         children={
-          <img className="avatar" src="./assets/images/default.jpg" alt="" />
+          <img className="avatar" src="/assets/images/default.jpg" alt="" />
         }
       />
 

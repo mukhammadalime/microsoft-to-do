@@ -1,10 +1,11 @@
-import { ReactElement } from "react";
 import CalendarIcon from "../Icons/CalendarIcon";
 import HomeIcon from "../Icons/HomeIcon";
 import PersonIcon from "../Icons/PersonIcon";
 import StarIcon from "../Icons/StarIcon";
 import SunIcon from "../Icons/SunIcon";
-import { _365AppsTypes } from "../types/designTypes";
+import { DefaultSidebarItemType, _365AppsTypes } from "../types/designTypes";
+import ForeverIcon from "../Icons/ForeverIcon";
+import CompletedIcon from "../Icons/CompletedIcon";
 
 export const _365Apps: _365AppsTypes[] = [
   {
@@ -118,34 +119,47 @@ export const moreFromMicrosoft: _365AppsTypes[] = [
   },
 ];
 
-export const defaultSideBarItems: {
-  name: string;
-  img: ReactElement;
-  actionsDisabled: boolean | "limited";
-}[] = [
+export const defaultSideBarItems: DefaultSidebarItemType[] = [
   {
     name: "My Day",
     img: <SunIcon />,
     actionsDisabled: true,
+    id: "myday",
   },
   {
     name: "Important",
     img: <StarIcon />,
     actionsDisabled: true,
+    id: "important",
   },
   {
     name: "Planned",
     img: <CalendarIcon />,
     actionsDisabled: true,
+    id: "planned",
+  },
+  {
+    name: "All",
+    img: <ForeverIcon />,
+    actionsDisabled: true,
+    id: "all",
+  },
+  {
+    name: "Completed",
+    img: <CompletedIcon />,
+    actionsDisabled: true,
+    id: "completed",
   },
   {
     name: "Assigned to me",
     img: <PersonIcon />,
     actionsDisabled: true,
+    id: "assigned_to_me",
   },
   {
     name: "Tasks",
     img: <HomeIcon />,
     actionsDisabled: "limited",
+    id: "inbox",
   },
 ];

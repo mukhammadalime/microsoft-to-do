@@ -7,6 +7,8 @@ import {
 import GroupActionsModal from "./GroupActions";
 import { v4 as uuidv4 } from "uuid";
 import SidebarListItem from "../ListRelatedFiles/SidebarListItem";
+import GroupIcon from "../../../Icons/GroupIcon";
+import ArrowLeftIcon from "../../../Icons/ArrowLeftIcon";
 
 interface SidebarGroupItemTypes extends SidebarGroupItemType {
   activeListItem: string;
@@ -85,14 +87,14 @@ const SidebarGroupItem = ({
         {!editingMode && (
           <div className="groupBox__header" onClick={toggleGroupBox}>
             <div>
-              <img src="./assets/icons/groupIcon.svg" alt="" />
+              <GroupIcon />
               <span>
                 {name}{" "}
                 <span>{dublicateNumber ? ` (${dublicateNumber})` : ""}</span>
               </span>
             </div>
 
-            <img src="./assets/icons/arrow-left.svg" alt="" />
+            <ArrowLeftIcon />
           </div>
         )}
 
@@ -103,7 +105,7 @@ const SidebarGroupItem = ({
             onClick={toggleGroupBox}
           >
             <button>
-              <img src="./assets/icons/groupIcon.svg" alt="" />
+              <img src="/assets/icons/groupIcon.svg" alt="" />
             </button>
 
             <input

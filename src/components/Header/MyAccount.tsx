@@ -22,7 +22,7 @@ const MyAccount = React.forwardRef<HTMLDivElement, { clicked: boolean }>(
       >
         <div className="my-account__top">
           <div className="my-account__logo">
-            <img src="./assets/icons/microsoft.svg" alt="" />
+            <img src="/assets/icons/microsoft.svg" alt="" />
             Microsoft
           </div>
           <h6 className="my-account__logout">Sign out</h6>
@@ -30,7 +30,7 @@ const MyAccount = React.forwardRef<HTMLDivElement, { clicked: boolean }>(
 
         <div className="my-account__main">
           <div className="my-account__avatar">
-            <img src="./assets/images/default.jpg" alt="" />
+            <img src="/assets/images/default.jpg" alt="" />
           </div>
 
           <div className="my-account__details">

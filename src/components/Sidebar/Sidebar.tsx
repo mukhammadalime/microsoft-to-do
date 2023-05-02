@@ -10,6 +10,7 @@ import AddListOrGroup from "./AddListOrGroup";
 import { defaultSideBarItems } from "../../data/micorost-apps";
 import SidebarFooter from "./SidebarFooter";
 import SidebarGroupItem from "./GroupRelatedFiles/SidebarGroupItem";
+import SidebarIcon from "../../Icons/SidebarIcon";
 
 const Sidebar = ({ onClose }: { onClose: () => void }) => {
   const newListRef = useRef<HTMLInputElement>(null);
@@ -181,7 +182,9 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
     <div className="leftContent">
       <div className="sidebar">
         <div className="sidebar__header">
-          <img src="./assets/icons/sidebarIcon.svg" alt="" onClick={onClose} />
+          <div onClick={onClose}>
+            <SidebarIcon />
+          </div>
         </div>
 
         <div className="sidebar__content">
@@ -193,7 +196,6 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
                     ...item,
                     createdAt: 0,
                     type: "",
-                    id: "",
                     opened: false,
                   }}
                   actionsDisabled={item.actionsDisabled}

@@ -1,5 +1,7 @@
 /// HEADER TYPES
 
+import { ReactElement } from "react";
+
 // An interface for buttons state
 export interface HeaderButtonsTypes {
   settings: boolean;
@@ -34,6 +36,13 @@ export interface SidebarListItemType {
   type: string;
   id: string;
   opened: boolean;
+}
+
+export interface DefaultSidebarItemType {
+  name: string;
+  img: ReactElement;
+  id: string;
+  actionsDisabled: boolean | "limited";
 }
 
 /// SIDEBAR GROUP TYPE

@@ -99,7 +99,7 @@ const GroupActions = ({
           onClickHandler={renameGroupHandler}
           onMouseEnter={onMouseEnterHandler}
           name="Rename group"
-          icon={<img src="./assets/icons/renameGroupIcon.svg" alt="" />}
+          icon={<img src="/assets/icons/renameGroupIcon.svg" alt="" />}
           defaultHoverFirstAction={defaultHoverFirstAction}
         />
 
