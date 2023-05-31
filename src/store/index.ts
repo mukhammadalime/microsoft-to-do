@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalsReducer from "./reducers/modalsReducer";
-import { tooltipReducer } from "./reducers/tooltipsReducer";
+import tooltipReducer from "./reducers/tooltipsReducer";
 
 const store = configureStore({
   reducer: {

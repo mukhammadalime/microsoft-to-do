@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom";
 import { useEffect, useRef, useState } from "react";
-import { CoordinatesTypes } from "../../../types/designTypes";
 import ModalActionItem from "../../ModalActionItem";
 import ModalWrapper from "../../ModalWrapper";
 import PickDateIcon from "../../../Icons/PickDateIcon";
@@ -9,8 +8,6 @@ import ClockOneArrowRightIcon from "../../../Icons/ClockOneArrowRightIcon";
 import ClockTwoArrowsRightIcon from "../../../Icons/ClockTwoArrowsRightIcon";
 import TrashIcon2 from "../../../Icons/TrashIcon2";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useReduxHooks";
-
-import { initialCoordinatesState } from "../../../data/initialStates";
 import {
   calendarModalToggler,
   remindMeModalToggler,
@@ -51,8 +48,8 @@ const RemindMeOverlay = ({ onClose }: RemindMeOptionsProps) => {
       <div
         className="actions-modal"
         style={{
-          left: remindMeModal.coordinates ? remindMeModal.coordinates.x : 0,
-          top: remindMeModal.coordinates ? remindMeModal.coordinates.y : 0,
+          left: remindMeModal.coordinates.left,
+          top: remindMeModal.coordinates.top,
         }}
         ref={remindMeOptions}
       >
@@ -92,8 +89,8 @@ const RemindMeOverlay = ({ onClose }: RemindMeOptionsProps) => {
                 calendarModalToggler({
                   open: true,
                   coordinates: {
-                    x: remindMeModal.coordinates.x + 11,
-                    y: remindMeModal.coordinates.y,
+                    left: remindMeModal.coordinates.left + 11,
+                    top: remindMeModal.coordinates.top,
                   },
                   timeForCalendar: true,
                 })

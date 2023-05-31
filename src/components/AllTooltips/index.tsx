@@ -10,8 +10,8 @@ const AllTooltips = () => {
         <Tooltip
           content="Add due date"
           tooltipPosition={{
-            x: tooltips.dueDateTooltip.coordinates?.x ?? 0,
-            y: tooltips.dueDateTooltip.coordinates?.y ?? 0,
+            left: tooltips.dueDateTooltip.coordinates?.left ?? 0,
+            top: tooltips.dueDateTooltip.coordinates?.top ?? 0,
           }}
           trianglePosition={{
             left: "36.5px",
@@ -20,12 +20,12 @@ const AllTooltips = () => {
         />
       )}
 
-      {tooltips.reminderTooltip.open && (
+      {tooltips.remindMeTooltip.open && (
         <Tooltip
           content="Remind me"
           tooltipPosition={{
-            x: tooltips.reminderTooltip.coordinates?.x ?? 0,
-            y: tooltips.reminderTooltip.coordinates?.y ?? 0,
+            left: tooltips.remindMeTooltip.coordinates?.left ?? 0,
+            top: tooltips.remindMeTooltip.coordinates?.top ?? 0,
           }}
           trianglePosition={{
             left: "31px",
@@ -38,8 +38,8 @@ const AllTooltips = () => {
         <Tooltip
           content="Repeat"
           tooltipPosition={{
-            x: tooltips.repeatTooltip.coordinates?.x ?? 0,
-            y: tooltips.repeatTooltip.coordinates?.y ?? 0,
+            left: tooltips.repeatTooltip.coordinates?.left ?? 0,
+            top: tooltips.repeatTooltip.coordinates?.top ?? 0,
           }}
           trianglePosition={{
             left: "19.5px",
@@ -52,8 +52,8 @@ const AllTooltips = () => {
         <Tooltip
           content="List options menu"
           tooltipPosition={{
-            x: tooltips.listOptionsTooltip.coordinates?.x ?? 0,
-            y: tooltips.listOptionsTooltip.coordinates?.y ?? 0,
+            left: tooltips.listOptionsTooltip.coordinates?.left ?? 0,
+            top: tooltips.listOptionsTooltip.coordinates?.top ?? 0,
           }}
           trianglePosition={{
             left: "48.75px",
@@ -66,8 +66,8 @@ const AllTooltips = () => {
         <Tooltip
           content="Sort"
           tooltipPosition={{
-            x: tooltips.sortTooltip.coordinates?.x ?? 0,
-            y: tooltips.sortTooltip.coordinates?.y ?? 0,
+            left: tooltips.sortTooltip.coordinates?.left ?? 0,
+            top: tooltips.sortTooltip.coordinates?.top ?? 0,
           }}
           trianglePosition={{
             left: "12.25px",
@@ -80,8 +80,8 @@ const AllTooltips = () => {
         <Tooltip
           content="Suggestions"
           tooltipPosition={{
-            x: tooltips.suggestionsTooltip.coordinates?.x ?? 0,
-            y: tooltips.suggestionsTooltip.coordinates?.y ?? 0,
+            left: tooltips.suggestionsTooltip.coordinates?.left ?? 0,
+            top: tooltips.suggestionsTooltip.coordinates?.top ?? 0,
           }}
           trianglePosition={{
             left: "34.115px",

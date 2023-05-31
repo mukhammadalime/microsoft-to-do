@@ -38,8 +38,8 @@ const RepeatOverlay = ({ onClose }: RepeatOptionsProps) => {
       customRepeatModalToggler({
         open: true,
         coordinates: {
-          x: repeatModal.coordinates.x,
-          y: repeatModal.coordinates.y,
+          left: repeatModal.coordinates.left,
+          top: repeatModal.coordinates.top,
         },
       })
     );
@@ -70,8 +70,8 @@ const RepeatOverlay = ({ onClose }: RepeatOptionsProps) => {
     <div
       className="actions-modal"
       style={{
-        left: repeatModal.coordinates.x ?? 0,
-        top: repeatModal.coordinates.y ?? 0,
+        left: repeatModal.coordinates.left ?? 0,
+        top: repeatModal.coordinates.top ?? 0,
       }}
       ref={remindMeOptions}
     >

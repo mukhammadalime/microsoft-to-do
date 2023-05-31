@@ -15,9 +15,9 @@ const HeaderSearch = () => {
   const [exitTimerID, setExitTimerID] = useState<NodeJS.Timeout>();
   const [searchHovered, setSearchHovered] = useState<boolean>(false);
   const [searchTooltipCoordinates, setSearchTooltipCoordinates] =
-    useState<CoordinatesTypes>({ x: 0, y: 0 });
+    useState<CoordinatesTypes>({ left: 0, top: 0 });
   const [exitSearchTooltipCoordinates, setExitSearchTooltipCoordinates] =
-    useState<CoordinatesTypes>({ x: 0, y: 0 });
+    useState<CoordinatesTypes>({ left: 0, top: 0 });
   const [exitSearchHovered, setExitSearchHovered] = useState<boolean>(false);
 
   // HANDLING OUTSIDE CLICK
@@ -56,8 +56,8 @@ const HeaderSearch = () => {
     ) as HTMLDivElement;
     const searchTooltipPosition = tooltipHost.getBoundingClientRect();
     setSearchTooltipCoordinates({
-      x: searchTooltipPosition.left,
-      y: searchTooltipPosition.top,
+      left: searchTooltipPosition.left,
+      top: searchTooltipPosition.top,
     });
 
     if (!showInput) {
@@ -77,8 +77,8 @@ const HeaderSearch = () => {
     ) as HTMLDivElement;
     const exitSearchTooltipPosition = exitTooltipHost.getBoundingClientRect();
     setExitSearchTooltipCoordinates({
-      x: exitSearchTooltipPosition.left,
-      y: 0,
+      left: exitSearchTooltipPosition.left,
+      top: 0,
     });
 
     const id = setTimeout(() => setExitSearchHovered(true), 300);
@@ -135,8 +135,8 @@ const HeaderSearch = () => {
         <Tooltip
           content="Search"
           tooltipPosition={{
-            x: searchTooltipCoordinates.x - 66,
-            y: searchTooltipCoordinates.y,
+            left: searchTooltipCoordinates.left - 66,
+            top: searchTooltipCoordinates.top,
           }}
           trianglePosition={{
             top: "8px",
@@ -149,8 +149,8 @@ const HeaderSearch = () => {
         <Tooltip
           content="Exit search"
           tooltipPosition={{
-            x: exitSearchTooltipCoordinates.x - 22,
-            y: 51,
+            left: exitSearchTooltipCoordinates.left - 22,
+            top: 51,
           }}
           trianglePosition={{
             top: "-7px",

@@ -23,7 +23,7 @@ const GroupActionsOverlay = ({
   lists,
 }: GroupActionsPropsTypes) => {
   const groupActionsRef = useRef<HTMLDivElement>(null);
-  const fromBottom = window.innerHeight - coordinates.y < 111;
+  const fromBottom = window.innerHeight - coordinates.top < 111;
   const [defaultHoverFirstAction, setDefaultHoverFirstAction] =
     useState<boolean>(true);
 
@@ -89,8 +89,8 @@ const GroupActionsOverlay = ({
     <div
       className={`actions-modal ${fromBottom ? " modal-from-bottom" : ""}`}
       style={{
-        bottom: fromBottom ? -coordinates.y : -coordinates.y - 101,
-        left: coordinates.x,
+        bottom: fromBottom ? -coordinates.top : -coordinates.top - 101,
+        left: coordinates.left,
       }}
       ref={groupActionsRef}
     >

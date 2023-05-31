@@ -27,8 +27,8 @@ const SidebarListItem = ({
   const [listActionsIsOpen, setListActionsIsOpen] = useState<boolean>(false);
   const [checkActiveListItem, setCheckActiveListItem] = useState(false);
   const [coordinates, setCoordinates] = useState<CoordinatesTypes>({
-    x: 0,
-    y: 0,
+    left: 0,
+    top: 0,
   });
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const SidebarListItem = ({
     e.preventDefault();
 
     if (e.type === "contextmenu") {
-      setCoordinates({ x: e.pageX, y: e.pageY });
+      setCoordinates({ left: e.pageX, top: e.pageY });
       setListActionsIsOpen(true);
       setActiveListItemHandler();
     }

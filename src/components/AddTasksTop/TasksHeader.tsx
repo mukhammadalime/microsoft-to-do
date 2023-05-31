@@ -4,8 +4,6 @@ import ThreeDotsIcon from "../../Icons/ThreeDotsIcon";
 import SortIcon from "../../Icons/SortIcon";
 import LampIcon from "../../Icons/LampIcon";
 import { CoordinatesTypes } from "../../types/designTypes";
-import Tooltip from "../Tooltip/Tooltip";
-import ListOptionsMenuModal from "../Modals/ListOptionsModal";
 import {
   LIST_OPTIONS,
   SORT,
@@ -15,16 +13,15 @@ import {
 } from "./helperFunctions";
 import { useAppDispatch, useAppSelector } from "../../hooks/useReduxHooks";
 import { listOptionsModalToggler } from "../../store/reducers/modalsReducer";
+import { listOptionsTooltipToggler } from "../../store/reducers/tooltipsReducer";
 
 const TasksHeader = () => {
   /// REDUX
   const dispatch = useAppDispatch();
   const { listOptionsModal } = useAppSelector((state) => state.modals);
-
-  const [listOptionsHovered, setListOptionsHovered] = useState(false);
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
   const [tooltipCoordinates, setTooltipCoordinates] =
-    useState<CoordinatesTypes>({ x: 0, y: 0 });
+    useState<CoordinatesTypes>({ left: 0, top: 0 });
 
   const onMouseEnterHandler = (type: string) => {
     onMouseEnterHelperFn(type, setTimerID, setTooltipCoordinates, dispatch);
@@ -39,16 +36,22 @@ const TasksHeader = () => {
       listOptionsModalToggler({
         open: !listOptionsModal.open,
         coordinates: {
-          x: tooltipCoordinates.x,
-          y: tooltipCoordinates.y,
+          left: tooltipCoordinates.left,
+          top: tooltipCoordinates.top,
         },
       })
     );
 
-    listOptionsModal.open && setListOptionsHovered(true);
-    listOptionsHovered && setListOptionsHovered(false);
     !listOptionsModal.open &&
-      setTimeout(() => setListOptionsHovered(false), 300);
+      dispatch(listOptionsTooltipToggler({ open: false }));
+  };
+
+  const onMouseDownListOptions = () => {
+    listOptionsModal.open &&
+      setTimeout(
+        () => dispatch(listOptionsTooltipToggler({ open: true })),
+        300
+      );
   };
 
   return (
@@ -67,6 +70,7 @@ const TasksHeader = () => {
                   onMouseEnter={onMouseEnterHandler.bind(this, LIST_OPTIONS)}
                   onMouseLeave={onMouseLeaveHandler.bind(this, LIST_OPTIONS)}
                   onClick={onClickListOptions}
+                  onMouseDown={onMouseDownListOptions}
                   children={<ThreeDotsIcon />}
                 />
               </div>

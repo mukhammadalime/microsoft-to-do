@@ -71,8 +71,8 @@ const CustomRepeatOverlay = ({ onClose }: CustomRepeatProps) => {
     <div
       className="actions-modal custom-repeat-modal"
       style={{
-        left: coordinates.x - minusCoordinates,
-        top: coordinates.y + 11,
+        left: coordinates.left - minusCoordinates,
+        top: coordinates.top + 11,
       }}
       ref={customRepeatRef}
     >

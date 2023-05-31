@@ -30,8 +30,8 @@ const SidebarGroupItem = ({
     () => false
   );
   const [coordinates, setCoordinates] = useState<CoordinatesTypes>({
-    x: 0,
-    y: 0,
+    left: 0,
+    top: 0,
   });
   const [editingMode, setEditingMode] = useState(() => false);
   const [groupLists, setGroupLists] = useState<SidebarListItemType[]>([]);
@@ -75,7 +75,7 @@ const SidebarGroupItem = ({
     }
 
     if (e.type === "contextmenu") {
-      setCoordinates({ x: e.pageX, y: e.pageY });
+      setCoordinates({ left: e.pageX, top: e.pageY });
       setGroupActionsIsOpen(true);
     }
   };

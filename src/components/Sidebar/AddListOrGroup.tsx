@@ -20,7 +20,7 @@ const AddListOrGroup = ({
   const addGroupIconRef = useRef<HTMLButtonElement>(null);
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
   const [tooltipCoordinates, setTooltipCoordinates] =
-    useState<CoordinatesTypes>({ x: 0, y: 0 });
+    useState<CoordinatesTypes>({ left: 0, top: 0 });
   const [addGroupHovered, setAddGroupHovered] = useState<boolean>(() => false);
 
   /// HANDLE ADDGROUP HOVER
@@ -30,8 +30,8 @@ const AddListOrGroup = ({
     ) as HTMLDivElement;
     const position = tooltipHost.getBoundingClientRect();
     setTooltipCoordinates({
-      x: position.left,
-      y: position.top,
+      left: position.left,
+      top: position.top,
     });
 
     const id = setTimeout(() => setAddGroupHovered(true), 300);
@@ -83,8 +83,8 @@ const AddListOrGroup = ({
         <Tooltip
           content="Create group"
           tooltipPosition={{
-            x: tooltipCoordinates.x - 9,
-            y: tooltipCoordinates.y - 38,
+            left: tooltipCoordinates.left - 9,
+            top: tooltipCoordinates.top - 38,
           }}
           trianglePosition={{
             left: "34.5px",

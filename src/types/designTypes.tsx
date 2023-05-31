@@ -58,6 +58,6 @@ export interface SidebarGroupItemType {
 
 /// COORDINATES TYPES
 export interface CoordinatesTypes {
-  x: number;
-  y: number;
+  left: number;
+  top: number;
 }

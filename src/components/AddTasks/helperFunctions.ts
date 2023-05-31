@@ -1,14 +1,14 @@
 import { AppDispatch } from "../../store";
 import {
-  deuDateTooltipToggle,
-  reminderTooltipToggle,
-  repeatTooltipToggle,
-} from "../../store/action-creators/tooltipsActions";
-import {
   dueDateModalToggler,
   remindMeModalToggler,
   repeatModalToggler,
 } from "../../store/reducers/modalsReducer";
+import {
+  dueDateTooltipToggler,
+  remindMeTooltipToggler,
+  repeatTooltipToggler,
+} from "../../store/reducers/tooltipsReducer";
 
 export const DUE_DATE: string = "DUE_DATE";
 export const REMIND_ME: string = "REMIN_DME";
@@ -38,8 +38,9 @@ export const onBtnOpenHelperFn = (
         dueDateModalToggler({
           open: true,
           coordinates: {
-            x: tooltipHostPosition.left - (100 - tooltipHost.offsetWidth / 2),
-            y: tooltipHostPosition.top + 28,
+            left:
+              tooltipHostPosition.left - (100 - tooltipHost.offsetWidth / 2),
+            top: tooltipHostPosition.top + 28,
           },
         })
       );
@@ -49,8 +50,9 @@ export const onBtnOpenHelperFn = (
         remindMeModalToggler({
           open: true,
           coordinates: {
-            x: tooltipHostPosition.left - (111.5 - tooltipHost.offsetWidth / 2),
-            y: tooltipHostPosition.top + 28,
+            left:
+              tooltipHostPosition.left - (111.5 - tooltipHost.offsetWidth / 2),
+            top: tooltipHostPosition.top + 28,
           },
         })
       );
@@ -61,8 +63,9 @@ export const onBtnOpenHelperFn = (
         repeatModalToggler({
           open: true,
           coordinates: {
-            x: tooltipHostPosition.left - (100 - tooltipHost.offsetWidth / 2),
-            y: tooltipHostPosition.top + 28,
+            left:
+              tooltipHostPosition.left - (100 - tooltipHost.offsetWidth / 2),
+            top: tooltipHostPosition.top + 28,
           },
         })
       );
@@ -91,19 +94,27 @@ export const onMouseEnterHelperFn = (
   switch (type) {
     case DUE_DATE:
       const id = setTimeout(() => {
-        deuDateTooltipToggle(true, {
-          x: tooltipPosition.left - (44.5 - tooltipHost.offsetWidth / 2),
-          y: tooltipPosition.top + 39,
-        });
+        dispatch(
+          dueDateTooltipToggler({
+            open: true,
+            coordinates: {
+              left: tooltipPosition.left - (44.5 - tooltipHost.offsetWidth / 2),
+              top: tooltipPosition.top + 39,
+            },
+          })
+        );
       }, 300);
       setTimerID(id);
       break;
     case REMIND_ME:
       const id2 = setTimeout(() => {
         dispatch(
-          reminderTooltipToggle(true, {
-            x: tooltipPosition.left - (39 - tooltipHost.offsetWidth / 2),
-            y: tooltipPosition.top + 39,
+          remindMeTooltipToggler({
+            open: true,
+            coordinates: {
+              left: tooltipPosition.left - (39 - tooltipHost.offsetWidth / 2),
+              top: tooltipPosition.top + 39,
+            },
           })
         );
       }, 300);
@@ -112,9 +123,12 @@ export const onMouseEnterHelperFn = (
     case REPEAT:
       const id3 = setTimeout(() => {
         dispatch(
-          repeatTooltipToggle(true, {
-            x: tooltipPosition.left - (27.5 - tooltipHost.offsetWidth / 2),
-            y: tooltipPosition.top + 39,
+          repeatTooltipToggler({
+            open: true,
+            coordinates: {
+              left: tooltipPosition.left - (27.5 - tooltipHost.offsetWidth / 2),
+              top: tooltipPosition.top + 39,
+            },
           })
         );
       }, 300);
@@ -132,13 +146,13 @@ export const onMouseLeaveHelperFn = (
 
   switch (type) {
     case DUE_DATE:
-      deuDateTooltipToggle(false);
+      dispatch(dueDateTooltipToggler({ open: false }));
       break;
     case REMIND_ME:
-      dispatch(reminderTooltipToggle(false));
+      dispatch(remindMeTooltipToggler({ open: false }));
       break;
     case REPEAT:
-      dispatch(repeatTooltipToggle(false));
+      dispatch(repeatTooltipToggler({ open: false }));
 
       break;
   }

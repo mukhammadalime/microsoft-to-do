@@ -48,8 +48,8 @@ const ListOptionsMenuOverlay = ({ onClose }: ListOptionsProps) => {
     <div
       className="actions-modal"
       style={{
-        left: listOptionsModal.coordinates.x - 84,
-        top: listOptionsModal.coordinates.y + 32,
+        left: listOptionsModal.coordinates.left - 84,
+        top: listOptionsModal.coordinates.top + 32,
       }}
       ref={listOptionsRef}
     >

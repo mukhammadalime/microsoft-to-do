@@ -4,11 +4,7 @@ import CalendarModal from "./CalendarModal";
 import { useAppDispatch, useAppSelector } from "../../hooks/useReduxHooks";
 import CustomRepeatModal from "./CustomRepeatModal";
 import TimeOptionsModal from "./TimeOptionsModal";
-import {
-  deuDateTooltipToggle,
-  reminderTooltipToggle,
-  repeatTooltipToggle,
-} from "../../store/action-creators/tooltipsActions";
+
 import RemindMeModal from "./RemindMeModal";
 import RepeatModal from "./RepeatModal";
 import ListOptionsMenuModal from "./ListOptionsModal";
@@ -21,6 +17,11 @@ import {
   repeatModalToggler,
   timeOptionsModalToggler,
 } from "../../store/reducers/modalsReducer";
+import {
+  dueDateTooltipToggler,
+  remindMeTooltipToggler,
+  repeatTooltipToggler,
+} from "../../store/reducers/tooltipsReducer";
 
 const AllModals = () => {
   const dispatch = useAppDispatch();
@@ -50,7 +51,7 @@ const AllModals = () => {
         <DueDateModal
           onClose={() => {
             dispatch(dueDateModalToggler({ open: false }));
-            deuDateTooltipToggle(false);
+            dispatch(dueDateTooltipToggler({ open: false }));
           }}
         />
       )}
@@ -73,7 +74,7 @@ const AllModals = () => {
         <RemindMeModal
           onClose={() => {
             dispatch(remindMeModalToggler({ open: false }));
-            dispatch(reminderTooltipToggle(false));
+            dispatch(remindMeTooltipToggler({ open: false }));
           }}
         />
       )}
@@ -83,7 +84,7 @@ const AllModals = () => {
         <RepeatModal
           onClose={() => {
             dispatch(repeatModalToggler({ open: false }));
-            dispatch(repeatTooltipToggle(false));
+            dispatch(repeatTooltipToggler({ open: false }));
           }}
         />
       )}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/useReduxHooks";
+import { useAppDispatch } from "../../hooks/useReduxHooks";
 import CalendarIcon from "../../Icons/CalendarIcon";
 import BellIcon from "../../Icons/BellIcon";
 import RepeatIcon from "../../Icons/RepeatIcon";

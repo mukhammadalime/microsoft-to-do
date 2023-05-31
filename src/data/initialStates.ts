@@ -1,4 +1,4 @@
 export const initialCoordinatesState = {
-  x: 0,
-  y: 0,
+  left: 0,
+  top: 0,
 };

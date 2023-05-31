@@ -10,17 +10,17 @@ export interface ModalItemType {
 
 const initialModalState: ModalItemType = {
   open: false,
-  coordinates: { x: 0, y: 0 },
+  coordinates: { left: 0, top: 0 },
 };
 
 export interface ModalsStateType {
   calendarModal: ModalItemType;
   customRepeatModal: ModalItemType;
-  dueDateModal: ModalItemType; // done
+  dueDateModal: ModalItemType;
   // listActionsModal: ModalItemType;
   // groupActionsModal: ModalItemType;
   // groupsModal: ModalItemType;
-  listOptionsModal: ModalItemType; // done
+  listOptionsModal: ModalItemType;
   remindMeModal: ModalItemType;
   repeatModal: ModalItemType;
   timeOptionsModal: ModalItemType;
@@ -56,8 +56,8 @@ const modalsSlice = createSlice({
     ) => {
       state.calendarModal.open = action.payload.open;
       state.calendarModal.coordinates = action.payload.coordinates ?? {
-        x: 0,
-        y: 0,
+        left: 0,
+        top: 0,
       };
       state.calendarModal.timeForCalendar = action.payload.timeForCalendar;
     },
@@ -68,8 +68,8 @@ const modalsSlice = createSlice({
     ) => {
       state.customRepeatModal.open = action.payload.open;
       state.customRepeatModal.coordinates = action.payload.coordinates ?? {
-        x: 0,
-        y: 0,
+        left: 0,
+        top: 0,
       };
     },
 
@@ -79,8 +79,8 @@ const modalsSlice = createSlice({
     ) => {
       state.dueDateModal.open = action.payload.open;
       state.dueDateModal.coordinates = action.payload.coordinates ?? {
-        x: 0,
-        y: 0,
+        left: 0,
+        top: 0,
       };
     },
 
@@ -90,8 +90,8 @@ const modalsSlice = createSlice({
     // ) => {
     //   state.groupActionsModal.open = action.payload.open;
     //   state.groupActionsModal.coordinates = action.payload.coordinates ?? {
-    //     x: 0,
-    //     y: 0,
+    //     left: 0,
+    //     top: 0,
     //   };
     // },
 
@@ -101,8 +101,8 @@ const modalsSlice = createSlice({
     // ) => {
     //   state.groupsModal.open = action.payload.open;
     //   state.groupsModal.coordinates = action.payload.coordinates ?? {
-    //     x: 0,
-    //     y: 0,
+    //     left: 0,
+    //     top: 0,
     //   };
     // },
 
@@ -112,8 +112,8 @@ const modalsSlice = createSlice({
     // ) => {
     //   state.listActionsModal.open = action.payload.open;
     //   state.listActionsModal.coordinates = action.payload.coordinates ?? {
-    //     x: 0,
-    //     y: 0,
+    //     left: 0,
+    //     top: 0,
     //   };
     // },
 
@@ -123,8 +123,8 @@ const modalsSlice = createSlice({
     ) => {
       state.listOptionsModal.open = action.payload.open;
       state.listOptionsModal.coordinates = action.payload.coordinates ?? {
-        x: 0,
-        y: 0,
+        left: 0,
+        top: 0,
       };
     },
 
@@ -134,8 +134,8 @@ const modalsSlice = createSlice({
     ) => {
       state.remindMeModal.open = action.payload.open;
       state.remindMeModal.coordinates = action.payload.coordinates ?? {
-        x: 0,
-        y: 0,
+        left: 0,
+        top: 0,
       };
     },
 
@@ -145,8 +145,8 @@ const modalsSlice = createSlice({
     ) => {
       state.repeatModal.open = action.payload.open;
       state.repeatModal.coordinates = action.payload.coordinates ?? {
-        x: 0,
-        y: 0,
+        left: 0,
+        top: 0,
       };
     },
 
@@ -156,8 +156,8 @@ const modalsSlice = createSlice({
     ) => {
       state.timeOptionsModal.open = action.payload.open;
       state.timeOptionsModal.coordinates = action.payload.coordinates ?? {
-        x: 0,
-        y: 0,
+        left: 0,
+        top: 0,
       };
     },
   },
@@ -174,78 +174,3 @@ export const {
 } = modalsSlice.actions;
 
 export default modalsSlice.reducer;
-
-// export const modalsReducer: Reducer<ModalsStateType, AnyAction> = (
-//   state: ModalsStateType = initialState,
-//   action: AnyAction
-// ) => {
-//   switch (action.type) {
-//     case LIST_OPTIONS_MODAL_OPEN:
-//       return { ...state, listOptionsModal: action.payload };
-//     case LIST_OPTIONS_MODAL_CLOSE:
-//       return { ...state, listOptionsModal: action.payload };
-
-//     case SORT_MODAL_OPEN:
-//       return { ...state, sortModal: action.payload };
-//     case SORT_MODAL_CLOSE:
-//       return { ...state, sortModal: action.payload };
-
-//     case DUE_DATE_MODAL_OPEN:
-//       return { ...state, dueDateModal: action.payload };
-//     case DUE_DATE_MODAL_CLOSE:
-//       return { ...state, dueDateModal: action.payload };
-
-//     case PICK_DATE_MODAL_OPEN:
-//       return { ...state, pickDateModal: action.payload };
-//     case PICK_DATE_MODAL_CLOSE:
-//       return { ...state, pickDateModal: action.payload };
-
-//     case PICK_DATE_AND_TIME_MODAL_OPEN:
-//       return { ...state, pickDateAndTimeModal: action.payload };
-//     case PICK_DATE_AND_TIME_MODAL_CLOSE:
-//       return { ...state, pickDateAndTimeModal: action.payload };
-
-//     case REMINDER_MODAL_OPEN:
-//       return { ...state, remindMeModal: action.payload };
-//     case REMINDER_MODAL_CLOSE:
-//       return { ...state, remindMeModal: action.payload };
-
-//     case REPEAT_MODAL_OPEN:
-//       return { ...state, repeatModal: action.payload };
-//     case REPEAT_MODAL_CLOSE:
-//       return { ...state, repeatModal: action.payload };
-
-//     case CUSTOM_REPEAT_MODAL_OPEN:
-//       return { ...state, customRepeatModal: action.payload };
-//     case CUSTOM_REPEAT_MODAL_CLOSE:
-//       return { ...state, customRepeatModal: action.payload };
-
-//     case TIME_OPTIONS_MODAL_OPEN:
-//       return { ...state, timeOptionsModal: action.payload };
-//     case TIME_OPTIONS_MODAL_CLOSE:
-//       return { ...state, timeOptionsModal: action.payload };
-
-//     case CALENDAR_MODAL_OPEN:
-//       return { ...state, calendarModal: action.payload };
-//     case CALENDAR_MODAL_CLOSE:
-//       return { ...state, calendarModal: action.payload };
-
-//     case LIST_ACTIONS_MODAL_OPEN:
-//       return { ...state, listActionsModal: action.payload };
-//     case LIST_ACTIONS_MODAL_CLOSE:
-//       return { ...state, listActionsModal: action.payload };
-
-//     case GROUP_ACTIONS_MODAL_OPEN:
-//       return { ...state, groupActionsModal: action.payload };
-//     case GROUP_ACTIONS_MODAL_CLOSE:
-//       return { ...state, groupActionsModal: action.payload };
-
-//     case GROUPS_MODAL_OPEN:
-//       return { ...state, groupsModal: action.payload };
-//     case GROUPS_MODAL_CLOSE:
-//       return { ...state, groupsModal: action.payload };
-
-//     default:
-//       return state;
-//   }
-// };

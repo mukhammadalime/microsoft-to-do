@@ -96,7 +96,12 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         </div>
 
         <div className="sidebar__content">
-          <div className="sidebar__items">
+          <div
+            className="sidebar__items"
+            // onScroll={() => {
+            //   console.log("Hellow");
+            // }}
+          >
             {defaultSideBarItems.map((item, i) => {
               return (
                 <SidebarListItem

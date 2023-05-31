@@ -47,8 +47,8 @@ const TimeOptionsOverlay = ({ onClose }: TimeOptionsProps) => {
     <div
       className="actions-modal time-options"
       style={{
-        left: timeOptionsModal.coordinates.x,
-        top: timeOptionsModal.coordinates.y + 30,
+        left: timeOptionsModal.coordinates.left,
+        top: timeOptionsModal.coordinates.top + 30,
       }}
       ref={timeOptionsRef}
     >

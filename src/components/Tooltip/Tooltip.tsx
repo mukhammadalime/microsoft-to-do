@@ -22,8 +22,8 @@ const TooltipOverlay = ({
     <div
       className="tooltip"
       style={{
-        left: tooltipPosition.x,
-        top: tooltipPosition.y,
+        left: tooltipPosition.left,
+        top: tooltipPosition.top,
       }}
     >
       <div

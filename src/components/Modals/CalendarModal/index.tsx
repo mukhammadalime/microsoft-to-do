@@ -52,8 +52,8 @@ const CalendarOverlay = ({ onClose, time }: CalendarProps) => {
     const searchTooltipPosition = tooltipHost.getBoundingClientRect();
 
     const coordinates = {
-      x: searchTooltipPosition.left,
-      y: searchTooltipPosition.top,
+      left: searchTooltipPosition.left,
+      top: searchTooltipPosition.top,
     };
 
     dispatch(
@@ -65,8 +65,8 @@ const CalendarOverlay = ({ onClose, time }: CalendarProps) => {
     <div
       className="calendar"
       style={{
-        left: calendarModal.coordinates.x - 10.5 ?? 0,
-        top: calendarModal.coordinates.y + 11 ?? 0,
+        left: calendarModal.coordinates.left - 10.5 ?? 0,
+        top: calendarModal.coordinates.top + 11 ?? 0,
       }}
       ref={calendarRef}
     >

@@ -1,20 +1,5 @@
-import { AnyAction, Reducer } from "redux";
-import {
-  DUE_DATE_TOOLTIP_CLOSE,
-  DUE_DATE_TOOLTIP_OPEN,
-  LIST_OPTIONS_TOOLTIP_CLOSE,
-  LIST_OPTIONS_TOOLTIP_OPEN,
-  REMINDER_TOOLTIP_CLOSE,
-  REMINDER_TOOLTIP_OPEN,
-  REPEAT_TOOLTIP_CLOSE,
-  REPEAT_TOOLTIP_OPEN,
-  SORT_TOOLTIP_CLOSE,
-  SORT_TOOLTIP_OPEN,
-  SUGGESTIONS_TOOLTIP_CLOSE,
-  SUGGESTIONS_TOOLTIP_OPEN,
-} from "../constants/tooltipsConstants";
-import { TooltipsActions } from "../actions";
 import { CoordinatesTypes } from "../../types/designTypes";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface TooltipItemType {
   open: boolean;
@@ -25,67 +10,105 @@ export interface TooltipsStateType {
   dueDateTooltip: TooltipItemType;
   listOptionsTooltip: TooltipItemType;
   sortTooltip: TooltipItemType;
-  reminderTooltip: TooltipItemType;
+  remindMeTooltip: TooltipItemType;
   repeatTooltip: TooltipItemType;
   suggestionsTooltip: TooltipItemType;
 }
 
 const initialTooltipState: TooltipItemType = {
   open: false,
-  coordinates: { x: 0, y: 0 },
+  coordinates: { left: 0, top: 0 },
 };
 
-export const initialTooltipsState: TooltipsStateType = {
+export const initialState: TooltipsStateType = {
+  dueDateTooltip: initialTooltipState,
   listOptionsTooltip: initialTooltipState,
   sortTooltip: initialTooltipState,
-  dueDateTooltip: initialTooltipState,
-  reminderTooltip: initialTooltipState,
+  remindMeTooltip: initialTooltipState,
   repeatTooltip: initialTooltipState,
   suggestionsTooltip: initialTooltipState,
 };
 
-export const tooltipReducer: Reducer<TooltipsStateType, AnyAction> = (
-  state: TooltipsStateType = initialTooltipsState,
-  action: AnyAction
-) => {
-  switch (action.type) {
-    case LIST_OPTIONS_TOOLTIP_OPEN:
-      return { ...state, listOptionsTooltip: action.payload };
-    case LIST_OPTIONS_TOOLTIP_CLOSE:
-      return { ...state, listOptionsTooltip: action.payload };
-
-    case SORT_TOOLTIP_OPEN:
-      return { ...state, sortTooltip: action.payload };
-    case SORT_TOOLTIP_CLOSE:
-      return { ...state, sortTooltip: action.payload };
-
-    case SUGGESTIONS_TOOLTIP_OPEN:
-      return { ...state, suggestionsTooltip: action.payload };
-    case SUGGESTIONS_TOOLTIP_CLOSE:
-      return { ...state, suggestionsTooltip: action.payload };
-
-    case DUE_DATE_TOOLTIP_OPEN:
-      return {
-        ...state,
-        dueDateTooltip: action.payload,
+const tooltipsSlice = createSlice({
+  name: "tooltips",
+  initialState,
+  reducers: {
+    dueDateTooltipToggler: (
+      state,
+      action: PayloadAction<{
+        open: boolean;
+        coordinates?: CoordinatesTypes;
+      }>
+    ) => {
+      state.dueDateTooltip.open = action.payload.open;
+      state.dueDateTooltip.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
       };
-    case DUE_DATE_TOOLTIP_CLOSE:
-      return {
-        ...state,
-        dueDateTooltip: action.payload,
+    },
+
+    listOptionsTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.listOptionsTooltip.open = action.payload.open;
+      state.listOptionsTooltip.coordinates =
+        action.payload.coordinates ?? state.listOptionsTooltip.coordinates;
+    },
+
+    sortTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.sortTooltip.open = action.payload.open;
+      state.sortTooltip.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
       };
+    },
 
-    case REMINDER_TOOLTIP_OPEN:
-      return { ...state, reminderTooltip: action.payload };
-    case REMINDER_TOOLTIP_CLOSE:
-      return { ...state, reminderTooltip: action.payload };
+    remindMeTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.remindMeTooltip.open = action.payload.open;
+      state.remindMeTooltip.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
+      };
+    },
 
-    case REPEAT_TOOLTIP_OPEN:
-      return { ...state, repeatTooltip: action.payload };
-    case REPEAT_TOOLTIP_CLOSE:
-      return { ...state, repeatTooltip: action.payload };
+    repeatTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.repeatTooltip.open = action.payload.open;
+      state.repeatTooltip.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
+      };
+    },
 
-    default:
-      return state;
-  }
-};
+    suggestionsTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.suggestionsTooltip.open = action.payload.open;
+      state.suggestionsTooltip.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
+      };
+    },
+  },
+});
+
+export const {
+  dueDateTooltipToggler,
+  listOptionsTooltipToggler,
+  sortTooltipToggler,
+  remindMeTooltipToggler,
+  repeatTooltipToggler,
+  suggestionsTooltipToggler,
+} = tooltipsSlice.actions;
+
+export default tooltipsSlice.reducer;

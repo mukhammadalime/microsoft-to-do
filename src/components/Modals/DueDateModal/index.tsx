@@ -8,8 +8,6 @@ import NextWeekIcon from "../../../Icons/NextWeekIcon";
 import PickDateIcon from "../../../Icons/PickDateIcon";
 import TrashIcon2 from "../../../Icons/TrashIcon2";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useReduxHooks";
-
-import { initialCoordinatesState } from "../../../data/initialStates";
 import {
   calendarModalToggler,
   dueDateModalToggler,
@@ -50,8 +48,8 @@ const DueDateOverlay = ({ onClose }: DueDateOptionsProps) => {
       <div
         className="actions-modal"
         style={{
-          left: dueDateModal.coordinates ? dueDateModal.coordinates.x : 0,
-          top: dueDateModal.coordinates ? dueDateModal.coordinates.y : 0,
+          left: dueDateModal.coordinates.left ?? 0,
+          top: dueDateModal.coordinates.top ?? 0,
         }}
         ref={dueDateOptionsRef}
       >
@@ -90,8 +88,8 @@ const DueDateOverlay = ({ onClose }: DueDateOptionsProps) => {
                 calendarModalToggler({
                   open: true,
                   coordinates: {
-                    x: dueDateModal.coordinates.x,
-                    y: dueDateModal.coordinates.y,
+                    left: dueDateModal.coordinates.left,
+                    top: dueDateModal.coordinates.top,
                   },
                 })
               );

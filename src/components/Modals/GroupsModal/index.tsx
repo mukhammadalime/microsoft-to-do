@@ -12,6 +12,7 @@ interface GroupsModalPropsTypes {
   groupsModalRef: React.RefObject<HTMLDivElement>;
   listId: string;
   coordinates: CoordinatesTypes;
+  listActionsFromBottom: boolean;
 }
 
 const GroupsOverlay = ({
@@ -19,6 +20,7 @@ const GroupsOverlay = ({
   groupsModalRef,
   listId,
   coordinates,
+  listActionsFromBottom,
 }: GroupsModalPropsTypes) => {
   const [groups, setGroups] = useState<SidebarGroupItemType[]>(() => []);
   const [fromBottom, setFromBottom] = useState<boolean>(() => false);
@@ -31,12 +33,22 @@ const GroupsOverlay = ({
 
   // Here we need to calculate if the distance between the clicked point and window bottom is bigger than the groups modal container
   useEffect(() => {
+    // 38 is the height of one action. 12 is the padding of the box
     const groupsContainerHeight = groups.length * 38 + 12;
 
-    if (window.innerHeight - coordinates.y < groupsContainerHeight) {
+    // 45 is the height of one action plus 6px padding plus 1px
+    // 170 is the height between the clicked point and the top of "Move list to..." action
+    // 15 is just for groupsBox not to touch the window bottom
+    if (
+      (!listActionsFromBottom &&
+        window.innerHeight - coordinates.top - 45 - 15 <
+          groupsContainerHeight) ||
+      (listActionsFromBottom &&
+        window.innerHeight - coordinates.top + 170 + 15 < groupsContainerHeight)
+    ) {
       setFromBottom(true);
     }
-  }, [coordinates.y, groups]);
+  }, [coordinates.top, groups, listActionsFromBottom]);
 
   const moveListHandler = (id: string) => {
     onClose();
@@ -46,15 +58,17 @@ const GroupsOverlay = ({
     localStorage.setItem("groups", JSON.stringify(groups));
   };
 
+  const groupsBoxFromBottom = listActionsFromBottom
+    ? -coordinates.top + 170 - (groups.length * 38 + 12)
+    : -(coordinates.top + groups.length * 38 + 12 + 45);
+
   return (
     <div
       ref={groupsModalRef}
       className="actions-modal groups-modal"
       style={{
-        bottom: fromBottom
-          ? -961
-          : -(coordinates.y + groups.length * 38 + 12 + 46),
-        left: coordinates.x + 200,
+        bottom: fromBottom ? -961 : groupsBoxFromBottom,
+        left: coordinates.left + 200,
         overflowY: groups.length * 38 + 12 > 951 ? "scroll" : "unset",
       }}
     >
@@ -82,6 +96,7 @@ const GroupsModal = ({
   groupsModalRef,
   listId,
   coordinates,
+  listActionsFromBottom,
 }: GroupsModalPropsTypes) => {
   return (
     <>
@@ -92,6 +107,7 @@ const GroupsModal = ({
             onClose={onClose}
             groupsModalRef={groupsModalRef}
             coordinates={coordinates}
+            listActionsFromBottom={listActionsFromBottom}
           />
         </ModalWrapper>,
 

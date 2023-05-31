@@ -1,9 +1,10 @@
 import { AppDispatch } from "../../store";
 import {
-  listOptionsTooltipToggle,
-  sortTooltipToggle,
-  suggestionsTooltipToggle,
-} from "../../store/action-creators/tooltipsActions";
+  listOptionsTooltipToggler,
+  sortTooltipToggler,
+  suggestionsTooltipToggler,
+} from "../../store/reducers/tooltipsReducer";
+import { CoordinatesTypes } from "../../types/designTypes";
 
 export const SUGGESTIONS: string = "SUGGESTIONS";
 export const LIST_OPTIONS: string = "LIST_OPTIONS";
@@ -11,9 +12,8 @@ export const SORT: string = "SORT";
 
 export const onMouseEnterHelperFn = (
   type: string,
-
   setTimerID: (id: NodeJS.Timeout | undefined) => void,
-  setTooltipCoordinates: ({ x, y }: { x: number; y: number }) => void,
+  setTooltipCoordinates: ({ left, top }: CoordinatesTypes) => void,
   dispatch: AppDispatch
 ) => {
   const tooltipHostClassname =
@@ -29,17 +29,20 @@ export const onMouseEnterHelperFn = (
 
   const tooltipPosition = tooltipHost.getBoundingClientRect();
   setTooltipCoordinates({
-    x: tooltipPosition.left,
-    y: tooltipPosition.top,
+    left: tooltipPosition.left,
+    top: tooltipPosition.top,
   });
 
   switch (type) {
     case LIST_OPTIONS:
       const id = setTimeout(() => {
         dispatch(
-          listOptionsTooltipToggle(true, {
-            x: tooltipPosition.left - 40,
-            y: tooltipPosition.top - 35,
+          listOptionsTooltipToggler({
+            open: true,
+            coordinates: {
+              left: tooltipPosition.left - 40,
+              top: tooltipPosition.top - 35,
+            },
           })
         );
       }, 300);
@@ -49,9 +52,12 @@ export const onMouseEnterHelperFn = (
     case SORT:
       const id2 = setTimeout(() => {
         dispatch(
-          sortTooltipToggle(true, {
-            x: tooltipPosition.left + 16.595,
-            y: tooltipPosition.top - 35,
+          sortTooltipToggler({
+            open: true,
+            coordinates: {
+              left: tooltipPosition.left + 16.595,
+              top: tooltipPosition.top - 35,
+            },
           })
         );
       }, 300);
@@ -60,9 +66,12 @@ export const onMouseEnterHelperFn = (
     case SUGGESTIONS:
       const id3 = setTimeout(() => {
         dispatch(
-          suggestionsTooltipToggle(true, {
-            x: tooltipPosition.left + 20.415,
-            y: tooltipPosition.top - 35,
+          suggestionsTooltipToggler({
+            open: true,
+            coordinates: {
+              left: tooltipPosition.left + 20.415,
+              top: tooltipPosition.top - 35,
+            },
           })
         );
       }, 300);
@@ -81,13 +90,13 @@ export const onMouseLeaveHelperFn = (
 
   switch (type) {
     case LIST_OPTIONS:
-      dispatch(listOptionsTooltipToggle(false));
+      dispatch(listOptionsTooltipToggler({ open: false }));
       break;
     case SORT:
-      dispatch(sortTooltipToggle(false));
+      dispatch(sortTooltipToggler({ open: false }));
       break;
     case SUGGESTIONS:
-      dispatch(suggestionsTooltipToggle(false));
+      dispatch(suggestionsTooltipToggler({ open: false }));
       break;
   }
 };
