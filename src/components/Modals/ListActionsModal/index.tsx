@@ -5,27 +5,18 @@ import DublicateIcon from "../../../Icons/DublicateIcon";
 import PrintIcon from "../../../Icons/PrintIcon";
 import TrashIcon from "../../../Icons/TrashIcon";
 import { useEffect, useRef, useState } from "react";
-import {
-  CoordinatesTypes,
-  SidebarListItemType,
-} from "../../../types/designTypes";
+import { SidebarListItemType } from "../../../types/designTypes";
 import GroupsModal from "../GroupsModal";
 import ModalActionItem from "../../ModalActionItem";
 import ModalWrapper from "../../ModalWrapper";
+import { useAppSelector } from "../../../hooks/useReduxHooks";
 
 interface ListActionsPropsTypes {
   onClose: () => void;
-  listItem: SidebarListItemType;
   tasksList?: boolean;
-  coordinates: CoordinatesTypes;
 }
 
-const ListActionsOverlay = ({
-  onClose,
-  listItem,
-  tasksList,
-  coordinates,
-}: ListActionsPropsTypes) => {
+const ListActionsOverlay = ({ onClose, tasksList }: ListActionsPropsTypes) => {
   const listActionsRef = useRef<HTMLDivElement>(null);
   const groupsModalRef = useRef<HTMLDivElement>(null);
   const [fromBottom, setFromBottom] = useState(() => false);
@@ -37,6 +28,8 @@ const ListActionsOverlay = ({
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
   const [timer2ID, setTimer2ID] = useState<NodeJS.Timeout>();
 
+  const { listActionsModal } = useAppSelector((state) => state.modals);
+
   // GET GROUPS FROM LOCAL STORAGE
   useEffect(() => {
     const existingGroups = JSON.parse(localStorage.getItem("groups")!) ?? [];
@@ -46,17 +39,25 @@ const ListActionsOverlay = ({
   // If the distance between the clicked point and window bottom is below 230, the listActions box should appear from bottom and its's bottom should be set. Otherwise, the box goes beyond the screen
   useEffect(() => {
     // 177 is the height of the ListActions box when there are 4 actions. I added another ten so that the box does not touch the bottom of the window.
-    if (!groupExist && window.innerHeight - coordinates.top < 187) {
+    if (
+      !groupExist &&
+      window.innerHeight - listActionsModal.coordinates.top < 187
+    ) {
       setFromBottom(true);
     }
     // 225 is the height of the ListActions box when there are 5 actions. I added another ten so that the box does not touch the bottom of the window.
-    if (groupExist && window.innerHeight - coordinates.top < 225) {
+    if (
+      groupExist &&
+      window.innerHeight - listActionsModal.coordinates.top < 225
+    ) {
       setFromBottom(true);
     }
 
-    if (!fromBottom && !groupExist) setBottomDistance(-coordinates.top - 177);
-    if (!fromBottom && groupExist) setBottomDistance(-coordinates.top - 215);
-  }, [groupExist, fromBottom, coordinates.top]);
+    if (!fromBottom && !groupExist)
+      setBottomDistance(-listActionsModal.coordinates.top - 177);
+    if (!fromBottom && groupExist)
+      setBottomDistance(-listActionsModal.coordinates.top - 215);
+  }, [groupExist, fromBottom, listActionsModal.coordinates.top]);
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
@@ -81,7 +82,8 @@ const ListActionsOverlay = ({
     const existingLists = JSON.parse(localStorage.getItem("lists")!) ?? [];
 
     const updatedLists = existingLists.filter(
-      (list: SidebarListItemType) => list.id !== listItem.id
+      (list: SidebarListItemType) =>
+        list.id !== window.location.href.split("/")[4]
     );
 
     localStorage.setItem("lists", JSON.stringify(updatedLists));
@@ -108,15 +110,17 @@ const ListActionsOverlay = ({
   };
   const onMouseLeaveOtherItems = () => clearTimeout(timer2ID);
 
-  const listActionsBottom = fromBottom ? -coordinates.top : bottomDistance;
-  const tasksListActionsBottom = -coordinates.top - 88;
+  const listActionsBottom = fromBottom
+    ? -listActionsModal.coordinates.top
+    : bottomDistance;
+  const tasksListActionsBottom = -listActionsModal.coordinates.top - 88;
 
   return (
     <>
       <div
         className={`actions-modal${fromBottom ? " modal-from-bottom" : ""}`}
         style={{
-          left: coordinates.left,
+          left: listActionsModal.coordinates.left,
           bottom: tasksList ? tasksListActionsBottom : listActionsBottom,
         }}
         ref={listActionsRef}
@@ -204,8 +208,8 @@ const ListActionsOverlay = ({
         <GroupsModal
           onClose={onClose}
           groupsModalRef={groupsModalRef}
-          listId={listItem.id}
-          coordinates={coordinates}
+          listId={window.location.href.split("/")[4]}
+          coordinates={listActionsModal.coordinates}
           listActionsFromBottom={fromBottom}
         />
       )}
@@ -213,22 +217,12 @@ const ListActionsOverlay = ({
   );
 };
 
-const ListActionsModal = ({
-  onClose,
-  listItem,
-  tasksList,
-  coordinates,
-}: ListActionsPropsTypes) => {
+const ListActionsModal = ({ onClose, tasksList }: ListActionsPropsTypes) => {
   return (
     <>
       {ReactDOM.createPortal(
         <ModalWrapper>
-          <ListActionsOverlay
-            onClose={onClose}
-            listItem={listItem}
-            tasksList={tasksList}
-            coordinates={coordinates}
-          />
+          <ListActionsOverlay onClose={onClose} tasksList={tasksList} />
         </ModalWrapper>,
         document.getElementById("modal-wrapper") as HTMLDivElement
       )}

@@ -11,6 +11,8 @@ import SidebarFooter from "./SidebarFooter";
 import SidebarGroupItem from "./GroupRelatedFiles/SidebarGroupItem";
 import SidebarIcon from "../../Icons/SidebarIcon";
 import { addGroupHelperFn, addNewListHelperFn } from "./helperFunctions";
+import { useAppDispatch, useAppSelector } from "../../hooks/useReduxHooks";
+import { listActionsModalToggler } from "../../store/reducers/modalsReducer";
 
 const Sidebar = ({ onClose }: { onClose: () => void }) => {
   const newListRef = useRef<HTMLInputElement>(null);
@@ -20,6 +22,9 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
   const [groups, setGroups] = useState<SidebarGroupItemType[]>(() => []);
   const [activeListItem, setActiveListItem] = useState<string>(() => "My Day");
   const [showAddGroupInput, setShowAddGroupInput] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+  const { listActionsModal } = useAppSelector((state) => state.modals);
 
   let allItems: Array<SidebarGroupItemType | SidebarListItemType> = [];
 
@@ -98,9 +103,10 @@ const Sidebar = ({ onClose }: { onClose: () => void }) => {
         <div className="sidebar__content">
           <div
             className="sidebar__items"
-            // onScroll={() => {
-            //   console.log("Hellow");
-            // }}
+            onScroll={() => {
+              listActionsModal.open &&
+                dispatch(listActionsModalToggler({ open: false }));
+            }}
           >
             {defaultSideBarItems.map((item, i) => {
               return (

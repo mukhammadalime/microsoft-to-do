@@ -1,11 +1,9 @@
-import {
-  CoordinatesTypes,
-  SidebarListItemType,
-} from "../../../types/designTypes";
+import { SidebarListItemType } from "../../../types/designTypes";
 import ListIcon from "../../../Icons/ListIcon";
 import { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import ListActionsModal from "../../Modals/ListActionsModal";
+import { useAppDispatch } from "../../../hooks/useReduxHooks";
+import { listActionsModalToggler } from "../../../store/reducers/modalsReducer";
 
 interface SidebarListItemPropsTypes {
   actionsDisabled?: boolean | "limited";
@@ -24,12 +22,8 @@ const SidebarListItem = ({
 }: SidebarListItemPropsTypes) => {
   const navigate = useNavigate();
 
-  const [listActionsIsOpen, setListActionsIsOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
   const [checkActiveListItem, setCheckActiveListItem] = useState(false);
-  const [coordinates, setCoordinates] = useState<CoordinatesTypes>({
-    left: 0,
-    top: 0,
-  });
 
   useEffect(() => {
     const itemIsAtive = item.dublicateNumber
@@ -51,8 +45,14 @@ const SidebarListItem = ({
     e.preventDefault();
 
     if (e.type === "contextmenu") {
-      setCoordinates({ left: e.pageX, top: e.pageY });
-      setListActionsIsOpen(true);
+      dispatch(
+        listActionsModalToggler({
+          open: true,
+          coordinates: { left: e.pageX, top: e.pageY },
+          item,
+          actionsDisabled: actionsDisabled,
+        })
+      );
       setActiveListItemHandler();
     }
   };
@@ -81,23 +81,6 @@ const SidebarListItem = ({
         </div>
         {/* <span>2</span> */}
       </div>
-
-      {listActionsIsOpen && !actionsDisabled && (
-        <ListActionsModal
-          listItem={item}
-          coordinates={coordinates}
-          onClose={() => setListActionsIsOpen(false)}
-        />
-      )}
-
-      {listActionsIsOpen && actionsDisabled === "limited" && (
-        <ListActionsModal
-          listItem={item}
-          coordinates={coordinates}
-          onClose={() => setListActionsIsOpen(false)}
-          tasksList
-        />
-      )}
     </>
   );
 };

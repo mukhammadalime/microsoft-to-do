@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CoordinatesTypes } from "../../types/designTypes";
+import { CoordinatesTypes, SidebarListItemType } from "../../types/designTypes";
 
 export interface ModalItemType {
   open: boolean;
   coordinates: CoordinatesTypes;
   timeForCalendar?: boolean;
-  actionsLimited?: boolean;
+  actionsDisabled?: boolean | "limited";
+  item?: SidebarListItemType;
 }
 
 const initialModalState: ModalItemType = {
@@ -17,7 +18,7 @@ export interface ModalsStateType {
   calendarModal: ModalItemType;
   customRepeatModal: ModalItemType;
   dueDateModal: ModalItemType;
-  // listActionsModal: ModalItemType;
+  listActionsModal: ModalItemType;
   // groupActionsModal: ModalItemType;
   // groupsModal: ModalItemType;
   listOptionsModal: ModalItemType;
@@ -33,7 +34,7 @@ const initialState: ModalsStateType = {
   dueDateModal: initialModalState,
   // groupActionsModal: initialModalState,
   // groupsModal: initialModalState,
-  // listActionsModal: initialModalState,
+  listActionsModal: initialModalState,
   listOptionsModal: initialModalState,
   remindMeModal: initialModalState,
   repeatModal: initialModalState,
@@ -106,16 +107,23 @@ const modalsSlice = createSlice({
     //   };
     // },
 
-    // listActionsModalToggler: (
-    //   state,
-    //   action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
-    // ) => {
-    //   state.listActionsModal.open = action.payload.open;
-    //   state.listActionsModal.coordinates = action.payload.coordinates ?? {
-    //     left: 0,
-    //     top: 0,
-    //   };
-    // },
+    listActionsModalToggler: (
+      state,
+      action: PayloadAction<{
+        open: boolean;
+        coordinates?: CoordinatesTypes;
+        item?: SidebarListItemType;
+        actionsDisabled?: boolean | "limited";
+      }>
+    ) => {
+      state.listActionsModal.open = action.payload.open;
+      state.listActionsModal.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
+      };
+      state.listActionsModal.item = action.payload.item;
+      state.listActionsModal.actionsDisabled = action.payload.actionsDisabled;
+    },
 
     listOptionsModalToggler: (
       state,
@@ -171,6 +179,7 @@ export const {
   repeatModalToggler,
   timeOptionsModalToggler,
   customRepeatModalToggler,
+  listActionsModalToggler,
 } = modalsSlice.actions;
 
 export default modalsSlice.reducer;

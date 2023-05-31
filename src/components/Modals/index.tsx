@@ -12,6 +12,7 @@ import {
   calendarModalToggler,
   customRepeatModalToggler,
   dueDateModalToggler,
+  listActionsModalToggler,
   listOptionsModalToggler,
   remindMeModalToggler,
   repeatModalToggler,
@@ -22,6 +23,7 @@ import {
   remindMeTooltipToggler,
   repeatTooltipToggler,
 } from "../../store/reducers/tooltipsReducer";
+import ListActionsModal from "./ListActionsModal";
 
 const AllModals = () => {
   const dispatch = useAppDispatch();
@@ -61,6 +63,14 @@ const AllModals = () => {
       {/* Groups Modal */}
 
       {/* List Actions Modal */}
+      {modals.listActionsModal.open && (
+        <ListActionsModal
+          onClose={() => dispatch(listActionsModalToggler({ open: false }))}
+          tasksList={
+            modals.listActionsModal.actionsDisabled === "limited" && true
+          }
+        />
+      )}
 
       {/* List Options Modal */}
       {modals.listOptionsModal.open && (
