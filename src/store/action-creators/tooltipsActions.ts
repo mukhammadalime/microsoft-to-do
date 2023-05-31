@@ -13,6 +13,8 @@ import {
   SUGGESTIONS_TOOLTIP_OPEN,
 } from "../constants/tooltipsConstants";
 import { CoordinatesTypes } from "../../types/designTypes";
+import { AppDispatch } from "..";
+import { RootState } from "..";
 
 const helperTooltipToggle = (
   type: boolean,
@@ -31,18 +33,22 @@ const helperTooltipToggle = (
 
 export const deuDateTooltipToggle = (
   type: boolean,
-  coordinates: CoordinatesTypes
-) =>
-  helperTooltipToggle(
-    type,
-    DUE_DATE_TOOLTIP_OPEN,
-    DUE_DATE_TOOLTIP_CLOSE,
-    coordinates
-  );
+  coordinates?: CoordinatesTypes
+) => {
+  return (dispatch: AppDispatch, getState: RootState) => {
+    dispatch({
+      type: type ? DUE_DATE_TOOLTIP_OPEN : DUE_DATE_TOOLTIP_CLOSE,
+      payload: {
+        open: type ? true : false,
+        coordinates: coordinates,
+      },
+    });
+  };
+};
 
 export const reminderTooltipToggle = (
   type: boolean,
-  coordinates: CoordinatesTypes
+  coordinates?: CoordinatesTypes
 ) =>
   helperTooltipToggle(
     type,
@@ -53,13 +59,13 @@ export const reminderTooltipToggle = (
 
 export const sortTooltipToggle = (
   type: boolean,
-  coordinates: CoordinatesTypes
+  coordinates?: CoordinatesTypes
 ) =>
   helperTooltipToggle(type, SORT_TOOLTIP_OPEN, SORT_TOOLTIP_CLOSE, coordinates);
 
 export const listOptionsTooltipToggle = (
   type: boolean,
-  coordinates: CoordinatesTypes
+  coordinates?: CoordinatesTypes
 ) =>
   helperTooltipToggle(
     type,
@@ -70,7 +76,7 @@ export const listOptionsTooltipToggle = (
 
 export const repeatTooltipToggle = (
   type: boolean,
-  coordinates: CoordinatesTypes
+  coordinates?: CoordinatesTypes
 ) =>
   helperTooltipToggle(
     type,
@@ -81,7 +87,7 @@ export const repeatTooltipToggle = (
 
 export const suggestionsTooltipToggle = (
   type: boolean,
-  coordinates: CoordinatesTypes
+  coordinates?: CoordinatesTypes
 ) =>
   helperTooltipToggle(
     type,

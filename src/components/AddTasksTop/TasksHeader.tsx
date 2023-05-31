@@ -14,7 +14,7 @@ import {
   onMouseLeaveHelperFn,
 } from "./helperFunctions";
 import { useAppDispatch, useAppSelector } from "../../hooks/useReduxHooks";
-import { listOptionsModalToggle } from "../../store/action-creators/modalsActions";
+import { listOptionsModalToggler } from "../../store/reducers/modalsReducer";
 
 const TasksHeader = () => {
   /// REDUX
@@ -22,38 +22,26 @@ const TasksHeader = () => {
   const { listOptionsModal } = useAppSelector((state) => state.modals);
 
   const [listOptionsHovered, setListOptionsHovered] = useState(false);
-  const [sortHovered, setSortHovered] = useState(false);
-  const [suggestionsHovered, setSuggestionsHovered] = useState(false);
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
   const [tooltipCoordinates, setTooltipCoordinates] =
     useState<CoordinatesTypes>({ x: 0, y: 0 });
 
   const onMouseEnterHandler = (type: string) => {
-    onMouseEnterHelperFn(
-      type,
-      setListOptionsHovered,
-      setSortHovered,
-      setSuggestionsHovered,
-      setTimerID,
-      setTooltipCoordinates
-    );
+    onMouseEnterHelperFn(type, setTimerID, setTooltipCoordinates, dispatch);
   };
 
   const onMouseLeaveHandler = (type: string) => {
-    onMouseLeaveHelperFn(
-      type,
-      timerID,
-      setListOptionsHovered,
-      setSortHovered,
-      setSuggestionsHovered
-    );
+    onMouseLeaveHelperFn(type, timerID, dispatch);
   };
 
   const onClickListOptions = () => {
     dispatch(
-      listOptionsModalToggle(!listOptionsModal.open, {
-        x: tooltipCoordinates.x,
-        y: tooltipCoordinates.y,
+      listOptionsModalToggler({
+        open: !listOptionsModal.open,
+        coordinates: {
+          x: tooltipCoordinates.x,
+          y: tooltipCoordinates.y,
+        },
       })
     );
 
@@ -103,55 +91,6 @@ const TasksHeader = () => {
           </div>
         </div>
       </div>
-
-      {listOptionsHovered && (
-        <Tooltip
-          content="List options menu"
-          tooltipPosition={{
-            x: tooltipCoordinates.x - 40,
-            y: tooltipCoordinates.y - 35,
-          }}
-          trianglePosition={{
-            left: "48.75px",
-            bottom: "-8px",
-          }}
-        />
-      )}
-
-      {sortHovered && (
-        <Tooltip
-          content="Sort"
-          tooltipPosition={{
-            x: tooltipCoordinates.x + 16.595,
-            y: tooltipCoordinates.y - 35,
-          }}
-          trianglePosition={{
-            left: "12.25px",
-            bottom: "-8px",
-          }}
-        />
-      )}
-
-      {suggestionsHovered && (
-        <Tooltip
-          content="Suggestions"
-          tooltipPosition={{
-            x: tooltipCoordinates.x + 20.415,
-            y: tooltipCoordinates.y - 35,
-          }}
-          trianglePosition={{
-            left: "34.115px",
-            bottom: "-8px",
-          }}
-        />
-      )}
-
-      {listOptionsModal.open && (
-        <ListOptionsMenuModal
-          onClose={() => listOptionsModalToggle(false)}
-          coordinates={tooltipCoordinates}
-        />
-      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 import { SidebarListItemType } from "../../types/designTypes";
 import { ListsActions } from "../actions";
 import {
@@ -27,9 +27,9 @@ export const initialListsState: ListStateType = {
   fetchError: null,
 };
 
-export const listReducer: Reducer<ListStateType, ListsActions> = (
+export const listReducer: Reducer<ListStateType, AnyAction> = (
   state: ListStateType = initialListsState,
-  action: ListsActions
+  action: AnyAction
 ) => {
   switch (action.type) {
     // FETCH LISTS

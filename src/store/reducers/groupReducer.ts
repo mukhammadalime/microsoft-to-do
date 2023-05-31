@@ -1,4 +1,4 @@
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 import { SidebarGroupItemType } from "../../types/designTypes";
 import { GroupsActions } from "../actions";
 import {
@@ -27,9 +27,9 @@ export const initialGroupsState: GroupStateType = {
   fetchError: null,
 };
 
-export const groupReducer: Reducer<GroupStateType, GroupsActions> = (
+export const groupReducer: Reducer<GroupStateType, AnyAction> = (
   state: GroupStateType = initialGroupsState,
-  action: GroupsActions
+  action: AnyAction
 ) => {
   switch (action.type) {
     // FETCH GROUPS

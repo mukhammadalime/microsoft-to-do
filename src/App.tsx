@@ -1,4 +1,5 @@
-import AllModals from "./components/AllModals";
+import AllTooltips from "./components/AllTooltips";
+import AllModals from "./components/Modals";
 import Header from "./layout/Header";
 import MainContentWrapper from "./layout/MainContentWrapper";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -7,6 +8,7 @@ function App() {
   return (
     <div id="app">
       <AllModals />
+      <AllTooltips />
       <Header />
 
       <Routes>

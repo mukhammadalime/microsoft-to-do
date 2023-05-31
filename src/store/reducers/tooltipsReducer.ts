@@ -1,4 +1,4 @@
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 import {
   DUE_DATE_TOOLTIP_CLOSE,
   DUE_DATE_TOOLTIP_OPEN,
@@ -44,9 +44,9 @@ export const initialTooltipsState: TooltipsStateType = {
   suggestionsTooltip: initialTooltipState,
 };
 
-export const tooltipReducer: Reducer<TooltipsStateType, TooltipsActions> = (
+export const tooltipReducer: Reducer<TooltipsStateType, AnyAction> = (
   state: TooltipsStateType = initialTooltipsState,
-  action: TooltipsActions
+  action: AnyAction
 ) => {
   switch (action.type) {
     case LIST_OPTIONS_TOOLTIP_OPEN:

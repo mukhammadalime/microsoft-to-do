@@ -8,11 +8,12 @@ import NextWeekIcon from "../../../Icons/NextWeekIcon";
 import PickDateIcon from "../../../Icons/PickDateIcon";
 import TrashIcon2 from "../../../Icons/TrashIcon2";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useReduxHooks";
-import {
-  calendarModalToggle,
-  deuDateModalToggle,
-} from "../../../store/action-creators/modalsActions";
+
 import { initialCoordinatesState } from "../../../data/initialStates";
+import {
+  calendarModalToggler,
+  dueDateModalToggler,
+} from "../../../store/reducers/modalsReducer";
 
 interface DueDateOptionsProps {
   onClose: () => void;
@@ -86,12 +87,15 @@ const DueDateOverlay = ({ onClose }: DueDateOptionsProps) => {
           <ModalActionItem
             onClickHandler={() => {
               dispatch(
-                calendarModalToggle(true, {
-                  x: dueDateModal.coordinates.x,
-                  y: dueDateModal.coordinates.y,
+                calendarModalToggler({
+                  open: true,
+                  coordinates: {
+                    x: dueDateModal.coordinates.x,
+                    y: dueDateModal.coordinates.y,
+                  },
                 })
               );
-              dispatch(deuDateModalToggle(false, initialCoordinatesState));
+              dispatch(dueDateModalToggler({ open: false }));
             }}
             onMouseEnter={onMouseEnterHandlar}
             name="Pick a date"

@@ -9,11 +9,12 @@ import ClockOneArrowRightIcon from "../../../Icons/ClockOneArrowRightIcon";
 import ClockTwoArrowsRightIcon from "../../../Icons/ClockTwoArrowsRightIcon";
 import TrashIcon2 from "../../../Icons/TrashIcon2";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useReduxHooks";
-import {
-  calendarModalToggle,
-  reminderModalToggle,
-} from "../../../store/action-creators/modalsActions";
+
 import { initialCoordinatesState } from "../../../data/initialStates";
+import {
+  calendarModalToggler,
+  remindMeModalToggler,
+} from "../../../store/reducers/modalsReducer";
 
 interface RemindMeOptionsProps {
   onClose: () => void;
@@ -26,7 +27,7 @@ const RemindMeOverlay = ({ onClose }: RemindMeOptionsProps) => {
 
   /// REDUX
   const dispatch: any = useAppDispatch();
-  const { reminderModal } = useAppSelector((state) => state.modals);
+  const { remindMeModal } = useAppSelector((state) => state.modals);
 
   const remindMeText = "2";
   // HANDLING OUTSIDE CLICK
@@ -50,8 +51,8 @@ const RemindMeOverlay = ({ onClose }: RemindMeOptionsProps) => {
       <div
         className="actions-modal"
         style={{
-          left: reminderModal.coordinates ? reminderModal.coordinates.x : 0,
-          top: reminderModal.coordinates ? reminderModal.coordinates.y : 0,
+          left: remindMeModal.coordinates ? remindMeModal.coordinates.x : 0,
+          top: remindMeModal.coordinates ? remindMeModal.coordinates.y : 0,
         }}
         ref={remindMeOptions}
       >
@@ -88,16 +89,20 @@ const RemindMeOverlay = ({ onClose }: RemindMeOptionsProps) => {
           <ModalActionItem
             onClickHandler={() => {
               dispatch(
-                calendarModalToggle(
-                  true,
-                  {
-                    x: reminderModal.coordinates.x + 11,
-                    y: reminderModal.coordinates.y,
+                calendarModalToggler({
+                  open: true,
+                  coordinates: {
+                    x: remindMeModal.coordinates.x + 11,
+                    y: remindMeModal.coordinates.y,
                   },
-                  true
-                )
+                  timeForCalendar: true,
+                })
               );
-              dispatch(reminderModalToggle(false, initialCoordinatesState));
+              dispatch(
+                remindMeModalToggler({
+                  open: false,
+                })
+              );
             }}
             onMouseEnter={onMouseEnterHandlar}
             name="Pick a date & time"

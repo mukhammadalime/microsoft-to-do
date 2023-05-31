@@ -10,8 +10,10 @@ import CalendarIcon from "../../../Icons/CalendarIcon";
 import YearlyIcon from "../../../Icons/YearlyIcon";
 import TrashIcon2 from "../../../Icons/TrashIcon2";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useReduxHooks";
-import { customRepeatModalToggle } from "../../../store/action-creators/modalsActions";
-import { repeatModalToggle } from "../../../store/action-creators/modalsActions";
+import {
+  customRepeatModalToggler,
+  repeatModalToggler,
+} from "../../../store/reducers/modalsReducer";
 
 interface RepeatOptionsProps {
   onClose: () => void;
@@ -33,12 +35,15 @@ const RepeatOverlay = ({ onClose }: RepeatOptionsProps) => {
 
   const openCustomRepeatModal = () => {
     dispatch(
-      customRepeatModalToggle(true, {
-        x: repeatModal.coordinates.x,
-        y: repeatModal.coordinates.y,
+      customRepeatModalToggler({
+        open: true,
+        coordinates: {
+          x: repeatModal.coordinates.x,
+          y: repeatModal.coordinates.y,
+        },
       })
     );
-    dispatch(repeatModalToggle(false));
+    dispatch(repeatModalToggler({ open: false }));
   };
 
   // HANDLING OUTSIDE CLICK

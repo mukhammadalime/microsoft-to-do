@@ -6,7 +6,7 @@ import TimePicker from "./TimePicker";
 import CalendarHeader from "./CalendarHeader";
 import Weekdays from "./Weekdays";
 import MonthDates from "./MonthDates";
-import { timeOptionsModalToggle } from "../../../store/action-creators/modalsActions";
+import { timeOptionsModalToggler } from "../../../store/reducers/modalsReducer";
 
 interface CalendarProps {
   onClose: () => void;
@@ -56,7 +56,9 @@ const CalendarOverlay = ({ onClose, time }: CalendarProps) => {
       y: searchTooltipPosition.top,
     };
 
-    dispatch(timeOptionsModalToggle(!timeOptionsModal.open, coordinates));
+    dispatch(
+      timeOptionsModalToggler({ open: !timeOptionsModal.open, coordinates })
+    );
   };
 
   return (

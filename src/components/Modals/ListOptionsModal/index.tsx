@@ -2,18 +2,19 @@ import ReactDOM from "react-dom";
 import PrintIcon from "../../../Icons/PrintIcon";
 import ModalActionItem from "../../ModalActionItem";
 import { useEffect, useRef, useState } from "react";
-import { CoordinatesTypes } from "../../../types/designTypes";
 import ModalWrapper from "../../ModalWrapper";
+import { useAppSelector } from "../../../hooks/useReduxHooks";
 
 interface ListOptionsProps {
   onClose: () => void;
-  coordinates: CoordinatesTypes;
 }
 
-const ListOptionsMenuOverlay = ({ onClose, coordinates }: ListOptionsProps) => {
+const ListOptionsMenuOverlay = ({ onClose }: ListOptionsProps) => {
   const listOptionsRef = useRef<HTMLDivElement>(null);
   const [defaultHoverFirstAction, setDefaultHoverFirstAction] =
     useState<boolean>(true);
+
+  const { listOptionsModal } = useAppSelector((state) => state.modals);
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
@@ -47,8 +48,8 @@ const ListOptionsMenuOverlay = ({ onClose, coordinates }: ListOptionsProps) => {
     <div
       className="actions-modal"
       style={{
-        left: coordinates.x - 84,
-        top: coordinates.y + 32,
+        left: listOptionsModal.coordinates.x - 84,
+        top: listOptionsModal.coordinates.y + 32,
       }}
       ref={listOptionsRef}
     >
@@ -66,12 +67,12 @@ const ListOptionsMenuOverlay = ({ onClose, coordinates }: ListOptionsProps) => {
   );
 };
 
-const ListOptionsMenuModal = ({ onClose, coordinates }: ListOptionsProps) => {
+const ListOptionsMenuModal = ({ onClose }: ListOptionsProps) => {
   return (
     <>
       {ReactDOM.createPortal(
         <ModalWrapper>
-          <ListOptionsMenuOverlay onClose={onClose} coordinates={coordinates} />
+          <ListOptionsMenuOverlay onClose={onClose} />
         </ModalWrapper>,
         document.getElementById("modal-wrapper") as HTMLDivElement
       )}
