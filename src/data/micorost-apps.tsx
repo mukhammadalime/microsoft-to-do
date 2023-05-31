@@ -121,43 +121,43 @@ export const moreFromMicrosoft: _365AppsTypes[] = [
 
 export const defaultSideBarItems: DefaultSidebarItemType[] = [
   {
-    name: "My Day",
+    itemName: "My Day",
     img: <SunIcon />,
     actionsDisabled: true,
     id: "myday",
   },
   {
-    name: "Important",
+    itemName: "Important",
     img: <StarIcon />,
     actionsDisabled: true,
     id: "important",
   },
   {
-    name: "Planned",
+    itemName: "Planned",
     img: <CalendarIcon />,
     actionsDisabled: true,
     id: "planned",
   },
   {
-    name: "All",
+    itemName: "All",
     img: <ForeverIcon />,
     actionsDisabled: true,
     id: "all",
   },
   {
-    name: "Completed",
+    itemName: "Completed",
     img: <CompletedIcon />,
     actionsDisabled: true,
     id: "completed",
   },
   {
-    name: "Assigned to me",
+    itemName: "Assigned to me",
     img: <PersonIcon />,
     actionsDisabled: true,
     id: "assigned_to_me",
   },
   {
-    name: "Tasks",
+    itemName: "Tasks",
     img: <HomeIcon />,
     actionsDisabled: "limited",
     id: "inbox",

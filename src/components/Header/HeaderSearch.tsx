@@ -2,7 +2,7 @@ import XIcon from "../../Icons/XIcon";
 import SearchIcon from "../../Icons/SearchIcon";
 import { useEffect, useRef, useState } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import Tooltip from "../Tooltips/Tooltip";
+import Tooltip from "../Tooltip/Tooltip";
 import { CoordinatesTypes } from "../../types/designTypes";
 
 const HeaderSearch = () => {

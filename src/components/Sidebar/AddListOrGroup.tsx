@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import PlusIcon from "../../Icons/PlusIcon";
 import { CoordinatesTypes } from "../../types/designTypes";
-import Tooltip from "../Tooltips/Tooltip";
+import Tooltip from "../Tooltip/Tooltip";
 import AddGroupIcon from "../../Icons/AddGroupIcon";
 
 interface AddListOrGroupPropsTypes {
@@ -73,9 +73,8 @@ const AddListOrGroup = ({
               onMouseLeave={onMouseLeave}
               ref={addGroupIconRef}
               className="addGroupButton"
-            >
-              <AddGroupIcon />
-            </button>
+              children={<AddGroupIcon />}
+            />
           </div>
         </div>
       </div>

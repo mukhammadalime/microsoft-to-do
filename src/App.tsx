@@ -1,3 +1,4 @@
+import AllModals from "./components/AllModals";
 import Header from "./layout/Header";
 import MainContentWrapper from "./layout/MainContentWrapper";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -5,6 +6,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 function App() {
   return (
     <div id="app">
+      <AllModals />
       <Header />
 
       <Routes>

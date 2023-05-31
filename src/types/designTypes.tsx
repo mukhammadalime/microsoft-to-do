@@ -30,7 +30,7 @@ export interface AppsLauncherTypes {
 
 /// SIDEBAR ITEM TYPES
 export interface SidebarListItemType {
-  name: string;
+  itemName: string;
   dublicateNumber?: number;
   createdAt: number;
   type: string;
@@ -39,7 +39,7 @@ export interface SidebarListItemType {
 }
 
 export interface DefaultSidebarItemType {
-  name: string;
+  itemName: string;
   img: ReactElement;
   id: string;
   actionsDisabled: boolean | "limited";
@@ -47,7 +47,7 @@ export interface DefaultSidebarItemType {
 
 /// SIDEBAR GROUP TYPE
 export interface SidebarGroupItemType {
-  name: string;
+  itemName: string;
   dublicateNumber?: number;
   createdAt: number;
   type: string;

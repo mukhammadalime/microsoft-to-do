@@ -1,5 +1,5 @@
-import TasksHeader from "../components/MainContent/TasksHeader";
-import AddTasks from "../components/MainContent/AddTasks/AddTasks";
+import AddTasks from "../components/AddTasks/AddTasks";
+import TasksHeader from "../components/AddTasksTop/TasksHeader";
 
 const MainContent = () => {
   return (
