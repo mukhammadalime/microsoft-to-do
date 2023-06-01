@@ -65,3 +65,28 @@ button[disabled] {
 ::-webkit-scrollbar-thumb:hover {
   background: #7d83939e;
 }
+
+/// THEME BASED SCSS
+.theme-blue {
+  .tasks-header__listTitle,
+  svg {
+    color: #3e69e4;
+    color: var(--list-theme-blue-primary-10);
+  }
+}
+
+.theme-red {
+  .tasks-header__listTitle,
+  svg {
+    color: #d2534e;
+    color: var(--list-theme-red-primary-10);
+  }
+}
+
+.theme-green {
+  .tasks-header__listTitle,
+  svg {
+    color: #408226;
+    color: var(--list-theme-green-primary-10);
+  }
+}

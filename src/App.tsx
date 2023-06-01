@@ -6,7 +6,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (
-    <div id="app">
+    <div id="app" className="theme-blue">
       <AllModals />
       <AllTooltips />
       <Header />

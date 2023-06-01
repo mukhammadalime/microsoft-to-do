@@ -60,7 +60,7 @@ const TasksHeader = () => {
         <div className="tasks-header__content">
           <div className="tasks-header__left">
             <div className="tasks-header__left--top">
-              <h2>
+              <h2 className="tasks-header__listTitle">
                 <SunIcon />
                 <span>My Day</span>
               </h2>
