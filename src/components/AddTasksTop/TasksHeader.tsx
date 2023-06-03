@@ -12,13 +12,22 @@ import {
   onMouseLeaveHelperFn,
 } from "./helperFunctions";
 import { useAppDispatch, useAppSelector } from "../../hooks/useReduxHooks";
-import { listOptionsModalToggler } from "../../store/reducers/modalsReducer";
-import { listOptionsTooltipToggler } from "../../store/reducers/tooltipsReducer";
+import {
+  listOptionsModalToggler,
+  sortModalToggler,
+} from "../../store/reducers/modalsReducer";
+import {
+  listOptionsTooltipToggler,
+  sortTooltipToggler,
+} from "../../store/reducers/tooltipsReducer";
 
 const TasksHeader = () => {
   /// REDUX
   const dispatch = useAppDispatch();
-  const { listOptionsModal } = useAppSelector((state) => state.modals);
+  const { listOptionsModal, sortModal } = useAppSelector(
+    (state) => state.modals
+  );
+
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
   const [tooltipCoordinates, setTooltipCoordinates] =
     useState<CoordinatesTypes>({ left: 0, top: 0 });
@@ -31,6 +40,7 @@ const TasksHeader = () => {
     onMouseLeaveHelperFn(type, timerID, dispatch);
   };
 
+  /// LIST OPTIONS
   const onClickListOptions = () => {
     dispatch(
       listOptionsModalToggler({
@@ -52,6 +62,27 @@ const TasksHeader = () => {
         () => dispatch(listOptionsTooltipToggler({ open: true })),
         300
       );
+  };
+
+  /// SORT AND SUGGESTIONS BUTTONS
+  const onClickSortOrSuggestionsHandler = (type: string) => {
+    if (type === SORT && !sortModal.open) {
+      dispatch(sortTooltipToggler({ open: false }));
+
+      dispatch(
+        sortModalToggler({
+          open: true,
+          coordinates: {
+            left: tooltipCoordinates.left - 63,
+            top: tooltipCoordinates.top + 32,
+          },
+        })
+      );
+    }
+
+    // if (sortModal.open) {
+    //   dispatch(sortTooltipToggler({ open: true }));
+    // }
   };
 
   return (
@@ -86,6 +117,10 @@ const TasksHeader = () => {
                 <button
                   onMouseEnter={onMouseEnterHandler.bind(this, item.type)}
                   onMouseLeave={onMouseLeaveHandler.bind(this, item.type)}
+                  onClick={onClickSortOrSuggestionsHandler.bind(
+                    this,
+                    item.type
+                  )}
                 >
                   {item.icon}
                   <span>{item.text}</span>

@@ -61,10 +61,8 @@ const tooltipsSlice = createSlice({
       action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
     ) => {
       state.sortTooltip.open = action.payload.open;
-      state.sortTooltip.coordinates = action.payload.coordinates ?? {
-        left: 0,
-        top: 0,
-      };
+      state.sortTooltip.coordinates =
+        action.payload.coordinates ?? state.sortTooltip.coordinates;
     },
 
     remindMeTooltipToggler: (

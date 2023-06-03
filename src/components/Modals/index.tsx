@@ -16,6 +16,7 @@ import {
   listOptionsModalToggler,
   remindMeModalToggler,
   repeatModalToggler,
+  sortModalToggler,
   timeOptionsModalToggler,
 } from "../../store/reducers/modalsReducer";
 import {
@@ -24,6 +25,7 @@ import {
   repeatTooltipToggler,
 } from "../../store/reducers/tooltipsReducer";
 import ListActionsModal from "./ListActionsModal";
+import SortModal from "./SortModal";
 
 const AllModals = () => {
   const dispatch = useAppDispatch();
@@ -103,6 +105,13 @@ const AllModals = () => {
       {modals.timeOptionsModal.open && (
         <TimeOptionsModal
           onClose={() => dispatch(timeOptionsModalToggler({ open: false }))}
+        />
+      )}
+
+      {/* Sort Modal */}
+      {modals.sortModal.open && (
+        <SortModal
+          onClose={() => dispatch(sortModalToggler({ open: false }))}
         />
       )}
     </>

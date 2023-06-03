@@ -168,6 +168,17 @@ const modalsSlice = createSlice({
         top: 0,
       };
     },
+
+    sortModalToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.sortModal.open = action.payload.open;
+      state.sortModal.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
+      };
+    },
   },
 });
 
@@ -180,6 +191,7 @@ export const {
   timeOptionsModalToggler,
   customRepeatModalToggler,
   listActionsModalToggler,
+  sortModalToggler,
 } = modalsSlice.actions;
 
 export default modalsSlice.reducer;

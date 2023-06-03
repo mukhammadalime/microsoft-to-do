@@ -1,6 +1,9 @@
 import { CoordinatesTypes } from "../../types/designTypes";
 import ReactDOM from "react-dom";
 import ModalWrapper from "../ModalWrapper";
+import { useEffect, useRef } from "react";
+import { useAppDispatch } from "../../hooks/useReduxHooks";
+import { sortTooltipToggler } from "../../store/reducers/tooltipsReducer";
 
 interface TooltipPropsTypes {
   content: string;
@@ -18,6 +21,28 @@ const TooltipOverlay = ({
   tooltipPosition,
   trianglePosition,
 }: TooltipPropsTypes) => {
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  const dispatch = useAppDispatch();
+
+  // HANDLING OUTSIDE CLICK
+  useEffect(() => {
+    const sortTooltipHost = document.querySelector(
+      ".sort-tooltip-host"
+    ) as HTMLDivElement;
+
+    const outsideClickHandler = (e: MouseEvent) => {
+      if (!sortTooltipHost.contains(e.target as HTMLDivElement)) {
+        dispatch(sortTooltipToggler({ open: false }));
+      }
+    };
+
+    document.addEventListener("click", outsideClickHandler, true);
+    return () => {
+      document.removeEventListener("click", outsideClickHandler, true);
+    };
+  }, [dispatch]);
+
   return (
     <div
       className="tooltip"
@@ -25,6 +50,7 @@ const TooltipOverlay = ({
         left: tooltipPosition.left,
         top: tooltipPosition.top,
       }}
+      ref={tooltipRef}
     >
       <div
         className="triangle"
