@@ -13,6 +13,9 @@ export interface TooltipsStateType {
   remindMeTooltip: TooltipItemType;
   repeatTooltip: TooltipItemType;
   suggestionsTooltip: TooltipItemType;
+  addGroupTooltip: TooltipItemType;
+  exitSearchTooltip: TooltipItemType;
+  searchTooltip: TooltipItemType;
 }
 
 const initialTooltipState: TooltipItemType = {
@@ -27,6 +30,9 @@ export const initialState: TooltipsStateType = {
   remindMeTooltip: initialTooltipState,
   repeatTooltip: initialTooltipState,
   suggestionsTooltip: initialTooltipState,
+  addGroupTooltip: initialTooltipState,
+  exitSearchTooltip: initialTooltipState,
+  searchTooltip: initialTooltipState,
 };
 
 const tooltipsSlice = createSlice({
@@ -97,6 +103,37 @@ const tooltipsSlice = createSlice({
         top: 0,
       };
     },
+
+    addGroupTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.addGroupTooltip.open = action.payload.open;
+      state.addGroupTooltip.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
+      };
+    },
+
+    exitSearchTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.exitSearchTooltip.open = action.payload.open;
+      state.exitSearchTooltip.coordinates = action.payload.coordinates ?? {
+        left: 0,
+        top: 0,
+      };
+    },
+
+    searchTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.searchTooltip.open = action.payload.open;
+      state.searchTooltip.coordinates =
+        action.payload.coordinates ?? state.searchTooltip.coordinates;
+    },
   },
 });
 
@@ -107,6 +144,9 @@ export const {
   remindMeTooltipToggler,
   repeatTooltipToggler,
   suggestionsTooltipToggler,
+  addGroupTooltipToggler,
+  exitSearchTooltipToggler,
+  searchTooltipToggler,
 } = tooltipsSlice.actions;
 
 export default tooltipsSlice.reducer;

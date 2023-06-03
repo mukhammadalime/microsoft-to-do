@@ -1,9 +1,9 @@
-import { CoordinatesTypes } from "../../types/designTypes";
+import { CoordinatesTypes } from "../../../types/designTypes";
 import ReactDOM from "react-dom";
-import ModalWrapper from "../ModalWrapper";
+import ModalWrapper from "../../ModalWrapper";
 import { useEffect, useRef } from "react";
-import { useAppDispatch } from "../../hooks/useReduxHooks";
-import { sortTooltipToggler } from "../../store/reducers/tooltipsReducer";
+import { useAppDispatch } from "../../../hooks/useReduxHooks";
+import { sortTooltipToggler } from "../../../store/reducers/tooltipsReducer";
 
 interface TooltipPropsTypes {
   content: string;

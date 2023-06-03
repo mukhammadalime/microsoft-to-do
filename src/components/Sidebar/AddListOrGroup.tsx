@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import PlusIcon from "../../Icons/PlusIcon";
-import { CoordinatesTypes } from "../../types/designTypes";
-import Tooltip from "../Tooltip/Tooltip";
 import AddGroupIcon from "../../Icons/AddGroupIcon";
+import { useAppDispatch } from "../../hooks/useReduxHooks";
+import { addGroupTooltipToggler } from "../../store/reducers/tooltipsReducer";
 
 interface AddListOrGroupPropsTypes {
   addNewListHandler: () => void;
@@ -19,9 +19,8 @@ const AddListOrGroup = ({
 }: AddListOrGroupPropsTypes) => {
   const addGroupIconRef = useRef<HTMLButtonElement>(null);
   const [timerID, setTimerID] = useState<NodeJS.Timeout>();
-  const [tooltipCoordinates, setTooltipCoordinates] =
-    useState<CoordinatesTypes>({ left: 0, top: 0 });
-  const [addGroupHovered, setAddGroupHovered] = useState<boolean>(() => false);
+
+  const dispatch = useAppDispatch();
 
   /// HANDLE ADDGROUP HOVER
   const onMouseEnter = () => {
@@ -29,18 +28,24 @@ const AddListOrGroup = ({
       ".add-group-tooltip-host"
     ) as HTMLDivElement;
     const position = tooltipHost.getBoundingClientRect();
-    setTooltipCoordinates({
-      left: position.left,
-      top: position.top,
-    });
 
-    const id = setTimeout(() => setAddGroupHovered(true), 300);
+    const id = setTimeout(() => {
+      dispatch(
+        addGroupTooltipToggler({
+          open: true,
+          coordinates: {
+            left: position.left - 9,
+            top: position.top - 38,
+          },
+        })
+      );
+    }, 300);
     setTimerID(id);
   };
 
   const onMouseLeave = () => {
     clearTimeout(timerID);
-    setAddGroupHovered(false);
+    dispatch(addGroupTooltipToggler({ open: false }));
   };
 
   return (
@@ -63,7 +68,7 @@ const AddListOrGroup = ({
           className="addGroupButtonWrapper"
           onClick={() => {
             showAddGroupBoxHandler();
-            setAddGroupHovered(false);
+            dispatch(addGroupTooltipToggler({ open: false }));
           }}
           ref={addGroupButtonRef}
         >
@@ -79,7 +84,7 @@ const AddListOrGroup = ({
         </div>
       </div>
 
-      {addGroupHovered && (
+      {/* {addGroupHovered && (
         <Tooltip
           content="Create group"
           tooltipPosition={{
@@ -91,7 +96,7 @@ const AddListOrGroup = ({
             bottom: "-8px",
           }}
         />
-      )}
+      )} */}
     </>
   );
 };

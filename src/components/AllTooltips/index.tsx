@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks/useReduxHooks";
-import Tooltip from "../Tooltip/Tooltip";
+import Tooltip from "./Tooltip/Tooltip";
 
 const AllTooltips = () => {
   const tooltips = useAppSelector((state) => state.tooltips);
@@ -86,6 +86,48 @@ const AllTooltips = () => {
           trianglePosition={{
             left: "34.115px",
             bottom: "-8px",
+          }}
+        />
+      )}
+
+      {tooltips.addGroupTooltip.open && (
+        <Tooltip
+          content="Create group"
+          tooltipPosition={{
+            left: tooltips.addGroupTooltip.coordinates?.left ?? 0,
+            top: tooltips.addGroupTooltip.coordinates?.top ?? 0,
+          }}
+          trianglePosition={{
+            left: "34.5px",
+            bottom: "-8px",
+          }}
+        />
+      )}
+
+      {tooltips.exitSearchTooltip.open && (
+        <Tooltip
+          content="Exit search"
+          tooltipPosition={{
+            left: tooltips.exitSearchTooltip.coordinates?.left ?? 0,
+            top: tooltips.exitSearchTooltip.coordinates?.top ?? 0,
+          }}
+          trianglePosition={{
+            top: "-7px",
+            left: "29.5px",
+          }}
+        />
+      )}
+
+      {tooltips.searchTooltip.open && (
+        <Tooltip
+          content="Search"
+          tooltipPosition={{
+            left: tooltips.searchTooltip.coordinates?.left ?? 0,
+            top: tooltips.searchTooltip.coordinates?.top ?? 0,
+          }}
+          trianglePosition={{
+            top: "8px",
+            right: "-8px",
           }}
         />
       )}

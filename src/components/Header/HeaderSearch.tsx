@@ -2,10 +2,16 @@ import XIcon from "../../Icons/XIcon";
 import SearchIcon from "../../Icons/SearchIcon";
 import { useEffect, useRef, useState } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import Tooltip from "../Tooltip/Tooltip";
-import { CoordinatesTypes } from "../../types/designTypes";
+import { useAppDispatch } from "../../hooks/useReduxHooks";
+import {
+  exitSearchTooltipToggler,
+  searchTooltipToggler,
+} from "../../store/reducers/tooltipsReducer";
 
 const HeaderSearch = () => {
+  /// REDUX
+  const dispatch = useAppDispatch();
+
   const windowWidth = useWindowWidth();
   const searchRef = useRef<HTMLDivElement>(null);
   const searchIconRef = useRef<HTMLButtonElement>(null);
@@ -13,12 +19,6 @@ const HeaderSearch = () => {
   const [showInput, setShowInput] = useState<boolean>(false);
   const [searchTimerID, setSearchTimerID] = useState<NodeJS.Timeout>();
   const [exitTimerID, setExitTimerID] = useState<NodeJS.Timeout>();
-  const [searchHovered, setSearchHovered] = useState<boolean>(false);
-  const [searchTooltipCoordinates, setSearchTooltipCoordinates] =
-    useState<CoordinatesTypes>({ left: 0, top: 0 });
-  const [exitSearchTooltipCoordinates, setExitSearchTooltipCoordinates] =
-    useState<CoordinatesTypes>({ left: 0, top: 0 });
-  const [exitSearchHovered, setExitSearchHovered] = useState<boolean>(false);
 
   // HANDLING OUTSIDE CLICK
   useEffect(() => {
@@ -27,7 +27,10 @@ const HeaderSearch = () => {
         !searchRef.current!.contains(e.target as HTMLDivElement) &&
         !inputRef.current?.value
       ) {
-        showInput ? setSearchHovered(true) : setSearchHovered(false);
+        showInput
+          ? dispatch(searchTooltipToggler({ open: true }))
+          : dispatch(searchTooltipToggler({ open: false }));
+
         setShowInput(false);
       }
     };
@@ -36,13 +39,13 @@ const HeaderSearch = () => {
     return () => {
       document.removeEventListener("mousedown", outsideClickHandler);
     };
-  }, [showInput]);
+  }, [showInput, dispatch]);
 
   // SHOW SEARCH INPUT
   const showSearchInput = (): void => {
     // We clear search timeout because we do not want search tooltip to show up after clicking search input in less than 400 ms
     clearTimeout(searchTimerID);
-    setSearchHovered(false);
+    dispatch(searchTooltipToggler({ open: false }));
     if (!showInput) {
       setShowInput(true);
       setTimeout(() => inputRef.current!.focus(), 0);
@@ -55,19 +58,25 @@ const HeaderSearch = () => {
       ".search-tooltip-host"
     ) as HTMLDivElement;
     const searchTooltipPosition = tooltipHost.getBoundingClientRect();
-    setSearchTooltipCoordinates({
-      left: searchTooltipPosition.left,
-      top: searchTooltipPosition.top,
-    });
 
     if (!showInput) {
-      const id = setTimeout(() => setSearchHovered(true), 400);
+      const id = setTimeout(() => {
+        dispatch(
+          searchTooltipToggler({
+            open: true,
+            coordinates: {
+              left: searchTooltipPosition.left - 66,
+              top: searchTooltipPosition.top,
+            },
+          })
+        );
+      }, 300);
       setSearchTimerID(id);
     }
   };
   const onSearchMouseLeave = () => {
     clearTimeout(searchTimerID);
-    setSearchHovered(false);
+    dispatch(searchTooltipToggler({ open: false }));
   };
 
   // ON EXIT SEARCH MOUSE ENTER
@@ -76,19 +85,25 @@ const HeaderSearch = () => {
       ".exit-tooltip-host"
     ) as HTMLDivElement;
     const exitSearchTooltipPosition = exitTooltipHost.getBoundingClientRect();
-    setExitSearchTooltipCoordinates({
-      left: exitSearchTooltipPosition.left,
-      top: 0,
-    });
 
-    const id = setTimeout(() => setExitSearchHovered(true), 300);
+    const id = setTimeout(() => {
+      dispatch(
+        exitSearchTooltipToggler({
+          open: true,
+          coordinates: {
+            left: exitSearchTooltipPosition.left - 22,
+            top: 51,
+          },
+        })
+      );
+    }, 300);
     setExitTimerID(id);
   };
 
   // ON EXIT SEARCH MOUSE LEAVE
   const onExitSearchMouseLeave = () => {
     clearTimeout(exitTimerID);
-    setExitSearchHovered(false);
+    dispatch(exitSearchTooltipToggler({ open: false }));
   };
 
   return (
@@ -130,34 +145,6 @@ const HeaderSearch = () => {
           )}
         </div>
       </div>
-
-      {searchHovered && (
-        <Tooltip
-          content="Search"
-          tooltipPosition={{
-            left: searchTooltipCoordinates.left - 66,
-            top: searchTooltipCoordinates.top,
-          }}
-          trianglePosition={{
-            top: "8px",
-            right: "-8px",
-          }}
-        />
-      )}
-
-      {exitSearchHovered && (
-        <Tooltip
-          content="Exit search"
-          tooltipPosition={{
-            left: exitSearchTooltipCoordinates.left - 22,
-            top: 51,
-          }}
-          trianglePosition={{
-            top: "-7px",
-            left: "29.5px",
-          }}
-        />
-      )}
     </>
   );
 };
