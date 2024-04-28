@@ -26,17 +26,17 @@ const SidebarListItem = ({
   const [checkActiveListItem, setCheckActiveListItem] = useState(false);
 
   useEffect(() => {
-    const itemIsAtive = item.dublicateNumber
-      ? activeListItem === `${item.itemName} (${item.dublicateNumber})`
-      : activeListItem === item.itemName;
+    const itemIsAtive = item?.dublicateNumber
+      ? activeListItem === `${item?.itemName} (${item?.dublicateNumber})`
+      : activeListItem === item?.itemName;
 
     setCheckActiveListItem(itemIsAtive);
-  }, [activeListItem, item.dublicateNumber, item.itemName]);
+  }, [activeListItem, item?.dublicateNumber, item?.itemName]);
 
   const setActiveListItemHandler = () => {
     setActiveListItem(
-      `${item.itemName}${
-        item.dublicateNumber ? ` (${item.dublicateNumber})` : ""
+      `${item?.itemName}${
+        item?.dublicateNumber ? ` (${item?.dublicateNumber})` : ""
       }`
     );
   };
@@ -63,11 +63,11 @@ const SidebarListItem = ({
         className={`sidebar__item${
           checkActiveListItem ? " sidebar-active-item" : ""
         }`}
-        id={item.id}
+        id={item?.id}
         onClick={(e) => {
           onRightClickHandler(e);
           setActiveListItemHandler();
-          navigate(`/tasks/${item.id}`);
+          navigate(`/tasks/${item?.id}`);
         }}
         // We enable inspect on some lists with actions disabled
         onContextMenu={
@@ -76,8 +76,10 @@ const SidebarListItem = ({
       >
         {img ? img : <ListIcon color="#323130" />}
         <div>
-          <span>{item.itemName}</span>
-          {item.dublicateNumber && <span>{` (${item.dublicateNumber})`}</span>}
+          <span>{item?.itemName}</span>
+          {item?.dublicateNumber && (
+            <span>{` (${item?.dublicateNumber})`}</span>
+          )}
         </div>
         {/* <span>2</span> */}
       </div>

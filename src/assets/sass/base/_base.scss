@@ -77,6 +77,13 @@ button[disabled] {
       color: var(--list-theme-blue-primary-10);
     }
   }
+
+  .taskItem__checkBox {
+    svg {
+      color: #3e69e4;
+      color: var(--list-theme-blue-primary-10);
+    }
+  }
 }
 
 .theme-red {

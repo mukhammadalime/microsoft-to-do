@@ -142,7 +142,6 @@
 
 .add-tasks {
   margin: 0 2.4rem;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
@@ -150,6 +149,7 @@
   box-shadow: 0px 0.3px 0.9px var(--bg-shadow), 0px 1.6px 3.6px var(--bg-shadow);
   background-color: #fff;
   background-color: var(--bg-primary);
+  z-index: 2;
 
   &__top {
     min-height: 5.2rem;
@@ -267,4 +267,239 @@
 }
 
 .tasks {
+  overflow: hidden;
+  display: flex;
+  z-index: 1;
+
+  &__scrollContainer {
+    position: relative;
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  &__list {
+    padding-top: 0.4rem;
+    padding-bottom: 2.4rem;
+    margin-left: 2.4rem;
+    margin-right: 1.6rem;
+  }
+}
+
+.taskItem {
+  display: flex;
+  flex-direction: column;
+  animation: slideFadeDown 250ms forwards;
+
+  &__body {
+    background-color: #fff;
+    background-color: var(--bg-primary);
+    box-shadow: 0px 0.3px 0.9px #0000001a, 0px 1.6px 3.6px #0000001a;
+    box-shadow: 0px 0.3px 0.9px var(--bg-shadow),
+      0px 1.6px 3.6px var(--bg-shadow);
+    margin-top: 8px;
+    border-radius: 4px;
+    padding: 0px 1.6rem;
+    min-height: 5.2rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    word-wrap: break-word;
+    word-break: break-word;
+    flex-wrap: wrap;
+  }
+
+  &__checkBox {
+    padding: 0px;
+    cursor: pointer;
+    height: 3.2rem;
+    width: 3.2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      .checkBox-tickIcon {
+        opacity: 1;
+      }
+    }
+
+    svg {
+      color: #2564cf;
+      color: var(--font-color-brand);
+    }
+
+    .checkBox-tickIcon {
+      position: absolute;
+      transition: opacity 100ms;
+      opacity: 0;
+    }
+  }
+
+  &__main {
+    text-align: left;
+    font-size: 1.4rem;
+    color: #323130;
+    color: var(--font-color-primary);
+    position: relative;
+    flex: 1 1 0px;
+    min-height: 5.2rem;
+    padding: 0.8rem 1.4rem;
+    line-height: 2rem;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: #797775;
+    color: var(--font-color-secondary);
+    flex-wrap: wrap;
+
+    svg {
+      height: 1.8rem;
+      display: flex;
+      align-items: center;
+      color: #797775;
+      color: var(--font-color-secondary);
+    }
+
+    .overal-css {
+      display: flex;
+      align-items: center;
+    }
+
+    &--label {
+      margin-left: 0.4rem;
+      white-space: nowrap;
+    }
+
+    &--title {
+      max-width: 20rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &--steps,
+    &--date,
+    &--reminder,
+    &--note,
+    &--attachments {
+      @extend .overal-css;
+    }
+
+    &--repeatIcon {
+      margin-left: 0.4rem;
+    }
+
+    .overdue {
+      svg {
+        color: #a80000;
+        color: var(--font-color-warning);
+      }
+
+      .taskItem__info--label {
+        color: #a80000;
+        color: var(--font-color-warning);
+      }
+    }
+  }
+
+  &__infoGroup {
+    @extend .overal-css;
+    flex-wrap: wrap;
+
+    &::after {
+      color: #797775;
+      color: var(--font-color-secondary);
+      content: "\2022";
+      margin: 0 6px;
+    }
+  }
+
+  &__infoCategory {
+    @extend .overal-css;
+    margin-right: 0.8rem;
+
+    .category-icon {
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+      border-width: 1px;
+      border-style: solid;
+      margin: 0 0.4rem;
+
+      background-color: rgb(233, 249, 232);
+      border-color: rgb(37, 126, 32);
+    }
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 15rem;
+
+      color: rgb(37, 126, 32);
+    }
+  }
+
+  &__importance-button {
+    padding: 0px;
+    cursor: pointer;
+    height: 2.4rem;
+    width: 2.4rem;
+    margin-left: 4px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.active {
+  .taskItem__body {
+    background: #ededed;
+  }
+}
+
+.selected {
+  .taskItem__body {
+    background: #ecf6fd;
+    background: var(--bg-active);
+  }
+
+  .taskItem__info {
+    color: #323130;
+    color: var(--font-color-primary);
+  }
+
+  .taskItem__infoGroup::after {
+    color: #797775;
+    color: var(--font-color-secondary);
+  }
+}
+
+.completed {
+  .taskItem__title {
+    text-decoration: line-through;
+    color: #797775;
+    color: var(--font-color-tertiary);
+  }
+}
+
+@keyframes slideFadeDown {
+  0% {
+    transform: translate3d(0, -100%, 0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }

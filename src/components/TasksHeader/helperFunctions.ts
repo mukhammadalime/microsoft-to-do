@@ -1,5 +1,6 @@
 import { AppDispatch } from "../../store";
 import {
+  groupTooltipToggler,
   listOptionsTooltipToggler,
   sortTooltipToggler,
   suggestionsTooltipToggler,
@@ -9,6 +10,7 @@ import { CoordinatesTypes } from "../../types/designTypes";
 export const SUGGESTIONS: string = "SUGGESTIONS";
 export const LIST_OPTIONS: string = "LIST_OPTIONS";
 export const SORT: string = "SORT";
+export const GROUP: string = "GROUP";
 
 export const onMouseEnterHelperFn = (
   type: string,
@@ -21,11 +23,14 @@ export const onMouseEnterHelperFn = (
       ? ".list-options-tooltip-host"
       : type === SORT
       ? ".sort-tooltip-host"
+      : type === GROUP
+      ? ".group-tooltip-host"
       : ".suggestions-tooltip-host";
 
   const tooltipHost = document.querySelector(
     tooltipHostClassname
   ) as HTMLDivElement;
+  console.log("tooltipHost:", tooltipHost.clientWidth);
 
   const tooltipPosition = tooltipHost.getBoundingClientRect();
   setTooltipCoordinates({
@@ -63,8 +68,22 @@ export const onMouseEnterHelperFn = (
       }, 300);
       setTimerID(id2);
       break;
-    case SUGGESTIONS:
+    case GROUP:
       const id3 = setTimeout(() => {
+        dispatch(
+          groupTooltipToggler({
+            open: true,
+            coordinates: {
+              left: tooltipPosition.left + 18.5,
+              top: tooltipPosition.top - 35,
+            },
+          })
+        );
+      }, 300);
+      setTimerID(id3);
+      break;
+    case SUGGESTIONS:
+      const id4 = setTimeout(() => {
         dispatch(
           suggestionsTooltipToggler({
             open: true,
@@ -75,7 +94,7 @@ export const onMouseEnterHelperFn = (
           })
         );
       }, 300);
-      setTimerID(id3);
+      setTimerID(id4);
       break;
   }
 };
@@ -94,6 +113,9 @@ export const onMouseLeaveHelperFn = (
       break;
     case SORT:
       dispatch(sortTooltipToggler({ open: false }));
+      break;
+    case GROUP:
+      dispatch(groupTooltipToggler({ open: false }));
       break;
     case SUGGESTIONS:
       dispatch(suggestionsTooltipToggler({ open: false }));

@@ -76,6 +76,20 @@ const AllTooltips = () => {
         />
       )}
 
+      {tooltips.groupTooltip.open && (
+        <Tooltip
+          content="Group"
+          tooltipPosition={{
+            left: tooltips.groupTooltip.coordinates?.left ?? 0,
+            top: tooltips.groupTooltip.coordinates?.top ?? 0,
+          }}
+          trianglePosition={{
+            left: "17px",
+            bottom: "-8px",
+          }}
+        />
+      )}
+
       {tooltips.suggestionsTooltip.open && (
         <Tooltip
           content="Suggestions"

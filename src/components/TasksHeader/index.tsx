@@ -5,6 +5,7 @@ import SortIcon from "../../Icons/SortIcon";
 import LampIcon from "../../Icons/LampIcon";
 import { CoordinatesTypes } from "../../types/designTypes";
 import {
+  GROUP,
   LIST_OPTIONS,
   SORT,
   SUGGESTIONS,
@@ -20,6 +21,7 @@ import {
   listOptionsTooltipToggler,
   sortTooltipToggler,
 } from "../../store/reducers/tooltipsReducer";
+import GroupIcon from "../../Icons/GroupIcon";
 
 const TasksHeader = () => {
   /// REDUX
@@ -79,10 +81,6 @@ const TasksHeader = () => {
         })
       );
     }
-
-    // if (sortModal.open) {
-    //   dispatch(sortTooltipToggler({ open: true }));
-    // }
   };
 
   return (
@@ -149,6 +147,12 @@ const TasksHeaderRightButtons: TasksHeaderRightButtonsTypes[] = [
     icon: <SortIcon />,
     type: SORT,
     className: "sort",
+  },
+  {
+    text: "Group",
+    icon: <GroupIcon />,
+    type: GROUP,
+    className: "group",
   },
   {
     text: "Suggestions",

@@ -81,7 +81,7 @@ const GroupsOverlay = ({
               </i>
               <span>
                 {group.itemName}{" "}
-                {group.dublicateNumber && <span>{group.dublicateNumber}</span>}
+                {group?.dublicateNumber && <span>{group.dublicateNumber}</span>}
               </span>
             </button>
           </li>

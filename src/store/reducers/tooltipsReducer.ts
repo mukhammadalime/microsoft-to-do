@@ -16,6 +16,7 @@ export interface TooltipsStateType {
   addGroupTooltip: TooltipItemType;
   exitSearchTooltip: TooltipItemType;
   searchTooltip: TooltipItemType;
+  groupTooltip: TooltipItemType;
 }
 
 const initialTooltipState: TooltipItemType = {
@@ -33,6 +34,7 @@ export const initialState: TooltipsStateType = {
   addGroupTooltip: initialTooltipState,
   exitSearchTooltip: initialTooltipState,
   searchTooltip: initialTooltipState,
+  groupTooltip: initialTooltipState,
 };
 
 const tooltipsSlice = createSlice({
@@ -134,6 +136,15 @@ const tooltipsSlice = createSlice({
       state.searchTooltip.coordinates =
         action.payload.coordinates ?? state.searchTooltip.coordinates;
     },
+
+    groupTooltipToggler: (
+      state,
+      action: PayloadAction<{ open: boolean; coordinates?: CoordinatesTypes }>
+    ) => {
+      state.groupTooltip.open = action.payload.open;
+      state.groupTooltip.coordinates =
+        action.payload.coordinates ?? state.groupTooltip.coordinates;
+    },
   },
 });
 
@@ -147,6 +158,7 @@ export const {
   addGroupTooltipToggler,
   exitSearchTooltipToggler,
   searchTooltipToggler,
+  groupTooltipToggler,
 } = tooltipsSlice.actions;
 
 export default tooltipsSlice.reducer;

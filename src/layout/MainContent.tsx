@@ -1,5 +1,6 @@
 import AddTasks from "../components/AddTasks/AddTasks";
-import TasksHeader from "../components/AddTasksTop/TasksHeader";
+import TaskItemsContainer from "../components/TaskItems";
+import TasksHeader from "../components/TasksHeader";
 
 const MainContent = () => {
   return (
@@ -9,6 +10,7 @@ const MainContent = () => {
 
         <div className="flex-container">
           <AddTasks />
+          <TaskItemsContainer />
         </div>
       </div>
     </div>
